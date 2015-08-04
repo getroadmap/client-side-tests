@@ -1,0 +1,26 @@
+{
+	"selenium": {
+		"timeout": 30000,
+		"implicitlyWait": 5000,
+		"capabilities": {
+            "phantomjs.cli.args": [
+                "--ignore-ssl-errors=true",
+                "--load-images=false",
+                "--web-security=false",
+                "--ssl-protocol=tlsv1"
+            ]
+		}
+	},
+	"roadmap": {
+		"base": "http://testing.ppmroadmap.com",
+		"company": "Test Company",
+		"owner": "ao@test.ph",
+		"admin": "adm@test.ph",
+		"rw_all": "rwa@test.ph",
+		"ro_all": "roa@test.ph",
+		"ind_contr": "cntr@test.ph",
+		"uag": "uagsi@test.ph",
+		"uag_create": "uagcr@test.ph",
+		"uag_see_all": "uagsa@test.ph"
+	}
+}
