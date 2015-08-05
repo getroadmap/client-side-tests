@@ -1,8 +1,12 @@
 {
   "name": "client-side-tests",
   "version": "0.0.1",
-  "description": "Testing Roadmap",
+  "description": "A variety of client side tests and API tests",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/getroadmap/client-side-tests.git"
+  }
   "directories": {
     "test": "test"
   },
