@@ -31,9 +31,6 @@ test.describe('Smoke Test', function() {
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
         driver.isElementPresent(By.xpath('//td[@class = "loginfail" and contains(., "We were unable to find an account")]')).then(function(found) {
             if(found) {
-                driver.isElementPresent(By.xpath('//td[@class = "loginfail" and contains(., "We were unable to find an account")]')).then(function(found) {
-                    assert(found);
-                });
                 driver.get(base + '/AccountRegistration.aspx');
                 driver.getTitle().then(function(title) {
                     assert.equal(title, 'Signup for Roadmap - Intelligent Project Management, Scheduling, Time Tracking, and Resource Planning');
@@ -52,7 +49,7 @@ test.describe('Smoke Test', function() {
                 });
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtEmail"]')).then(function(element) {
                     element.clear();
-                    element.sendKeys(config.roadmap.owner);
+                    element.sendKeys(user);
                 });
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword"]')).then(function(element) {
                     element.sendKeys('1234567');
@@ -75,12 +72,12 @@ test.describe('Smoke Test', function() {
     
     test.it('/GettingStarted.aspx', function() {
         driver.get(base + '/GettingStarted.aspx');
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
-        }, timeout);
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Getting Started');
         });
+        driver.wait(function() {
+            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
+        }, timeout);
         driver.findElements(By.xpath('//button[@class = "ui-datepicker-trigger"]')).then(function(elements) {
             assert.equal(elements.length, 10);
         });
@@ -92,19 +89,16 @@ test.describe('Smoke Test', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//h1[. = "Basecamp Account(s) Integration"]'));
         }, timeout);
-        
         driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
         
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]'));
         }, timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
+        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
         }, timeout);
-        driver.getTitle().then(function(title) {
-            assert.equal(title, 'Roadmap > Projects');
-        });
         driver.get(base + '/GettingStarted.aspx');
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
@@ -114,12 +108,13 @@ test.describe('Smoke Test', function() {
             return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]'));
         }, timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
+        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
         }, timeout);
-        driver.getTitle().then(function(title) {
-            assert.equal(title, 'Roadmap > Projects');
-        });
+        driver.wait(function() {
+            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
+        }, timeout);
         driver.findElement(By.xpath('//div[@id = "sysAnnounce"]/a[@class = "btn-close"]')).then(function(element) {
             element.getAttribute('href').then(function(href) {
                 driver.executeScript(href.substring(11));
@@ -141,7 +136,7 @@ test.describe('Smoke Test', function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
         }, timeout);
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "Closed")]'));
+            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
         }, timeout);
         driver.isElementPresent(By.xpath('//span[@id = "user-name" and . = "Account Owner"]')).then(function(found) {
             assert(found);
@@ -171,12 +166,9 @@ test.describe('Smoke Test', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'));
         }, timeout);
-        driver.findElement(By.xpath('//a[. = "Sample Project A"]')).click();
-        driver.wait(function() {
-            return driver.getTitle().then(function(title) {
-                return title === 'Roadmap > Sample Project A';
-            });
-        }, timeout);
+        driver.findElement(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).click();
+        
+        driver.wait(until.titleIs('Roadmap > Sample Project A'), timeout);
         driver.executeScript('projectView.showTab(projectTabs.tabWorkItems)');
         driver.wait(function() {
             return driver.findElement(By.xpath('//div[@id = "projectWorkItemsTab"]')).then(function(element) {
@@ -308,10 +300,10 @@ test.describe('Smoke Test', function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-30 from 30 Items"]'));
         }, timeout);
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "No")]'));
+            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "= No")]'));
         }, timeout);
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "Closed")]'));
+            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
         }, timeout);        
         driver.isElementPresent(By.xpath('//span[. = "Default View"]')).then(function(found) {
             assert(found);
@@ -407,6 +399,7 @@ test.describe('Smoke Test', function() {
                 assert(!displayed);
             });
         });
+        
         driver.findElement(By.xpath('//div[@id = "p-plan-pro"]//div[@class = "p-plan-ctl"]')).then(function(element) {
             driver.actions().mouseMove(element).perform();
         });
@@ -419,19 +412,9 @@ test.describe('Smoke Test', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//input[@id = "btnApplyCoupon" and @value = "Apply Coupon"]'));
         }, timeout);
-        driver.findElement(By.xpath('//input[@id = "btnApplyCoupon" and @value = "Apply Coupon"]')).then(function(element) {
-            element.isDisplayed().then(function(displayed) {
-                assert(displayed);
-            });
-        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//input[@id = "btnPay" and @value = "Pay $1000.00/year"]'));
         }, timeout);
-        driver.findElement(By.xpath('//input[@id = "btnPay" and @value = "Pay $1000.00/year"]')).then(function(element) {
-            element.isDisplayed().then(function(displayed) {
-                assert(displayed);
-            });
-        });
     });
     
     test.it('/AccountPreferences.aspx', function() {
