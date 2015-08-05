@@ -2,13 +2,13 @@ var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
     test = require('selenium-webdriver/testing'),
-    assert = require('assert');
+    assert = require('assert'),
+    config = require('../config');
     
 test.describe('Smoke Test', function() {
-    var driver, config, base, user, timeout;
+    var driver, base, user, timeout;
     
     test.before(function() {
-        config = require('../config');
         driver = new webdriver.Builder()
             .withCapabilities(config.selenium.capabilities)
             .build();
@@ -120,11 +120,9 @@ test.describe('Smoke Test', function() {
                 driver.executeScript(href.substring(11));
             });
         });
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]')).then(function(found) {
-                return !found;
-            });
-        }, timeout);
+        driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]')).then(function(found) {
+            assert(!found);
+        });
     });
     
     test.it('/Projects.aspx', function() {
@@ -166,85 +164,101 @@ test.describe('Smoke Test', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'));
         }, timeout);
-        driver.findElement(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).click();
+        driver.findElement(By.xpath('//a[. = "Sample Project A"]')).click();
         
         driver.wait(until.titleIs('Roadmap > Sample Project A'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabWorkItems)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectWorkItemsTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectWorkItemsTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabGantt)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectGanttTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
-        });        
-        driver.executeScript('projectView.showTab(projectTabs.tabNotes)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectNotesTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectGanttTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
+        driver.executeScript('projectView.showTab(projectTabs.tabNotes)');
+        driver.findElement(By.xpath('//div[@id = "projectNotesTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
+        });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabAttachments)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectAttachmentsTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectAttachmentsTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
+        });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.executeScript('projectView.showTab(projectTabs.tabResources)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectResourcesTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectResourcesTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabRoadblocks)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectIssuesTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectIssuesTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabScheduleAudit)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectScheduleAuditTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectScheduleAuditTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.executeScript('projectView.showTab(projectTabs.tabTimeTracking)');
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectTimeTrackingTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectTimeTrackingTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.findElement(By.xpath('//span[. = "Recent Activity"]')).click();
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "projectRecentActivityTab"]')).then(function(element) {
-                return element.isDisplayed();
-            });
+        driver.findElement(By.xpath('//div[@id = "projectRecentActivityTab"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        
         driver.findElement(By.xpath('//a[@id = "pSettings"]')).click();
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "1"]'));
         }, timeout);
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Project"]')).then(function(element) {
-                return element.isDisplayed();
-            });
-        }, timeout);
+        driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Project"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
+        });        
         driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Project"]')).click();
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "settingsTabs-1"]')).then(function(element) {
-                return element.isDisplayed();
-            });
-        }, timeout);
+        driver.findElement(By.xpath('//div[@id = "settingsTabs-1"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
+        });
         driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Budget"]')).click();
-        driver.wait(function() {
-            return driver.findElement(By.xpath('//div[@id = "settingsTabs-2"]')).then(function(element) {
-                return element.isDisplayed();
-            });
-        }, timeout);
+        driver.findElement(By.xpath('//div[@id = "settingsTabs-2"]')).then(function(element) {
+            driver.wait(until.elementIsVisible(element), timeout);
+        });
         driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Resources"]')).click();
+
         driver.findElement(By.xpath('//a[@id = "pSettings"]')).click();
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "0"]'));
