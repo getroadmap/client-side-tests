@@ -159,6 +159,7 @@ test.describe('Smoke Test', function() {
             return driver.isElementPresent(By.xpath('//div[@class = "search-form active"]'));
         }, timeout);
         driver.findElement(By.xpath('//input[@id = "txtSearch"]')).then(function(element) {
+            driver.wait(until.elementIsEnabled(element));
             element.clear();
             element.sendKeys('Project A');
         });
