@@ -6,7 +6,7 @@ var webdriver = require('selenium-webdriver'),
     config = require('../config');
     
 test.describe('Smoke Test', function() {
-    var driver, base, user, timeout, indProject;
+    var driver, base, user, timeout, indProject, indResource;
     
     test.before(function() {
         driver = new webdriver.Builder()
@@ -274,6 +274,9 @@ test.describe('Smoke Test', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Projects');
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[@id = "spProjectNum" and . = "3"]'));
         }, timeout);
@@ -292,6 +295,9 @@ test.describe('Smoke Test', function() {
         driver.get(base + '/Dashboard.aspx');
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Dashboard');
+        });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.wait(function() {
             return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function(elements) {
@@ -314,6 +320,9 @@ test.describe('Smoke Test', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Work Items');
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-30 from 30 Items"]'));
         }, timeout);
@@ -333,6 +342,9 @@ test.describe('Smoke Test', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Resources');
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-4 from 4 Items"]'));
         }, timeout);
@@ -342,21 +354,15 @@ test.describe('Smoke Test', function() {
         driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "= Assignable")]')).then(function(found) {
             assert(found);
         });
+        driver.findElement(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Account Owner (You)"]')).then(function(element) {
+            element.getAttribute('href').then(function(href) {
+                indResource = href;
+            });
+        });
     });
     
     test.it('/IndResource.aspx', function() {
-        driver.get(base + '/Resources.aspx');
-        driver.getTitle().then(function(title) {
-            assert.equal(title, 'Roadmap > Resources');
-        });
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-4 from 4 Items"]'));
-        }, timeout);
-        driver.isElementPresent(By.xpath('//span[. = "Default View"]')).then(function(found) {
-            assert(found);
-        });
-        driver.findElement(By.xpath('//a[. = "Account Owner (You)"]')).click();
-        
+        driver.get(indResource);
         driver.wait(until.titleIs('Roadmap > Account Owner'));
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
@@ -439,6 +445,9 @@ test.describe('Smoke Test', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Time');
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "No items to display"]'));
         }, timeout);
@@ -454,6 +463,9 @@ test.describe('Smoke Test', function() {
         driver.get(base + '/Reports.aspx');
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Reports');
+        });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//img[@id = "ctl00_ContentPlaceHolder1_ctrStatusReport_ctrChart_Image"]'));
@@ -489,6 +501,9 @@ test.describe('Smoke Test', function() {
         driver.get(base + '/Subscription');
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Account > Subscription');
+        });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//input[@id = "btnAddBillingPerson"]'));
