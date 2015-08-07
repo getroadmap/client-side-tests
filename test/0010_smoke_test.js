@@ -6,7 +6,7 @@ var webdriver = require('selenium-webdriver'),
     config = require('../config');
     
 test.describe('Smoke Test', function() {
-    var driver, base, user, timeout;
+    var driver, base, user, timeout, indProject;
     
     test.before(function() {
         driver = new webdriver.Builder()
@@ -130,6 +130,9 @@ test.describe('Smoke Test', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Projects');
         });
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
         }, timeout);
@@ -142,18 +145,6 @@ test.describe('Smoke Test', function() {
         driver.isElementPresent(By.xpath('//span[. = "Default Grid View"]')).then(function(found) {
             assert(found);
         });
-    });
-    
-    test.it('/IndProject.aspx', function() {
-        driver.get(base + '/Projects.aspx');
-        driver.wait(until.titleIs('Roadmap > Projects'));
-        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
-            driver.wait(until.elementIsNotVisible(element), timeout);
-        });
-
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
-        }, timeout);
         driver.findElement(By.xpath('//input[@class = "btn-search"]')).click();
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@class = "search-form active"]'));
@@ -161,18 +152,24 @@ test.describe('Smoke Test', function() {
         driver.findElement(By.xpath('//input[@id = "txtSearch"]')).then(function(element) {
             driver.wait(until.elementIsEnabled(element));
             element.clear();
-            element.sendKeys('Project A');
+            element.sendKeys('Sample Project A');
         });
         driver.findElement(By.xpath('//input[@class = "btn-search"]')).click();
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'));
         }, timeout);
-        driver.findElement(By.xpath('//a[. = "Sample Project A"]')).click();
-        
+        driver.findElement(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(element) {
+            element.getAttribute('href').then(function(href) {
+                indProject = href;
+            });
+        });
+    });
+    
+    test.it('/IndProject.aspx', function() {
+        driver.get(indProject);
         driver.wait(until.titleIs('Roadmap > Sample Project A'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
