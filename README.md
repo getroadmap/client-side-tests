@@ -33,4 +33,4 @@ You will need the following things properly installed on your computer.
 * see Linux
 
 ## Further Reading / Useful Links
-*
+* [Selenium Client & WebDriver JavaScript(Node) Bindings](http://seleniumhq.github.io/selenium/docs/api/javascript/index.html)
