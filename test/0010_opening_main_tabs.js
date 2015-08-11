@@ -109,9 +109,18 @@ test.describe('Opening Main Tabs', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
         }, timeout);
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
-        }, timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project B"]')).then(function(found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project C"]')).then(function(found) {
+            assert(found);
+        });
         driver.findElement(By.xpath('//div[@id = "sysAnnounce"]/a[@class = "btn-close"]')).then(function(element) {
             element.getAttribute('href').then(function(href) {
                 driver.executeScript(href.substring(11));
@@ -130,9 +139,15 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'));
-        }, timeout);
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project B"]')).then(function(found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project C"]')).then(function(found) {
+            assert(found);
+        });
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
         }, timeout);

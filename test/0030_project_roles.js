@@ -42,7 +42,7 @@ test.describe('Project Roles', function() {
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Project Role")]'));
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Project Role '+ uniqueID +'")]'));
         }, timeout);
         
         driver.findElement(By.xpath('//a[contains(., "Add Project Role")]')).click();
@@ -50,7 +50,7 @@ test.describe('Project Roles', function() {
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Edit")]'));
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Edit '+ uniqueID +'")]'));
         }, timeout);
         
         driver.findElement(By.xpath('//a[contains(., "Add Project Role")]')).click();
@@ -58,7 +58,7 @@ test.describe('Project Roles', function() {
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Delete")]'));
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Delete '+ uniqueID +'")]'));
         }, timeout);
     });
     
