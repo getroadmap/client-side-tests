@@ -39,11 +39,13 @@ test.describe('Public API', function() {
             assert.equal(title, 'Roadmap > Settings > Third Party Conections');
         });
         
-        driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "ensabled"]')).then(function(found) {
-            driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
-            driver.wait(function() {
-                return driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "disabled"]'));
-            }, timeout);    
+        driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')).then(function(found) {
+            if(found) {
+                driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
+                driver.wait(function() {
+                    return driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "disabled"]'));
+                }, timeout);
+            }
         });
 
         driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
