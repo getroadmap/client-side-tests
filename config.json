@@ -1,7 +1,7 @@
 {
 	"selenium": {
 		"timeout": 30000,
-		"implicitlyWait": 1000,
+		"implicitlyWait": 5000,
 		"capabilities": {
 			"phantomjs.cli.args": [
 				"--ignore-ssl-errors=true",
