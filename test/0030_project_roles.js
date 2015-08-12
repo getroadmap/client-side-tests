@@ -42,32 +42,40 @@ test.describe('Project Roles', function() {
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Project Role '+ uniqueID +'")]'));
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[. = "Project Role '+ uniqueID +'"]'));
         }, timeout);
         
         driver.findElement(By.xpath('//a[contains(., "Add Project Role")]')).click();
-        driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]')).sendKeys('Role To Edit ' + uniqueID);
+        driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]')).sendKeys('Test Role ' + uniqueID);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
         driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
         driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Edit '+ uniqueID +'")]'));
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[. = "Test Role '+ uniqueID +'"]'));
         }, timeout);
         
-        driver.findElement(By.xpath('//a[contains(., "Add Project Role")]')).click();
-        driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]')).sendKeys('Role To Delete ' + uniqueID);
-        driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../input[2]')).sendKeys(10);
-        driver.findElement(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]/../..//span[. = "OK"]')).click();
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[contains(., "Role To Delete '+ uniqueID +'")]'));
-        }, timeout);
     });
     
     test.it('Should be possible to edit project roles', function() {
-        assert(false);
+        driver.findElement(By.xpath('//table[@id = "tblRoles"]//div[. = "Test Role '+ uniqueID +'"]')).click();
+        driver.switchTo().activeElement().then(function(element) {
+            element.clear();
+            element.sendKeys('Changed Role '+ uniqueID);
+        });
+        driver.findElement(By.xpath('//div[@class = "dual-field-context-menu"]//a[. = "Save"]')).click();
+        
+        driver.wait(function() {
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[. = "Changed Role '+ uniqueID +'"]'));
+        }, timeout);
     });
     
     test.it('Should be possible to delete project roles', function() {
-        assert(false);
+        driver.findElement(By.xpath('//div[. = "Changed Role '+ uniqueID +'"]/../..//div[. = "Delete"]')).click();
+        driver.findElement(By.xpath('//div[@id = "DeleteRoleFormBody"]/..//span[. = "Delete"]')).click();
+        driver.wait(function() {
+            return driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[. = "Changed Role '+ uniqueID +'"]')).then(function(found) {
+                return !found;
+            });
+        }, timeout);
     });
     
 });

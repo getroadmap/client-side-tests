@@ -1,7 +1,7 @@
 {
 	"selenium": {
 		"timeout": 30000,
-		"implicitlyWait": 5000,
+		"implicitlyWait": 1000,
 		"capabilities": {
 			"phantomjs.cli.args": [
 				"--ignore-ssl-errors=true",
@@ -19,7 +19,7 @@
 		"rw_all": "rwa@test.ph",
 		"ro_all": "roa@test.ph",
 		"ind_contr": "cntr@test.ph",
-		"uag": "uagsi@test.ph",
+		"uag_simple": "uagsi@test.ph",
 		"uag_create": "uagcr@test.ph",
 		"uag_see_all": "uagsa@test.ph"
 	}
