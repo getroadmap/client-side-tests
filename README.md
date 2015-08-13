@@ -6,7 +6,7 @@ You will need the following things properly installed on your computer.
 * [Node.js](http://nodejs.org/) (with npm)
 * [Mocha](http://mochajs.org/)
 * [Selenium](http://www.seleniumhq.org/) (we need only selenium-webdriver when running without selenium grid)
-* [Firefox](https://www.mozilla.org/) (with xvfb X server it can run on machines with no display hardware and no physical input devices)
+* [Firefox](https://www.mozilla.org/) (with xvfb server it can be run on machines with no display hardware and no physical input devices)
 
 ## Installation
 ### Windows
