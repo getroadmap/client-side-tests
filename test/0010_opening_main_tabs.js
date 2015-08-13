@@ -138,6 +138,8 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
+        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
+        
         driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(found) {
             assert(found);
         });
@@ -169,9 +171,7 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'), timeout));
     });
 
     test.it('/BulkDeleteProjects.aspx', function() {
