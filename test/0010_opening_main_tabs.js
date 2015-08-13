@@ -4,10 +4,10 @@ var webdriver = require('selenium-webdriver'),
     test = require('selenium-webdriver/testing'),
     assert = require('assert'),
     config = require('../config');
-    
+
 test.describe('Opening Main Tabs', function() {
     var driver, base, user, timeout;
-    
+
     test.before(function() {
         driver = new webdriver.Builder()
             .withCapabilities(config.selenium.capabilities)
@@ -15,11 +15,10 @@ test.describe('Opening Main Tabs', function() {
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
-        driver.manage().timeouts().implicitlyWait(config.selenium.implicitlyWait);
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().setSize(1366, 768);
     });
-    
+
     test.after(function() {
         driver.quit();
     });
@@ -58,7 +57,7 @@ test.describe('Opening Main Tabs', function() {
                     element.sendKeys('1234567');
                 });
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_btnRegisterCompany"]')).click();
-                
+
                 driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
             }
             else {
@@ -68,7 +67,7 @@ test.describe('Opening Main Tabs', function() {
             }
         });
     });
-    
+
     test.it('/GettingStarted.aspx', function() {
         driver.get(base + '/GettingStarted.aspx');
         driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
@@ -87,7 +86,7 @@ test.describe('Opening Main Tabs', function() {
             return driver.isElementPresent(By.xpath('//h1[. = "Basecamp Account(s) Integration"]'));
         }, timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
-        
+
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]'));
         }, timeout);
@@ -130,7 +129,7 @@ test.describe('Opening Main Tabs', function() {
             assert(!found);
         });
     });
-    
+
     test.it('/Projects.aspx', function() {
         driver.get(base + '/Projects.aspx');
         driver.getTitle().then(function(title) {
@@ -174,7 +173,7 @@ test.describe('Opening Main Tabs', function() {
             return driver.isElementPresent(By.xpath('//span[. = "Showing 1-1 from 1 Items"]'));
         }, timeout);
     });
-    
+
     test.it('/BulkDeleteProjects.aspx', function() {
         driver.get(base + '/BulkDeleteProjects.aspx');
         driver.getTitle().then(function(title) {
@@ -190,7 +189,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/MSProjectImport.aspx', function() {
         driver.get(base + '/MSProjectImport.aspx');
         driver.getTitle().then(function(title) {
@@ -200,7 +199,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Gantt.aspx', function() {
         driver.get(base + '/Gantt.aspx');
         driver.getTitle().then(function(title) {
@@ -209,9 +208,6 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function() {
-            return driver.isElementPresent(By.xpath('//span[@id = "spProjectNum" and . = "3"]'));
-        }, timeout);
         driver.isElementPresent(By.xpath('//span[. = "Gantt Chart"]')).then(function(found) {
             assert(found);
         });
@@ -222,7 +218,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Dashboard.aspx', function() {
         driver.get(base + '/Dashboard.aspx');
         driver.getTitle().then(function(title) {
@@ -231,22 +227,19 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function() {
-            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function(elements) {
-                return elements.length === 10;
-            });
-        }, timeout);
         driver.isElementPresent(By.xpath('//span[. = "Sample View Title"]')).then(function(found) {
             assert(found);
         });
         driver.isElementPresent(By.xpath('//span[. = "Sample Sub-Title"]')).then(function(found) {
             assert(found);
         });
-        driver.isElementPresent(By.xpath('//img[@src = "App_Themes/New/SampleLogo.png"]')).then(function(found) {
-            assert(found);
-        });
+        driver.wait(function() {
+            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function(elements) {
+                return elements.length === 10;
+            });
+        }, timeout);
     });
-    
+
     test.it('/WorkItems.aspx', function() {
         driver.get(base + '/WorkItems.aspx');
         driver.getTitle().then(function(title) {
@@ -263,12 +256,12 @@ test.describe('Opening Main Tabs', function() {
         }, timeout);
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
-        }, timeout);        
+        }, timeout);
         driver.isElementPresent(By.xpath('//span[. = "Default View"]')).then(function(found) {
             assert(found);
         });
     });
-    
+
     test.it('/Resources.aspx', function() {
         driver.get(base + '/Resources.aspx');
         driver.getTitle().then(function(title) {
@@ -296,7 +289,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Roles.aspx', function() {
         driver.get(base + '/Roles.aspx');
         driver.getTitle().then(function(title) {
@@ -318,7 +311,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/UserGroups.aspx', function() {
         driver.get(base + '/UserGroups.aspx');
         driver.getTitle().then(function(title) {
@@ -340,7 +333,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/BulkDeleteResources.aspx', function() {
         driver.get(base + '/BulkDeleteResources.aspx');
         driver.getTitle().then(function(title) {
@@ -356,7 +349,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Time.aspx', function() {
         driver.get(base + '/Time.aspx');
         driver.getTitle().then(function(title) {
@@ -372,7 +365,7 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Reports.aspx', function() {
         driver.get(base + '/Reports.aspx');
         driver.getTitle().then(function(title) {
@@ -397,5 +390,5 @@ test.describe('Opening Main Tabs', function() {
             assert(found);
         });
     });
-    
+
 });

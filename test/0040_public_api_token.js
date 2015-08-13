@@ -4,10 +4,10 @@ var webdriver = require('selenium-webdriver'),
     test = require('selenium-webdriver/testing'),
     assert = require('assert'),
     config = require('../config');
-    
+
 test.describe('Public API', function() {
-    var driver, base, user, timeout, uniqueID;
-    
+    var driver, base, user, timeout;
+
     test.before(function() {
         driver = new webdriver.Builder()
             .withCapabilities(config.selenium.capabilities)
@@ -15,12 +15,10 @@ test.describe('Public API', function() {
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
-        driver.manage().timeouts().implicitlyWait(config.selenium.implicitlyWait);
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().setSize(1366, 768);
-        uniqueID = new Date().getTime();
     });
-    
+
     test.after(function() {
         driver.quit();
     });
@@ -32,13 +30,13 @@ test.describe('Public API', function() {
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
         driver.wait(until.titleIs('Roadmap > Account > My Account'));
     });
-    
+
     test.it('Should be possible to enable user\'s API', function() {
         driver.get(base + '/ThirdPartyConnections.aspx');
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Settings > Third Party Conections');
         });
-        
+
         driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')).then(function(found) {
             if(found) {
                 driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
@@ -53,7 +51,7 @@ test.describe('Public API', function() {
             return driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]'));
         }, timeout);
     });
-    
+
     test.it('Should be possible to generate API token', function() {
         driver.get(base + '/Account.aspx');
         driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
@@ -71,5 +69,5 @@ test.describe('Public API', function() {
             });
         }, timeout);
     });
-    
+
 });

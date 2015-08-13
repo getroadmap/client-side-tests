@@ -1,2 +1,2 @@
 #!/bin/bash
-SELENIUM_BROWSER=phantomjs npm test
+SELENIUM_BROWSER=firefox npm test

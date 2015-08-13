@@ -4,10 +4,10 @@ var webdriver = require('selenium-webdriver'),
     test = require('selenium-webdriver/testing'),
     assert = require('assert'),
     config = require('../config');
-    
+
 test.describe('Opening Settings', function() {
     var driver, base, user, timeout;
-    
+
     test.before(function() {
         driver = new webdriver.Builder()
             .withCapabilities(config.selenium.capabilities)
@@ -15,11 +15,10 @@ test.describe('Opening Settings', function() {
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
-        driver.manage().timeouts().implicitlyWait(config.selenium.implicitlyWait);
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().setSize(1366, 768);
     });
-    
+
     test.after(function() {
         driver.quit();
     });
@@ -31,7 +30,7 @@ test.describe('Opening Settings', function() {
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
         driver.wait(until.titleIs('Roadmap > Settings > Account Preferences'), timeout);
     });
-    
+
     test.it('/Account.aspx', function() {
         driver.get(base + '/Account.aspx');
         driver.getTitle().then(function(title) {
@@ -44,7 +43,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Subscription', function() {
         driver.get(base + '/Subscription');
         driver.getTitle().then(function(title) {
@@ -53,6 +52,7 @@ test.describe('Opening Settings', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
+        
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//input[@id = "btnAddBillingPerson"]'));
         }, timeout);
@@ -70,7 +70,7 @@ test.describe('Opening Settings', function() {
                 assert(!displayed);
             });
         });
-        
+
         driver.findElement(By.xpath('//div[@id = "p-plan-pro"]//div[@class = "p-plan-ctl"]')).then(function(element) {
             driver.actions().mouseMove(element).perform();
         });
@@ -87,7 +87,7 @@ test.describe('Opening Settings', function() {
             return driver.isElementPresent(By.xpath('//input[@id = "btnPay" and @value = "Pay $1000.00/year"]'));
         }, timeout);
     });
-    
+
     test.it('/AccountPreferences.aspx', function() {
         driver.get(base + '/AccountPreferences.aspx');
         driver.getTitle().then(function(title) {
@@ -152,7 +152,7 @@ test.describe('Opening Settings', function() {
             });
         });
     });
-    
+
     test.it('/ProjectPreferences.aspx', function() {
         driver.get(base + '/ProjectPreferences.aspx');
         driver.getTitle().then(function(title) {
@@ -168,7 +168,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/ResourcePreferences.aspx', function() {
         driver.get(base + '/ResourcePreferences.aspx');
         driver.getTitle().then(function(title) {
@@ -178,7 +178,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/WorkItemPreferences.aspx', function() {
         driver.get(base + '/WorkItemPreferences.aspx');
         driver.getTitle().then(function(title) {
@@ -188,7 +188,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/Integration.aspx', function() {
         driver.get(base + '/Integration.aspx');
         driver.getTitle().then(function(title) {
@@ -204,7 +204,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/ThirdPartyConnections.aspx', function() {
         driver.get(base + '/ThirdPartyConnections.aspx');
         driver.getTitle().then(function(title) {
@@ -217,7 +217,7 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
     test.it('/FileImport.aspx', function() {
         driver.get(base + '/FileImport.aspx');
         driver.getTitle().then(function(title) {
@@ -236,5 +236,5 @@ test.describe('Opening Settings', function() {
             assert(found);
         });
     });
-    
+
 });
