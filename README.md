@@ -22,11 +22,11 @@ You will need the following things properly installed on your computer.
 
 ## Running Tests
 ### Windows
-* `startAllTests.bat` (current example assumes that selenium grid is running)
+* `startAllTests.bat` (requires selenium grid running)
 
 ### Linux
-* `./startAllTests.sh` (current example doesn't need selenium grid running)
-* `./xvfbAllTests.sh` (current example uses xvfb to run firefox on a headless machine)
+* `./startAllTests.sh` (does not require selenium grid running)
+* `./xvfbAllTests.sh` (uses xvfb to run firefox on a headless machine)
 
 ### Mac
 * see Linux
