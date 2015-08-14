@@ -1,3 +1,5 @@
+'use strict';
+
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
@@ -9,15 +11,13 @@ test.describe('Project Roles', function() {
     var driver, base, user, timeout, uniqueID;
 
     test.before(function() {
-        driver = new webdriver.Builder()
-            .withCapabilities(config.selenium.capabilities)
-            .build();
+        driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
-        driver.manage().window().setSize(1366, 768);
-        uniqueID = Math.floor(new Date().getTime() / 1000);
+        driver.manage().window().maximize();
+        uniqueID = Math.floor(new Date().getTime() / 1000) - 1439560400;
     });
 
     test.after(function() {

@@ -1,14 +1,6 @@
 {
 	"selenium": {
-		"timeout": 30000,
-		"capabilities": {
-			"phantomjs.cli.args": [
-				"--ignore-ssl-errors=true",
-				"--load-images=false",
-				"--web-security=false",
-				"--ssl-protocol=tlsv1"
-			]
-		}
+		"timeout": 30000
 	},
 	"roadmap": {
 		"base": "http://testing.ppmroadmap.com",

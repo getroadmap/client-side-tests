@@ -1,3 +1,5 @@
+'use strict';
+
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
@@ -9,14 +11,12 @@ test.describe('Opening Main Tabs', function() {
     var driver, base, user, timeout;
 
     test.before(function() {
-        driver = new webdriver.Builder()
-            .withCapabilities(config.selenium.capabilities)
-            .build();
+        driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
-        driver.manage().window().setSize(1366, 768);
+        driver.manage().window().maximize();
     });
 
     test.after(function() {
@@ -95,6 +95,8 @@ test.describe('Opening Main Tabs', function() {
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
         }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
+
         driver.get(base + '/GettingStarted.aspx');
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
@@ -111,15 +113,9 @@ test.describe('Opening Main Tabs', function() {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project B"]')).then(function(found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project C"]')).then(function(found) {
-            assert(found);
-        });
+
+        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
+
         driver.findElement(By.xpath('//div[@id = "sysAnnounce"]/a[@class = "btn-close"]')).then(function(element) {
             element.getAttribute('href').then(function(href) {
                 driver.executeScript(href.substring(11));
@@ -139,16 +135,7 @@ test.describe('Opening Main Tabs', function() {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
-        
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project A"]')).then(function(found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project B"]')).then(function(found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//div[@id = "tabViewGrid"]//a[. = "Sample Project C"]')).then(function(found) {
-            assert(found);
-        });
+
         driver.wait(function() {
             return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
         }, timeout);
@@ -205,9 +192,8 @@ test.describe('Opening Main Tabs', function() {
         driver.getTitle().then(function(title) {
             assert.equal(title, 'Roadmap > Projects');
         });
-        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function(element) {
-            driver.wait(until.elementIsNotVisible(element), timeout);
-        });
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "spProjectNum" and . = "3"]')), timeout);
+
         driver.isElementPresent(By.xpath('//span[. = "Gantt Chart"]')).then(function(found) {
             assert(found);
         });

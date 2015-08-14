@@ -1,3 +1,5 @@
+'use strict';
+
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
@@ -9,14 +11,12 @@ test.describe('Public API', function() {
     var driver, base, user, timeout;
 
     test.before(function() {
-        driver = new webdriver.Builder()
-            .withCapabilities(config.selenium.capabilities)
-            .build();
+        driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
-        driver.manage().window().setSize(1366, 768);
+        driver.manage().window().maximize();
     });
 
     test.after(function() {

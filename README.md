@@ -26,7 +26,7 @@ You will need the following things properly installed on your computer.
 
 ### Linux
 * `./startAllTests.sh` (does not require selenium grid running)
-* `./xvfbAllTests.sh` (uses xvfb to run firefox on a headless machine)
+* `./xvAllTests.sh` (uses xvfb to run firefox on a headless machine)
 
 ### Mac
 * see Linux
