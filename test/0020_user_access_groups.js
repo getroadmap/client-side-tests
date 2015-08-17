@@ -54,7 +54,7 @@ test.describe('User Access Groups', function () {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
 
-        driver.findElement(By.xpath('//input[@id = "txtUserAccessGroupName"]')).sendKeys('All ' + uniqueID);
+        driver.findElement(By.xpath('//input[@id = "txtUserAccessGroupName"]')).sendKeys('See All ' + uniqueID);
         driver.findElement(By.xpath('//div[@class = "tblProjects-project-name" and . = "Sample Project A"]/../..//input[@type = "checkbox"]')).click();
         driver.findElement(By.xpath('//input[@id = "chkHybridGroup"]')).click();
         driver.findElement(By.xpath('//a[. = "Save and add another"]')).click();
@@ -78,7 +78,7 @@ test.describe('User Access Groups', function () {
         driver.isElementPresent(By.xpath('//table[@id = "uaGroups"]//a[. = "Create ' + uniqueID + '"]')).then(function (found) {
             assert(found);
         });
-        driver.isElementPresent(By.xpath('//table[@id = "uaGroups"]//a[. = "All ' + uniqueID + '"]')).then(function (found) {
+        driver.isElementPresent(By.xpath('//table[@id = "uaGroups"]//a[. = "See All ' + uniqueID + '"]')).then(function (found) {
             assert(found);
         });
         driver.isElementPresent(By.xpath('//table[@id = "uaGroups"]//a[. = "Test ' + uniqueID + '"]')).then(function (found) {
