@@ -168,6 +168,42 @@ test.describe('Opening Settings', function () {
         driver.isElementPresent(By.xpath('//div[. = "Sample Project Template"]')).then(function (found) {
             assert(found);
         });
+        driver.isElementPresent(By.xpath('//table[@id = "tblCustomAttributes"]//div[. = "Client"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//table[@id = "tblCustomAttributes"]//div[. = "Region"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//table[@id = "tblCustomAttributes"]//div[. = "Project Score"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "On Schedule"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "At Risk"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Critical"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Planned"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Not Approved"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Under Review"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Parking Lot"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Completed"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//div[@class = "health-name" and . = "Did Not Finish"]')).then(function (found) {
+            assert(found);
+        });
     });
 
     test.it('/ResourcePreferences.aspx', function () {
@@ -184,9 +220,6 @@ test.describe('Opening Settings', function () {
         driver.get(base + '/WorkItemPreferences.aspx');
         driver.getTitle().then(function (title) {
             assert.equal(title, 'Roadmap > Settings > Work Item Preferences');
-        });
-        driver.isElementPresent(By.xpath('//a[. = "Add Work Item Attribute"]')).then(function (found) {
-            assert(found);
         });
     });
 
