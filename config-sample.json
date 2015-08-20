@@ -3,7 +3,7 @@
 		"timeout": 30000
 	},
 	"roadmap": {
-		"base": "http://testing.ppmroadmap.com",
+		"base": "http://testing.entry.point.com",
 		"company": "Test Company",
 		"owner": "ao@test.ph",
 		"admin": "adm@test.ph",
@@ -12,6 +12,7 @@
 		"ind_contr": "cntr@test.ph",
 		"uag_simple": "uagsi@test.ph",
 		"uag_create": "uagcr@test.ph",
-		"uag_see_all": "uagsa@test.ph"
+		"uag_see_all": "uagsa@test.ph",
+		"system_admin": "sysadmin@some.email"
 	}
 }
