@@ -1,6 +1,4 @@
 /*jslint node: true */
-'use strict';
-
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
@@ -9,6 +7,7 @@ var webdriver = require('selenium-webdriver'),
     config = require('../config');
 
 test.describe('Project Roles', function () {
+    'use strict';
     var driver, base, user, timeout, uniqueID;
 
     test.before(function () {

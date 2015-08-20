@@ -1,6 +1,4 @@
 /*jslint node: true */
-'use strict';
-
 var webdriver = require('selenium-webdriver'),
     By = require('selenium-webdriver').By,
     until = require('selenium-webdriver').until,
@@ -9,6 +7,7 @@ var webdriver = require('selenium-webdriver'),
     config = require('../config');
 
 test.describe('Public API', function () {
+    'use strict';
     var driver, base, user, timeout;
 
     test.before(function () {
