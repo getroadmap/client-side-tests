@@ -28,7 +28,7 @@ test.describe('System Admin pages', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1111111');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Notifications'));
+        driver.wait(until.titleIs('Roadmap > Notifications'), timeout);
     });
 
     test.it('Should be possible to Add New Notification', function () {
@@ -46,15 +46,15 @@ test.describe('System Admin pages', function () {
 
     test.it('Should be possible to manage Failed BC Imports', function () {
         driver.get(base + '/admin/FailedBCImport.aspx');
-        driver.wait(until.titleIs('Roadmap'));
+        driver.wait(until.titleIs('Roadmap'), timeout);
         driver.findElement(By.xpath('//input[@id = "ctl00_ContentPlaceHolder1_txtEmail"]')).sendKeys('test@null.null');
     });
 
     test.it('Should be possible to manage MailChimp Exports', function () {
         driver.get(base + '/admin/MailChimpExport.aspx');
-        driver.wait(until.titleIs('Roadmap > MailChimpExport'));
+        driver.wait(until.titleIs('Roadmap > MailChimpExport'), timeout);
         driver.findElement(By.xpath('//a[contains(., "Logout")]')).click();
-        driver.wait(until.titleIs('Roadmap > Login'));
+        driver.wait(until.titleIs('Roadmap > Login'), timeout);
     });
 
 });
