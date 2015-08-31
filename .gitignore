@@ -1,4 +1,8 @@
 node_modules/
 test/9999*
 config.json
+startAllTests.*
+startSingleTest.*
+xvAllTests.sh
+xvSingleTest.sh
 *.log
