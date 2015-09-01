@@ -37,6 +37,7 @@ test.describe('Create Dashboard Views', function () {
 
     test.it('Should be possible to create a new view A', function () {
         driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
+        driver.wait(until.elementLocated(By.xpath('//ul[@id = "kendoListViews_listbox" and @aria-hidden = "false"]')), timeout);
         driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[. = "Create View"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[@class = "viewSettingsTitle" and . = "New View"]')), timeout);
 
@@ -65,6 +66,7 @@ test.describe('Create Dashboard Views', function () {
 
     test.it('Should be possible to create a new view B', function () {
         driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
+        driver.wait(until.elementLocated(By.xpath('//ul[@id = "kendoListViews_listbox" and @aria-hidden = "false"]')), timeout);
         driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[. = "Create View"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[@class = "viewSettingsTitle" and . = "New View"]')), timeout);
 
@@ -93,6 +95,7 @@ test.describe('Create Dashboard Views', function () {
 
     test.it('Should be possible to create a new view C', function () {
         driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
+        driver.wait(until.elementLocated(By.xpath('//ul[@id = "kendoListViews_listbox" and @aria-hidden = "false"]')), timeout);
         driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[. = "Create View"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[@class = "viewSettingsTitle" and . = "New View"]')), timeout);
 
@@ -126,6 +129,7 @@ test.describe('Create Dashboard Views', function () {
         views.forEach(function (element) {
             driver.get(element.url);
             driver.wait(until.titleIs(config.roadmap.company + ' > ' + element.title + ' > ' + element.subtitle), timeout);
+            driver.wait(until.elementLocated(By.xpath('//section[@class = "clientProject"]')), timeout);
         });
     });
 
