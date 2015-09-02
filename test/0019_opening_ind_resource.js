@@ -24,16 +24,14 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/AccountPreferences.aspx');
+        driver.get(base + '/Resources.aspx');
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Account Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Resources'), timeout);
     });
 
     test.it('/IndResource.aspx', function () {
-        driver.get(base + '/Resources.aspx');
-        driver.wait(until.titleIs('Roadmap > Resources'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
@@ -64,7 +62,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|WorkItems', function () {
-        driver.findElement(By.xpath('//a[@id = "tabWorkItems"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabWorkItems)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectWorkItemsTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectWorkItemsTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -75,7 +73,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|Calendar', function () {
-        driver.findElement(By.xpath('//a[@id = "tabCalendar"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabCalendar)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceCalendarTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceCalendarTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -86,7 +84,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|Availability', function () {
-        driver.findElement(By.xpath('//a[@id = "tabAvailability"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabAvailability)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceAvailabilityTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceAvailabilityTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -94,10 +92,11 @@ test.describe('Opening Individual Resource', function () {
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "resWICalendar"]')), timeout);
     });
 
     test.it('/IndResource.aspx|Issues', function () {
-        driver.findElement(By.xpath('//a[@id = "tabIssues"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabRoadblocks)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectIssuesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectIssuesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -108,7 +107,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|Notes', function () {
-        driver.findElement(By.xpath('//a[@id = "tabNotes"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabNotes)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectNotesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectNotesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -119,7 +118,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|Attachments', function () {
-        driver.findElement(By.xpath('//a[@id = "tabAttachments"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabAttachments)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectAttachmentsTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectAttachmentsTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -130,7 +129,7 @@ test.describe('Opening Individual Resource', function () {
     });
 
     test.it('/IndResource.aspx|Times', function () {
-        driver.findElement(By.xpath('//a[@id = "tabTimes"]')).click();
+        driver.executeScript('resourceView.showTab(resTabs.tabTimes)');
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceTimesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceTimesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
