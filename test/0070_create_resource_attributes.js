@@ -29,7 +29,7 @@ test.describe('Create Resource Attributes', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Resource Preferences'));
+        driver.wait(until.titleIs('Roadmap > Settings > Resource Preferences'), timeout);
     });
 
     test.it('Should be possible to create Single-Selection', function () {

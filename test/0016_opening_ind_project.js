@@ -24,16 +24,14 @@ test.describe('Opening Individual Project', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/AccountPreferences.aspx');
+        driver.get(base + '/Projects.aspx');
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Account Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
     });
 
     test.it('/IndProject.aspx', function () {
-        driver.get(base + '/Projects.aspx');
-        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });

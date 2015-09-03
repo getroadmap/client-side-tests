@@ -28,7 +28,7 @@ test.describe('Public API', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Account > My Account'));
+        driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
     });
 
     test.it('Should be possible to enable user\'s API', function () {
@@ -40,16 +40,12 @@ test.describe('Public API', function () {
         driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')).then(function (found) {
             if (found) {
                 driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
-                driver.wait(function () {
-                    return driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "disabled"]'));
-                }, timeout);
+                driver.wait(until.elementLocated(By.xpath('//span[@id = "apiKeyMode" and . = "disabled"]')), timeout);
             }
         });
 
         driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')), timeout);
     });
 
     test.it('Should be possible to generate API token', function () {

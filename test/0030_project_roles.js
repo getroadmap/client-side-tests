@@ -25,17 +25,14 @@ test.describe('Project Roles', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/Account.aspx');
+        driver.get(base + '/Roles.aspx');
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Account > My Account'));
+        driver.wait(until.titleIs('Roadmap > Resources > Project Roles'), timeout);
     });
 
     test.it('Should be possible to create project roles', function () {
-        driver.get(base + '/Roles.aspx');
-        driver.wait(until.titleIs('Roadmap > Resources > Project Roles'), timeout);
-
         driver.findElement(By.xpath('//a[contains(., "Add Project Role")]')).click();
         driver.wait(until.elementLocated(By.xpath('//input[@id = "bhvAddOnTheFly_1field"]')), timeout);
 

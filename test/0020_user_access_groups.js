@@ -34,7 +34,7 @@ test.describe('User Access Groups', function () {
 
     test.it('Should be possible to create user access groups', function () {
         driver.get(base + '/UserGroupAdd.aspx');
-        driver.wait(until.titleIs('Roadmap > Resources > Add Group'));
+        driver.wait(until.titleIs('Roadmap > Resources > Add Group'), timeout);
 
         driver.findElement(By.xpath('//input[@id = "txtUserAccessGroupName"]')).sendKeys('Simple ' + uniqueID);
         driver.findElement(By.xpath('//div[@class = "tblProjects-project-name" and . = "Sample Project A"]/../..//input[@type = "checkbox"]')).click();

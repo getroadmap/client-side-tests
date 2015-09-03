@@ -62,6 +62,7 @@ test.describe('Create Dashboard Views', function () {
         });
         driver.findElement(By.xpath('//input[@id = "createView"]')).click();
         driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "' + view.title + '"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//section[@class = "clientProject"]')), timeout);
     });
 
     test.it('Should be possible to create a new view B', function () {
@@ -91,6 +92,7 @@ test.describe('Create Dashboard Views', function () {
         });
         driver.findElement(By.xpath('//input[@id = "createView"]')).click();
         driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "' + view.title + '"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//section[@class = "clientProject"]')), timeout);
     });
 
     test.it('Should be possible to create a new view C', function () {
@@ -120,6 +122,7 @@ test.describe('Create Dashboard Views', function () {
         });
         driver.findElement(By.xpath('//input[@id = "createView"]')).click();
         driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "' + view.title + '"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//section[@class = "clientProject"]')), timeout);
     });
 
     test.it('Should be possible to access the created views with no login', function () {

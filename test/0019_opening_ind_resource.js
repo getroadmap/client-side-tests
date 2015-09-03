@@ -40,10 +40,12 @@ test.describe('Opening Individual Resource', function () {
                 driver.get(href);
             });
         });
-        driver.wait(until.titleIs('Roadmap > Account Owner'));
+        driver.wait(until.titleIs('Roadmap > Account Owner'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
+
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
 
         driver.findElement(By.xpath('//a[@id = "rSubscriptions"]')).click();
         driver.wait(function () {
