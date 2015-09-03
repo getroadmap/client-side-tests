@@ -65,6 +65,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|WorkItems', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabWorkItems)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectWorkItemsTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectWorkItemsTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -76,6 +77,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Calendar', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabCalendar)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceCalendarTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceCalendarTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -87,6 +89,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Availability', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabAvailability)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceAvailabilityTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceAvailabilityTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -99,6 +102,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Issues', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabRoadblocks)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectIssuesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectIssuesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -110,6 +114,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Notes', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabNotes)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectNotesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectNotesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -121,6 +126,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Attachments', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabAttachments)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "projectAttachmentsTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "projectAttachmentsTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
@@ -132,6 +138,7 @@ test.describe('Opening Individual Resource', function () {
 
     test.it('/IndResource.aspx|Times', function () {
         driver.executeScript('resourceView.showTab(resTabs.tabTimes)');
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pContentBody"]/div[contains(@style, "display: block")]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//div[@id = "resourceTimesTab"]'), timeout));
         driver.findElement(By.xpath('//div[@id = "resourceTimesTab"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
