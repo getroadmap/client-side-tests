@@ -11,7 +11,7 @@
     "test": "test"
   },
   "dependencies": {
-    "selenium-webdriver": "~2.46.1"
+    "selenium-webdriver": "^2.46.1"
   },
   "devDependencies": {},
   "scripts": {
