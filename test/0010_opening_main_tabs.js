@@ -25,15 +25,14 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Login.aspx', function () {
         driver.get(base + '/AccountPreferences.aspx');
+        driver.wait(until.titleIs('Roadmap > Login'), timeout);
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.isElementPresent(By.xpath('//td[@class = "loginfail" and contains(., "We were unable to find an account")]')).then(function (found) {
+        driver.isElementPresent(By.xpath('//td[contains(., "We were unable to find an account")]')).then(function (found) {
             if (found) {
                 driver.get(base + '/AccountRegistration.aspx');
-                driver.getTitle().then(function (title) {
-                    assert.equal(title, 'Signup for Roadmap - Intelligent Project Management, Scheduling, Time Tracking, and Resource Planning');
-                });
+                driver.wait(until.titleIs('Signup for Roadmap - Intelligent Project Management, Scheduling, Time Tracking, and Resource Planning'), timeout);
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtFirstName"]')).then(function (element) {
                     element.clear();
                     element.sendKeys('Account');
@@ -50,14 +49,9 @@ test.describe('Opening Main Tabs', function () {
                     element.clear();
                     element.sendKeys(user);
                 });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword"]')).then(function (element) {
-                    element.sendKeys('1234567');
-                });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword2"]')).then(function (element) {
-                    element.sendKeys('1234567');
-                });
+                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword"]')).sendKeys('1234567');
+                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword2"]')).sendKeys('1234567');
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_btnRegisterCompany"]')).click();
-
                 driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
             } else {
                 driver.getTitle().then(function (title) {
@@ -70,9 +64,7 @@ test.describe('Opening Main Tabs', function () {
     test.it('/GettingStarted.aspx', function () {
         driver.get(base + '/GettingStarted.aspx');
         driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]')), timeout);
         driver.findElements(By.xpath('//button[@class = "ui-datepicker-trigger"]')).then(function (elements) {
             assert.equal(elements.length, 10);
         });
@@ -81,40 +73,27 @@ test.describe('Opening Main Tabs', function () {
                 driver.executeScript(href.substring(11));
             });
         });
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//h1[. = "Basecamp Account(s) Integration"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//h1[. = "Basecamp Account(s) Integration"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
-
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
+
         driver.wait(until.titleIs('Roadmap > Projects'), timeout);
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "sysAnnounce"]')), timeout);
         driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
 
         driver.get(base + '/GettingStarted.aspx');
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
+
         driver.wait(until.titleIs('Roadmap > Projects'), timeout);
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "sysAnnounce"]')), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-
         driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
-
         driver.findElement(By.xpath('//div[@id = "sysAnnounce"]/a[@class = "btn-close"]')).then(function (element) {
             element.getAttribute('href').then(function (href) {
                 driver.executeScript(href.substring(11));
@@ -127,17 +106,13 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Projects.aspx', function () {
         driver.get(base + '/Projects.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Projects');
-        });
+        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
         driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
 
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]')), timeout);
         driver.isElementPresent(By.xpath('//span[@id = "user-name" and . = "Account Owner"]')).then(function (found) {
             assert(found);
         });
@@ -145,9 +120,7 @@ test.describe('Opening Main Tabs', function () {
             assert(found);
         });
         driver.findElement(By.xpath('//input[@class = "btn-search"]')).click();
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@class = "search-form active"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "search-form active"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "txtSearch"]')).then(function (element) {
             driver.wait(until.elementIsEnabled(element));
             element.clear();
@@ -162,9 +135,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/BulkDeleteProjects.aspx', function () {
         driver.get(base + '/BulkDeleteProjects.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Bulk Delete Projects');
-        });
+        driver.wait(until.titleIs('Roadmap > Bulk Delete Projects'), timeout);
         driver.isElementPresent(By.xpath('//table[@id = "tblPPMLiteProjects"]//label[contains(., "Sample Project A")]')).then(function (found) {
             assert(found);
         });
@@ -178,9 +149,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/MSProjectImport.aspx', function () {
         driver.get(base + '/MSProjectImport.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Import from MS Project');
-        });
+        driver.wait(until.titleIs('Roadmap > Import from MS Project'), timeout);
         driver.isElementPresent(By.xpath('//input[@id = "ctl00_ContentPlaceHolder1_optFirstName" and @checked = "checked"]')).then(function (found) {
             assert(found);
         });
@@ -188,9 +157,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Gantt.aspx', function () {
         driver.get(base + '/Gantt.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Projects');
-        });
+        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
         driver.wait(until.elementLocated(By.xpath('//span[@id = "spProjectNum" and . = "3"]')), timeout);
 
         driver.isElementPresent(By.xpath('//span[. = "Gantt Chart"]')).then(function (found) {
@@ -206,9 +173,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Dashboard.aspx', function () {
         driver.get(base + '/Dashboard.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Dashboard');
-        });
+        driver.wait(until.titleIs('Roadmap > Dashboard'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
@@ -227,21 +192,13 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/WorkItems.aspx', function () {
         driver.get(base + '/WorkItems.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Work Items');
-        });
+        driver.wait(until.titleIs('Roadmap > Work Items'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//span[. = "Showing 1-30 from 30 Items"]'));
-        }, timeout);
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "= No")]'));
-        }, timeout);
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-30 from 30 Items"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "filterItemName" and contains(., "= No")]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "filterItemName" and contains(., "≠ Closed")]')), timeout);
         driver.isElementPresent(By.xpath('//span[. = "Default View"]')).then(function (found) {
             assert(found);
         });
@@ -249,9 +206,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Resources.aspx', function () {
         driver.get(base + '/Resources.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Resources');
-        });
+        driver.wait(until.titleIs('Roadmap > Resources'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
@@ -277,9 +232,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Roles.aspx', function () {
         driver.get(base + '/Roles.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Resources > Project Roles');
-        });
+        driver.wait(until.titleIs('Roadmap > Resources > Project Roles'), timeout);
         driver.isElementPresent(By.xpath('//table[@id = "tblRoles"]//div[. = "Analyst"]')).then(function (found) {
             assert(found);
         });
@@ -299,9 +252,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/UserGroups.aspx', function () {
         driver.get(base + '/UserGroups.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Resources > User Access Groups');
-        });
+        driver.wait(until.titleIs('Roadmap > Resources > User Access Groups'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element));
         });
@@ -321,9 +272,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/BulkDeleteResources.aspx', function () {
         driver.get(base + '/BulkDeleteResources.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Bulk Delete Resources');
-        });
+        driver.wait(until.titleIs('Roadmap > Bulk Delete Resources'), timeout);
         driver.isElementPresent(By.xpath('//table[@id = "tblResources"]//label[contains(., "Charlie Sample")]')).then(function (found) {
             assert(found);
         });
@@ -337,9 +286,7 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Time.aspx', function () {
         driver.get(base + '/Time.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Time');
-        });
+        driver.wait(until.titleIs('Roadmap > Time'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
@@ -353,15 +300,11 @@ test.describe('Opening Main Tabs', function () {
 
     test.it('/Reports.aspx', function () {
         driver.get(base + '/Reports.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Reports');
-        });
+        driver.wait(until.titleIs('Roadmap > Reports'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//img[@id = "ctl00_ContentPlaceHolder1_ctrStatusReport_ctrChart_Image"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//img[@id = "ctl00_ContentPlaceHolder1_ctrStatusReport_ctrChart_Image"]')), timeout);
         driver.isElementPresent(By.xpath('//span[. = "Portfolio Health"]')).then(function (found) {
             assert(found);
         });
