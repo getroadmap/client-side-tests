@@ -24,7 +24,7 @@ test.describe('Opening Main Tabs', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/AccountPreferences.aspx');
+        driver.get(base + '/GettingStarted.aspx');
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
@@ -55,15 +55,13 @@ test.describe('Opening Main Tabs', function () {
                 driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
             } else {
                 driver.getTitle().then(function (title) {
-                    assert.equal(title, 'Roadmap > Settings > Account Preferences');
+                    assert.equal(title, 'Roadmap > Getting Started');
                 });
             }
         });
     });
 
     test.it('/GettingStarted.aspx', function () {
-        driver.get(base + '/GettingStarted.aspx');
-        driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
         driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]')), timeout);
         driver.findElements(By.xpath('//button[@class = "ui-datepicker-trigger"]')).then(function (elements) {
             assert.equal(elements.length, 10);

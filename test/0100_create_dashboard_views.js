@@ -126,6 +126,15 @@ test.describe('Create Dashboard Views', function () {
     });
 
     test.it('Should be possible to access the created views with no login', function () {
+        driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
+        driver.wait(until.elementLocated(By.xpath('//ul[@id = "kendoListViews_listbox" and @aria-hidden = "false"]')), timeout);
+        driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[. = "Sample View Title"]')).click();
+        driver.wait(function () {
+            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function (elements) {
+                return elements.length === 10;
+            });
+        }, timeout);
+
         driver.findElement(By.xpath('//ul[@id = "nav"]//span[@id = "user-name"]')).click();
         driver.findElement(By.xpath('//ul[@id = "nav"]//div[@class = "drop"]//a[. = "Sign Out"]')).click();
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
