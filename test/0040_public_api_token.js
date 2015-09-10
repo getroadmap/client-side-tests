@@ -60,7 +60,7 @@ test.describe('Public API', function () {
         driver.wait(function () {
             return driver.findElement(By.xpath('//input[@id = "publicApiToken"]')).then(function (element) {
                 return element.getAttribute('value').then(function (value) {
-                    return value.match(/^[0-9A-F]{64}$/);
+                    return value.match(/^[0-9a-f]{64}$/i);
                 });
             });
         }, timeout);
