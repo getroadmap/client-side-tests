@@ -1,6 +1,7 @@
 {
 	"selenium": {
-		"timeout": 30000
+		"timeout": 30000,
+		"pause": 5000
 	},
 	"roadmap": {
 		"base": "http://testing.entry.point.com",

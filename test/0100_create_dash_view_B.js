@@ -8,11 +8,12 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Create Dashboard View B', function () {
     'use strict';
-    var driver, base, user, timeout, title, subtitle;
+    var driver, base, user, timeout, pause;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
+        pause = config.selenium.pause;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
@@ -29,13 +30,7 @@ test.describe('Create Dashboard View B', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
         driver.wait(until.titleIs('Roadmap > Dashboard'), timeout);
-        driver.wait(function () {
-            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function (holders) {
-                return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]//div[contains(@class, "content")]')).then(function (widgets) {
-                    return holders.length === widgets.length;
-                });
-            });
-        }, timeout);
+        driver.sleep(pause);
     });
 
     test.it('Should be possible to create a new view', function () {
@@ -46,8 +41,8 @@ test.describe('Create Dashboard View B', function () {
         });
         driver.wait(until.elementLocated(By.xpath('//h1[@class = "viewSettingsTitle" and . = "New View"]')), timeout);
 
-        title = 'View B';
-        driver.findElement(By.xpath('//input[@id = "title"]')).sendKeys(title);
+        driver.findElement(By.xpath('//input[@id = "title"]')).sendKeys('Title B');
+        driver.findElement(By.xpath('//input[@id = "subtitle"]')).sendKeys('Subtitle B');
         driver.findElement(By.xpath('//input[@id = "isShareViewAll"]')).then(function (element) {
             element.isSelected().then(function (selected) {
                 assert(!selected);
@@ -56,20 +51,12 @@ test.describe('Create Dashboard View B', function () {
         });
         driver.findElement(By.xpath('//input[@id = "shareUrl"]')).then(function (element) {
             element.getAttribute('value').then(function (value) {
-                subtitle = value.match(/\/([0-9a-f]{16})$/i);
-                assert(subtitle);
-                driver.findElement(By.xpath('//input[@id = "subtitle"]')).sendKeys(subtitle[1]);
+                assert(value.match(/\/[0-9a-f]{16}$/i));
             });
         });
         driver.findElement(By.xpath('//input[@id = "createView"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "' + title + '"]')), timeout);
-        driver.wait(function () {
-            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function (holders) {
-                return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]//div[contains(@class, "content")]')).then(function (widgets) {
-                    return holders.length === widgets.length;
-                });
-            });
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "Title B"]')), timeout);
+        driver.sleep(pause);
     });
 
     test.it('Should be possible to add Project Status Widget', function () {

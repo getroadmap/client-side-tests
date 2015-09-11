@@ -6,13 +6,14 @@ var webdriver = require('selenium-webdriver'),
     assert = require('assert'),
     config = require('../config');
 
-test.describe('Create Dashboard Views', function () {
+test.describe('Check Dashboard Views', function () {
     'use strict';
-    var driver, base, user, timeout, views;
+    var driver, base, user, timeout, pause, views, view;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
+        pause = config.selenium.pause;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
@@ -30,44 +31,39 @@ test.describe('Create Dashboard Views', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
         driver.wait(until.titleIs('Roadmap > Dashboard'), timeout);
-        driver.wait(function () {
-            return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function (holders) {
-                return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]//div[contains(@class, "content")]')).then(function (widgets) {
-                    return holders.length === widgets.length;
-                });
-            });
-        }, timeout);
+        driver.sleep(pause);
     });
 
     test.it('Collecting Shared URL\'s', function () {
-        driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
-        driver.findElements(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[contains(., "View A")]/../span[2]')).then(function (elements) {
+        driver.findElements(By.xpath('//ul[@id = "kendoListViews_listbox"]/li')).then(function (elements) {
             elements.forEach(function (element) {
-                element.getText().then(function (text) {
-                    views.push({
-                        title: 'View A',
-                        code: text
-                    });
-                });
-            });
-        });
-        driver.findElements(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[contains(., "View B")]/../span[2]')).then(function (elements) {
-            elements.forEach(function (element) {
-                element.getText().then(function (text) {
-                    views.push({
-                        title: 'View B',
-                        code: text
-                    });
-                });
-            });
-        });
-        driver.findElements(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[contains(., "View C")]/../span[2]')).then(function (elements) {
-            elements.forEach(function (element) {
-                element.getText().then(function (text) {
-                    views.push({
-                        title: 'View C',
-                        code: text
-                    });
+                element.isElementPresent(By.xpath('./span[. = "Create View"]')).then(function (found) {
+                    if (!found) {
+                        driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
+                        driver.wait(until.elementIsVisible(element), timeout);
+                        element.click();
+                        driver.sleep(pause);
+                        driver.executeScript('showPagePreferences()');
+                        driver.wait(until.elementLocated(By.xpath('//div[@id = "createViewForm"]/h1[. = "Update View"]')), timeout);
+                        driver.findElement(By.xpath('//input[@id = "title"]')).then(function (element) {
+                            element.getAttribute('value').then(function (value) {
+                                view = {};
+                                view.title = value;
+                            });
+                        });
+                        driver.findElement(By.xpath('//input[@id = "subtitle"]')).then(function (element) {
+                            element.getAttribute('value').then(function (value) {
+                                view.subtitle = value;
+                            });
+                        });
+                        driver.findElement(By.xpath('//input[@id = "shareUrl"]')).then(function (element) {
+                            element.getAttribute('value').then(function (value) {
+                                view.shareUrl = value;
+                                views.push(view);
+                            });
+                        });
+                        driver.findElement(By.xpath('//a[@id = "cancelUpdateView"]')).click();
+                    }
                 });
             });
         });
@@ -78,15 +74,11 @@ test.describe('Create Dashboard Views', function () {
         driver.findElement(By.xpath('//ul[@id = "nav"]//div[@class = "drop"]//a[. = "Sign Out"]')).click();
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
         views.forEach(function (view) {
-            driver.get(base + '/' + view.code);
-            driver.wait(until.titleIs(config.roadmap.company + ' > ' + view.title + ' > ' + view.code), timeout);
-            driver.wait(function () {
-                return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]')).then(function (holders) {
-                    return driver.findElements(By.xpath('//li[@class = "widgetHolder" and contains(@style, "display")]//div[contains(@class, "content")]')).then(function (widgets) {
-                        return holders.length === widgets.length;
-                    });
-                });
-            }, timeout);
+            driver.get(view.shareUrl);
+            driver.sleep(pause);
+            driver.getTitle().then(function (title) {
+                assert.equal(title, config.roadmap.company + ' > ' + view.title + ' > ' + view.subtitle);
+            });
         });
     });
 
