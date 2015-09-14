@@ -8,11 +8,12 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Opening Individual Project', function () {
     'use strict';
-    var driver, base, user, timeout;
+    var driver, base, user, timeout, pause;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
+        pause = config.selenium.pause;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
@@ -46,9 +47,8 @@ test.describe('Opening Individual Project', function () {
         });
 
         driver.findElement(By.xpath('//a[@id = "pSettings"]')).click();
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "1"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "1"]')), timeout);
+
         driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Project"]')).then(function (element) {
             driver.wait(until.elementIsVisible(element), timeout);
         });
@@ -63,9 +63,8 @@ test.describe('Opening Individual Project', function () {
         driver.findElement(By.xpath('//div[@id = "pSettingsPanel"]//span[@class = "tabTitle" and . = "Resources"]')).click();
 
         driver.findElement(By.xpath('//a[@id = "pSettings"]')).click();
-        driver.wait(function () {
-            return driver.isElementPresent(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "0"]'));
-        }, timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@id = "pSettingsPanel" and @expanded = "0"]')), timeout);
+        driver.sleep(pause);
     });
 
     test.it('/IndProject.aspx|WorkItems', function () {

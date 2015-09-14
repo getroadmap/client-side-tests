@@ -33,9 +33,7 @@ test.describe('Public API', function () {
 
     test.it('Should be possible to enable user\'s API', function () {
         driver.get(base + '/ThirdPartyConnections.aspx');
-        driver.getTitle().then(function (title) {
-            assert.equal(title, 'Roadmap > Settings > Third Party Conections');
-        });
+        driver.wait(until.titleIs('Roadmap > Settings > Third Party Conections'), timeout);
 
         driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')).then(function (found) {
             if (found) {

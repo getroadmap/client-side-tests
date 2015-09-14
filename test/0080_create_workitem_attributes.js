@@ -40,7 +40,7 @@ test.describe('Create Work Item Attributes', function () {
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtProjAttrName"]')).sendKeys(attrName);
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//textarea[@id = "txtDescription"]')).sendKeys('Description for ' + attrName);
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "rbSelect"]')).click();
-        for (i = 1; i < 21; i += 1) {
+        for (i = 1; i < 4; i += 1) {
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtSelectionValue"]')).sendKeys('Single ' + (i < 10 ? '0' + i : i));
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "divBtnAdd"]')).click();
         }
@@ -56,7 +56,7 @@ test.describe('Create Work Item Attributes', function () {
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtProjAttrName"]')).sendKeys(attrName);
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//textarea[@id = "txtDescription"]')).sendKeys('Description for ' + attrName);
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "rbSelect"]')).click();
-        for (i = 1; i < 21; i += 1) {
+        for (i = 1; i < 4; i += 1) {
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtSelectionValue"]')).sendKeys('Multi ' + (i < 10 ? '0' + i : i));
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "divBtnAdd"]')).click();
         }
