@@ -4,16 +4,23 @@
 		"pause": 5000
 	},
 	"roadmap": {
-		"base": "http://testing.entry.point.com",
+		"base": "https://app.entry.pnt",
+		"api_1_2": "https://api.entry.pnt/v1.2",
 		"company": "Test Company",
-		"owner": "ao@test.ph",
-		"admin": "adm@test.ph",
-		"rw_all": "rwa@test.ph",
-		"ro_all": "roa@test.ph",
-		"ind_contr": "cntr@test.ph",
-		"uag_simple": "uagsi@test.ph",
-		"uag_create": "uagcr@test.ph",
-		"uag_see_all": "uagsa@test.ph",
-		"system_admin": "sysadmin@some.email"
+		"owner": "ao@test.com",
+		"admin": "adm@test.com",
+		"rw_all": "rwa@test.com",
+		"ro_all": "roa@test.com",
+		"ind_contr": "cntr@test.com",
+		"uag_simple": "uagsi@test.com",
+		"uag_create": "uagcr@test.com",
+		"uag_see_all": "uagsa@test.com",
+		"system_admin": "sysadmin@email.com"
+	},
+	"basecamp": {
+		"bcc_address": "bccsite",
+		"bcc_token": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx",
+		"bcx_name": "bcx@name.com",
+		"bcx_password": "bcxpassword"
 	}
 }
