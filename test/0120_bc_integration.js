@@ -36,7 +36,7 @@ test.describe('BCC/X Integration', function () {
         driver.findElement(By.xpath('//a[@id = "ctl00_ContentPlaceHolder1_ctrBCAccountInfo_lnkIntegrateBCNext"]')).click();
         driver.wait(function () {
             return driver.getTitle().then(function (title) {
-                return title.match(/Basecamp Login/i) || title.match(/Authorize RoadMap/i);
+                return title.match(/Basecamp Login|Authorize RoadMap/i);
             });
         }, timeout).then(function (title) {
             if (title[0].match(/Basecamp Login/i)) {
