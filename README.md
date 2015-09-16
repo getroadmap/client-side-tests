@@ -11,11 +11,15 @@ You will need the following things properly installed on your computer.
 ## Installation
 ### Windows
 * `npm install mocha -g`
-* `npm install selenium-webdriver --msvs_version=2012` - this depends on the actual VS version
+* `npm install selenium-webdriver --msvs_version=2012` - this depends on the actual MS Visual Studio version
+* `npm install request` - this is required for testing public API
+* `npm install jsonschema` - this is required for validating JSON messages when testing public API
 
 ### Linux
 * `npm install mocha -g`
 * `npm install selenium-webdriver`
+* `npm install request`
+* `npm install jsonschema`
 
 ### Mac
 * see Linux
