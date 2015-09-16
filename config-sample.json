@@ -5,7 +5,7 @@
 	},
 	"roadmap": {
 		"base": "https://app.entry.pnt",
-		"api_1_2": "https://api.entry.pnt/v1.2",
+		"api": "https://api.entry.pnt",
 		"company": "Test Company",
 		"owner": "ao@test.com",
 		"admin": "adm@test.com",

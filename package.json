@@ -11,6 +11,8 @@
     "test": "test"
   },
   "dependencies": {
+    "jsonschema": "^1.0.2",
+    "request": "^2.62.0",
     "selenium-webdriver": "^2.46.1"
   },
   "devDependencies": {},
