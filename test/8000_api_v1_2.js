@@ -6,11 +6,12 @@ var webdriver = require('selenium-webdriver'),
     request = require('request'),
     validate = require('jsonschema').validate,
     assert = require('assert'),
-    config = require('../config');
+    config = require('../config'),
+    schema = require('../schema_v1_2');
 
 test.describe('Testing API v1.2', function () {
     'use strict';
-    var driver, base, user, timeout, api, options, schema, result, uniqueID,
+    var driver, base, user, timeout, api, options, result, uniqueID,
         roleID, resourceID;
 
     test.before(function () {
@@ -49,6 +50,20 @@ test.describe('Testing API v1.2', function () {
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
     });
 
+    test.it('Checking API Help public pages', function () {
+        driver.get(api + '/Help');
+        driver.wait(until.titleIs('Roadmap API Documentation (Method-Level)'), timeout);
+        driver.isElementPresent(By.xpath('//p[. = "Select API version"]')).then(function (found) {
+            assert(found);
+        });
+        driver.get(api + '/Help/Ver?ver=Ver1_0');
+        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_0"]')), timeout);
+        driver.get(api + '/Help/Ver?ver=Ver1_1');
+        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_1"]')), timeout);
+        driver.get(api + '/Help/Ver?ver=Ver1_2');
+        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_2"]')), timeout);
+    });
+
     test.it('POST v1.2/role/add', function (done) {
         options.url = api + '/v1.2/role/add';
         options.body = 'API_Role_' + uniqueID;
@@ -56,16 +71,7 @@ test.describe('Testing API v1.2', function () {
             if (error) {
                 console.log(error);
             } else {
-                schema = {
-                    type: 'object',
-                    required: ['ID', 'Name'],
-                    additionalProperties: false,
-                    properties: {
-                        ID: {type: 'integer'},
-                        Name: {type: 'string'}
-                    }
-                };
-                result = validate(body, schema);
+                result = validate(body, schema['POST v1.2/role/add']);
                 if (result.errors.length !== 0) {
                     console.log(result);
                 }
@@ -88,30 +94,7 @@ test.describe('Testing API v1.2', function () {
             if (error) {
                 console.log(error);
             } else {
-                schema = {
-                    type: 'object',
-                    required: ['ID', 'CustomCode', 'ResourceCode', 'FirstName', 'LastName', 'CompanyName', 'PrimaryRole', 'Email'],
-                    additionalProperties: false,
-                    properties: {
-                        ID: {type: 'integer'},
-                        CustomCode: {type: 'string'},
-                        ResourceCode: {type: 'string'},
-                        FirstName: {type: 'string'},
-                        LastName: {type: 'string'},
-                        CompanyName: {type: 'string'},
-                        PrimaryRole: {
-                            type: 'object',
-                            required: ['ID', 'Name'],
-                            additionalProperties: false,
-                            properties: {
-                                ID: {type: 'integer'},
-                                Name: {type: 'string'}
-                            }
-                        },
-                        Email: {type: ['string', 'null']}
-                    }
-                };
-                result = validate(body, schema);
+                result = validate(body, schema['POST v1.2/resource/add']);
                 if (result.errors.length !== 0) {
                     console.log(result);
                 }
@@ -128,31 +111,7 @@ test.describe('Testing API v1.2', function () {
             if (error) {
                 console.log(error);
             } else {
-                schema = {
-                    type: 'object',
-                    required: ['Account', 'ID', 'CustomCode', 'ResourceCode', 'FirstName', 'LastName', 'CompanyName', 'PrimaryRole', 'Email'],
-                    additionalProperties: false,
-                    properties: {
-                        Account: {type: 'object'},
-                        ID: {type: 'integer'},
-                        CustomCode: {type: ['string', 'null']},
-                        ResourceCode: {type: 'string'},
-                        FirstName: {type: 'string'},
-                        LastName: {type: 'string'},
-                        CompanyName: {type: 'string'},
-                        PrimaryRole: {
-                            type: ['object', 'null'],
-                            required: ['ID', 'Name'],
-                            additionalProperties: false,
-                            properties: {
-                                ID: {type: 'integer'},
-                                Name: {type: 'string'}
-                            }
-                        },
-                        Email: {type: 'string'}
-                    }
-                };
-                result = validate(body, schema);
+                result = validate(body, schema['GET v1.2/resource/me']);
                 if (result.errors.length !== 0) {
                     console.log(result);
                 }

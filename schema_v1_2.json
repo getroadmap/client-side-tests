@@ -1,0 +1,58 @@
+{
+	"POST v1.2/role/add": {
+		"type": "object",
+		"required": ["ID", "Name"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"Name": {"type": "string"}
+		}
+	},
+	"POST v1.2/resource/add": {
+		"type": "object",
+		"required": ["ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRole", "Email"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"CustomCode": {"type": "string"},
+			"ResourceCode": {"type": "string"},
+			"FirstName": {"type": "string"},
+			"LastName": {"type": "string"},
+			"CompanyName": {"type": "string"},
+			"PrimaryRole": {
+				"type": "object",
+				"required": ["ID", "Name"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"}
+				}
+			},
+			"Email": {"type": ["string", "null"]}
+		}
+	},
+	"GET v1.2/resource/me": {
+		"type": "object",
+		"required": ["Account", "ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRole", "Email"],
+		"additionalProperties": false,
+		"properties": {
+			"Account": {"type": "object"},
+			"ID": {"type": "integer"},
+			"CustomCode": {"type": ["string", "null"]},
+			"ResourceCode": {"type": "string"},
+			"FirstName": {"type": "string"},
+			"LastName": {"type": "string"},
+			"CompanyName": {"type": "string"},
+			"PrimaryRole": {
+				"type": ["object", "null"],
+				"required": ["ID", "Name"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"}
+				}
+			},
+			"Email": {"type": "string"}
+		}
+	}
+}
