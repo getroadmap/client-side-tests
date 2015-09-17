@@ -11,7 +11,7 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Testing API v1.2', function () {
     'use strict';
-    var driver, base, user, timeout, api, options, result, uniqueID,
+    var driver, base, user, timeout, api, options, uniqueID, checkResponse,
         roleID, resourceID;
 
     test.before(function () {
@@ -22,12 +22,27 @@ test.describe('Testing API v1.2', function () {
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().maximize();
+
         uniqueID = Math.floor(new Date().getTime() / 1000) - 1439560400;
+
         options = {
             auth: {
                 sendImmediately: false
             },
             json: true
+        };
+
+        checkResponse = function (error, response, body, schema) {
+            var result;
+            if (error) {
+                console.log(error);
+            } else {
+                result = validate(body, schema);
+                if (result.errors.length !== 0) {
+                    console.log(result);
+                }
+            }
+            assert(!error && response.statusCode === 200 && result.errors.length === 0);
         };
     });
 
@@ -68,16 +83,8 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/role/add';
         options.body = 'API_Role_' + uniqueID;
         request.post(options, function (error, response, body) {
-            if (error) {
-                console.log(error);
-            } else {
-                result = validate(body, schema['POST v1.2/role/add']);
-                if (result.errors.length !== 0) {
-                    console.log(result);
-                }
-                roleID = body.ID;
-            }
-            assert(!error && response.statusCode === 200 && result.errors.length === 0);
+            checkResponse(error, response, body, schema['POST v1.2/role/add']);
+            roleID = body.ID;
             done();
         });
     });
@@ -91,16 +98,8 @@ test.describe('Testing API v1.2', function () {
             CustomCode: 'CustomCode_' + uniqueID
         };
         request.post(options, function (error, response, body) {
-            if (error) {
-                console.log(error);
-            } else {
-                result = validate(body, schema['POST v1.2/resource/add']);
-                if (result.errors.length !== 0) {
-                    console.log(result);
-                }
-                resourceID = body.ID;
-            }
-            assert(!error && response.statusCode === 200 && result.errors.length === 0);
+            checkResponse(error, response, body, schema['POST v1.2/resource/add']);
+            resourceID = body.ID;
             done();
         });
     });
@@ -108,15 +107,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource/me', function (done) {
         options.url = api + '/v1.2/resource/me';
         request.get(options, function (error, response, body) {
-            if (error) {
-                console.log(error);
-            } else {
-                result = validate(body, schema['GET v1.2/resource/me']);
-                if (result.errors.length !== 0) {
-                    console.log(result);
-                }
-            }
-            assert(!error && response.statusCode === 200 && result.errors.length === 0);
+            checkResponse(error, response, body, schema['GET v1.2/resource/me']);
             done();
         });
     });
