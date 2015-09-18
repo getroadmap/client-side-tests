@@ -73,8 +73,8 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/role/add';
         options.body = 'API_Role_' + uniqueID;
         request.post(options, function (error, response, body) {
-            roleID = body.ID;
             validateResponse(error, response, body, schema['POST v1.2/role/add']);
+            roleID = body.ID;
             done();
         });
     });
@@ -88,8 +88,8 @@ test.describe('Testing API v1.2', function () {
             CustomCode: 'ResourceCustomCode_' + uniqueID
         };
         request.post(options, function (error, response, body) {
-            resourceID = body.ID;
             validateResponse(error, response, body, schema['POST v1.2/resource/add']);
+            resourceID = body.ID;
             done();
         });
     });
@@ -127,8 +127,8 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/health', function (done) {
         options.url = api + '/v1.2/health';
         request.get(options, function (error, response, body) {
-            healthID = body[body.length - 2].ID;
             validateResponse(error, response, body, schema['GET v1.2/health']);
+            healthID = body[body.length - 2].ID;
             done();
         });
     });
@@ -143,8 +143,8 @@ test.describe('Testing API v1.2', function () {
             HealthID: healthID
         };
         request.post(options, function (error, response, body) {
-            projectID = body.ID;
             validateResponse(error, response, body, schema['POST v1.2/project/add']);
+            projectID = body.ID;
             done();
         });
     });
@@ -158,8 +158,8 @@ test.describe('Testing API v1.2', function () {
             EndTime: '00:00:00'
         };
         request.post(options, function (error, response, body) {
-            milestoneID = body.ID;
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/milestone/add']);
+            milestoneID = body.ID;
             done();
         });
     });
