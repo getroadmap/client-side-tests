@@ -1,11 +1,12 @@
 {
 	"POST v1.2/role/add": {
 		"type": "object",
-		"required": ["ID", "Name"],
+		"required": ["ID", "Name", "IsArchived"],
 		"additionalProperties": false,
 		"properties": {
 			"ID": {"type": "integer"},
-			"Name": {"type": "string"}
+			"Name": {"type": "string"},
+			"IsArchived": {"type": "boolean"}
 		}
 	},
 	"POST v1.2/resource/add": {
@@ -21,14 +22,15 @@
 			"CompanyName": {"type": "string"},
 			"PrimaryRole": {
 				"type": "object",
-				"required": ["ID", "Name"],
+				"required": ["ID", "Name", "IsArchived"],
 				"additionalProperties": false,
 				"properties": {
 					"ID": {"type": "integer"},
-					"Name": {"type": "string"}
+					"Name": {"type": "string"},
+					"IsArchived": {"type": "boolean"}
 				}
 			},
-			"Email": {"type": ["string", "null"]}
+			"Email": {"type": "null"}
 		}
 	},
 	"GET v1.2/resource/me": {
@@ -45,14 +47,121 @@
 			"CompanyName": {"type": "string"},
 			"PrimaryRole": {
 				"type": ["object", "null"],
-				"required": ["ID", "Name"],
+				"required": ["ID", "Name", "IsArchived"],
 				"additionalProperties": false,
 				"properties": {
 					"ID": {"type": "integer"},
-					"Name": {"type": "string"}
+					"Name": {"type": "string"},
+					"IsArchived": {"type": "boolean"}
 				}
 			},
 			"Email": {"type": "string"}
+		}
+	},
+	"POST v1.2/resource/addCompany": {
+		"type": "object",
+		"required": ["ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRole", "Email"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"CustomCode": {"type": "string"},
+			"ResourceCode": {"type": "string"},
+			"FirstName": {"type": "string"},
+			"LastName": {"type": "string"},
+			"CompanyName": {"type": "string"},
+			"PrimaryRole": {
+				"type": "object",
+				"required": ["ID", "Name", "IsArchived"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"IsArchived": {"type": "boolean"}
+				}
+			},
+			"Email": {"type": "null"}
+		}
+	},
+	"POST v1.2/resource/addUser": {
+		"type": "object",
+		"required": ["ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRole", "Email"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"CustomCode": {"type": "string"},
+			"ResourceCode": {"type": "string"},
+			"FirstName": {"type": "string"},
+			"LastName": {"type": "string"},
+			"CompanyName": {"type": "string"},
+			"PrimaryRole": {
+				"type": "object",
+				"required": ["ID", "Name", "IsArchived"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"IsArchived": {"type": "boolean"}
+				}
+			},
+			"Email": {"type": "string"}
+		}
+	},
+	"GET v1.2/health": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "Name", "Status"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"Name": {"type": "string"},
+				"Status": {"type": "string"}
+			}
+		}
+	},
+	"POST v1.2/project/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "WorkItemType", "CustomCode", "Name", "StartDate", "DueDate", "Resources", "Health", "Attributes"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"WorkItemType": {"type": "string"},
+			"CustomCode": {"type": "string"},
+			"ProjectCode": {"type": "string"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string"},
+			"DueDate": {"type": "string"},
+			"Resources": {"type": "null"},
+			"Health": {
+				"type": "object",
+				"required": ["ID", "Name", "Status"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"Status": {"type": "string"}
+				}
+			},
+			"Attributes": {"type": "null"}
+		}
+	},
+	"POST v1.2/project/{projectId}/milestone/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "WorkItemType", "Name", "StartDate", "DueDate", "EndTime", "Completed", "CompletedDate", "Resources", "Attributes"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"WorkItemType": {"type": "string"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string"},
+			"DueDate": {"type": "string"},
+			"EndTime": {"type": "string"},
+			"Completed": {"type": "boolean"},
+			"CompletedDate": {"type": "null"},
+			"Resources": {"type": "null"},
+			"Attributes": {"type": "null"}
 		}
 	}
 }

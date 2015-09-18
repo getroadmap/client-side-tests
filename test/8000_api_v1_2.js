@@ -11,8 +11,9 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Testing API v1.2', function () {
     'use strict';
-    var driver, base, user, timeout, api, options, uniqueID, checkResponse,
-        roleID, resourceID;
+    var driver, base, user, timeout, api, options, uniqueID, validateResponse,
+        roleID, resourceID, healthID, projectID, milestoneID,
+        startDate, dueDate;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
@@ -32,7 +33,7 @@ test.describe('Testing API v1.2', function () {
             json: true
         };
 
-        checkResponse = function (error, response, body, schema) {
+        validateResponse = function (error, response, body, schema) {
             var result;
             if (error) {
                 console.log(error);
@@ -44,6 +45,9 @@ test.describe('Testing API v1.2', function () {
             }
             assert(!error && response.statusCode === 200 && result.errors.length === 0);
         };
+
+        startDate = '2015-09-01';
+        dueDate = '2016-09-01';
     });
 
     test.after(function () {
@@ -69,8 +73,8 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/role/add';
         options.body = 'API_Role_' + uniqueID;
         request.post(options, function (error, response, body) {
-            checkResponse(error, response, body, schema['POST v1.2/role/add']);
             roleID = body.ID;
+            validateResponse(error, response, body, schema['POST v1.2/role/add']);
             done();
         });
     });
@@ -81,11 +85,81 @@ test.describe('Testing API v1.2', function () {
             FirstName: 'API_Resource',
             LastName: uniqueID,
             PrimaryRoleID: roleID,
-            CustomCode: 'CustomCode_' + uniqueID
+            CustomCode: 'ResourceCustomCode_' + uniqueID
         };
         request.post(options, function (error, response, body) {
-            checkResponse(error, response, body, schema['POST v1.2/resource/add']);
             resourceID = body.ID;
+            validateResponse(error, response, body, schema['POST v1.2/resource/add']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/resource/addCompany', function (done) {
+        options.url = api + '/v1.2/resource/addCompany';
+        options.body = {
+            CompanyName: 'API_Company_' + uniqueID,
+            PrimaryRoleID: roleID,
+            CustomCode: 'CompanyCustomeCode_' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/resource/addCompany']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/resource/addUser', function (done) {
+        options.url = api + '/v1.2/resource/addUser';
+        options.body = {
+            FirstName: 'API_User',
+            LastName: uniqueID,
+            PrimaryRoleID: roleID,
+            CustomCode: 'UserCustomeCode_' + uniqueID,
+            Email: 'api_user_' + uniqueID + '@null.null',
+            Password: '1234567',
+            Privilege: 'ReadWriteAll'
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/resource/addUser']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/health', function (done) {
+        options.url = api + '/v1.2/health';
+        request.get(options, function (error, response, body) {
+            healthID = body[body.length - 2].ID;
+            validateResponse(error, response, body, schema['GET v1.2/health']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/add', function (done) {
+        options.url = api + '/v1.2/project/add';
+        options.body = {
+            Name: 'Test API Project ' + uniqueID,
+            CustomCode: 'ProjectCustomCode_' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            HealthID: healthID
+        };
+        request.post(options, function (error, response, body) {
+            projectID = body.ID;
+            validateResponse(error, response, body, schema['POST v1.2/project/add']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/milestone/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/milestone/add';
+        options.body = {
+            Name: 'Test API Milestone ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.post(options, function (error, response, body) {
+            milestoneID = body.ID;
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/milestone/add']);
             done();
         });
     });
@@ -93,7 +167,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource/me', function (done) {
         options.url = api + '/v1.2/resource/me';
         request.get(options, function (error, response, body) {
-            checkResponse(error, response, body, schema['GET v1.2/resource/me']);
+            validateResponse(error, response, body, schema['GET v1.2/resource/me']);
             done();
         });
     });
