@@ -65,20 +65,6 @@ test.describe('Testing API v1.2', function () {
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
     });
 
-    test.it('Checking API Help public pages', function () {
-        driver.get(api + '/Help');
-        driver.wait(until.titleIs('Roadmap API Documentation (Method-Level)'), timeout);
-        driver.isElementPresent(By.xpath('//p[. = "Select API version"]')).then(function (found) {
-            assert(found);
-        });
-        driver.get(api + '/Help/Ver?ver=Ver1_0');
-        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_0"]')), timeout);
-        driver.get(api + '/Help/Ver?ver=Ver1_1');
-        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_1"]')), timeout);
-        driver.get(api + '/Help/Ver?ver=Ver1_2');
-        driver.wait(until.elementLocated(By.xpath('//h2[@id = "ProjectV1_2"]')), timeout);
-    });
-
     test.it('POST v1.2/role/add', function (done) {
         options.url = api + '/v1.2/role/add';
         options.body = 'API_Role_' + uniqueID;
