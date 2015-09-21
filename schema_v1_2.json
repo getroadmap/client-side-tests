@@ -163,5 +163,47 @@
 			"Resources": {"type": "null"},
 			"Attributes": {"type": "null"}
 		}
+	},
+	"POST v1.2/project/{projectId}/event/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "Name", "StartDate", "DueDate", "EndTime"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string"},
+			"DueDate": {"type": "string"},
+			"EndTime": {"type": "string"}
+		}
+	},
+	"POST v1.2/project/{projectId}/todolist/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "MilestoneID", "Name"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"MilestoneID": {"type": "integer"},
+			"Name": {"type": "string"}
+		}
+	},
+	"POST v1.2/project/{projectId}/todolist/{todoListId}/item/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "TodoListID", "WorkItemType", "Name", "StartDate", "DueDate", "Completed", "CompletedDate", "Resources", "Attributes"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"TodoListID": {"type": "integer"},
+			"WorkItemType": {"type": "string"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string"},
+			"DueDate": {"type": "string"},
+			"Completed": {"type": "boolean"},
+			"CompletedDate": {"type": "null"},
+			"Resources": {"type": "null"},
+			"Attributes": {"type": "null"}
+		}
 	}
 }

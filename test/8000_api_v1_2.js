@@ -12,7 +12,7 @@ var webdriver = require('selenium-webdriver'),
 test.describe('Testing API v1.2', function () {
     'use strict';
     var driver, base, user, timeout, api, options, uniqueID, validateResponse,
-        roleID, resourceID, healthID, projectID, milestoneID,
+        roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID, todoItemID,
         startDate, dueDate;
 
     test.before(function () {
@@ -50,10 +50,6 @@ test.describe('Testing API v1.2', function () {
         dueDate = '2016-09-01';
     });
 
-    test.after(function () {
-        driver.quit();
-    });
-
     test.it('Retrieving API token', function () {
         driver.get(base + '/Account.aspx');
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
@@ -67,6 +63,7 @@ test.describe('Testing API v1.2', function () {
         });
         driver.get(base + '/Logout.aspx');
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
+        driver.quit();
     });
 
     test.it('POST v1.2/role/add', function (done) {
@@ -160,6 +157,48 @@ test.describe('Testing API v1.2', function () {
         request.post(options, function (error, response, body) {
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/milestone/add']);
             milestoneID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/event/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/event/add';
+        options.body = {
+            Name: 'Test API Event ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/event/add']);
+            eventID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/todolist/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/add';
+        options.body = {
+            MilestoneID: milestoneID,
+            Name: 'Test API To-Do List Name ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/todolist/add']);
+            todoListID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/todolist/{todoListId}/item/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/add';
+        options.body = {
+            Name: 'Test API To-Do Item Name ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/todolist/{todoListId}/item/add']);
+            todoItemID = body.ID;
             done();
         });
     });
