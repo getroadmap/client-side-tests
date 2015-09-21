@@ -12,7 +12,8 @@ var webdriver = require('selenium-webdriver'),
 test.describe('Testing API v1.2', function () {
     'use strict';
     var driver, base, user, timeout, api, options, uniqueID, validateResponse,
-        roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID, todoItemID, timeEntryID,
+        roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
+        todoItemID, timeEntryID, projectResID, milestoneResID, itemResID,
         startDate, dueDate;
 
     test.before(function () {
@@ -203,7 +204,7 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
-    test.it('POST v1.2/project/{projectId}/timeentry/add', function (done) {
+    test.it('POST v1.2/project/{projectId}/timeentry/add (Project)', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
         options.body = {
             ResourceID: resourceID,
@@ -215,6 +216,89 @@ test.describe('Testing API v1.2', function () {
         request.post(options, function (error, response, body) {
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/timeentry/add']);
             timeEntryID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/timeentry/add (Milestone)', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
+        options.body = {
+            MilestoneID: milestoneID,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Date: startDate,
+            Time: 6.6,
+            Description: 'Test API Milestone\'s time entry ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/timeentry/add']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/timeentry/add (TodoItem)', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
+        options.body = {
+            TodoItemID: todoItemID,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Date: startDate,
+            Time: 7.7,
+            Description: 'Test API TodoItem\'s time entry ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/timeentry/add']);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/resource/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 50,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/resource/add']);
+            projectResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/milestone/{milestoneId}/resource/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 60,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/resource/add']);
+            milestoneResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 70,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/resource/add']);
+            itemResID = body.ID;
             done();
         });
     });

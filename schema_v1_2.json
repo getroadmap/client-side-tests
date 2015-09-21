@@ -223,8 +223,8 @@
 					"ProjectCode": {"type": "string"}
 				}
 			},
-			"MilestoneID": {"type": "null"},
-			"TodoItemID": {"type": "null"},
+			"MilestoneID": {"type": ["integer", "null"]},
+			"TodoItemID": {"type": ["integer", "null"]},
 			"Resource": {
 				"type": "object",
 				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
@@ -250,6 +250,44 @@
 			"Time": {"type": "number"},
 			"Description": {"type": "string"},
 			"Rate": {"type": "number"}
+		}
+	},
+	"POST v1.2/project/{projectId}/resource/add": {
+		"type": "object",
+		"required": ["ID", "Resource", "Role", "Estimate"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"Resource": {
+				"type": "object",
+				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"CustomCode": {"type": "string"},
+					"ResourceCode": {"type": "string"}
+				}
+			},
+			"Role": {
+				"type": "object",
+				"required": ["ID", "Name"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"IsArchived": {"type": "boolean"}
+				}
+			},
+			"Estimate": {
+				"type": "object",
+				"required": ["Time", "Unit"],
+				"additionalProperties": false,
+				"properties": {
+					"Time": {"type": "number"},
+					"Unit": {"type": "string"}
+				}
+			}
 		}
 	}
 }
