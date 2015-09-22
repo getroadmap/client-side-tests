@@ -1,8 +1,5 @@
-/*jslint node: true */
-var webdriver = require('selenium-webdriver'),
-    By = require('selenium-webdriver').By,
-    until = require('selenium-webdriver').until,
-    test = require('selenium-webdriver/testing'),
+/*jslint unparam: true, node: true */
+var test = require('selenium-webdriver/testing'),
     request = require('request'),
     validate = require('jsonschema').validate,
     assert = require('assert'),
@@ -11,37 +8,26 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Testing API v1.2', function () {
     'use strict';
-    var driver, base, user, timeout, api, options, uniqueID, validateResponse,
+    var base, user, api, options, uniqueID, validateResponse,
         roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
         todoItemID, timeEntryID, projectResID, milestoneResID, itemResID,
         startDate, dueDate;
 
     test.before(function () {
-        driver = new webdriver.Builder().build();
-        timeout = config.selenium.timeout;
         base = config.roadmap.base;
         api = config.roadmap.api;
         user = config.roadmap.owner;
-        driver.manage().timeouts().pageLoadTimeout(timeout);
-        driver.manage().window().maximize();
 
         uniqueID = Math.floor(new Date().getTime() / 1000) - 1439560400;
-
-        options = {
-            auth: {
-                sendImmediately: false
-            },
-            json: true
-        };
 
         validateResponse = function (error, response, body, schema) {
             var result;
             if (error) {
-                console.log(error);
+                console.error(error);
             } else {
                 result = validate(body, schema);
                 if (result.errors.length !== 0) {
-                    console.log(result);
+                    console.error(result);
                 }
             }
             assert(!error && response.statusCode === 200 && result.errors.length === 0);
@@ -51,20 +37,44 @@ test.describe('Testing API v1.2', function () {
         dueDate = '2016-09-01';
     });
 
-    test.it('Retrieving API token', function () {
-        driver.get(base + '/Account.aspx');
-        driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
-        driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
-        driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
-        driver.findElement(By.xpath('//input[@id = "publicApiToken"]')).then(function (element) {
-            element.getAttribute('value').then(function (value) {
-                options.auth.user = value;
+    test.it('Retrieving API token', function (done) {
+        options = {
+            url: base + '/Account.aspx',
+            jar: true
+        };
+        request.get(options, function (error, response, body) {
+            if (error) {
+                console.error(error);
+            }
+            options.url = base + '/secure/Login.aspx';
+            options.form = {
+                '__VIEWSTATE': body.match(/id="__VIEWSTATE"[\w\W]+?value="([\w\W]+?)"/)[1],
+                'Login1$UserName': user,
+                'Login1$Password': '1234567',
+                'Login1$LoginButton': 'Sign+In'
+            };
+            request.post(options, function (error, response, body) {
+                if (error) {
+                    console.error(error);
+                }
+                options.url = base + '/api/user/GetCurrent';
+                options.json = true;
+                request.get(options, function (error, response, body) {
+                    if (error) {
+                        console.error(error);
+                    }
+                    options = {
+                        auth: {
+                            user: body.PublicApiToken,
+                            sendImmediately: false
+                        },
+                        jar: false,
+                        json: true
+                    };
+                    done();
+                });
             });
         });
-        driver.get(base + '/Logout.aspx');
-        driver.wait(until.titleIs('Roadmap > Login'), timeout);
-        driver.quit();
     });
 
     test.it('POST v1.2/role/add', function (done) {
@@ -310,5 +320,4 @@ test.describe('Testing API v1.2', function () {
             done();
         });
     });
-
 });
