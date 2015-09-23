@@ -39,14 +39,13 @@ test.describe('Testing API v1.2', function () {
 
     test.it('Retrieving API token', function (done) {
         options = {
-            url: base + '/Account.aspx',
+            url: base + '/secure/Login.aspx',
             jar: true
         };
         request.get(options, function (error, response, body) {
             if (error) {
                 console.error(error);
             }
-            options.url = base + '/secure/Login.aspx';
             options.form = {
                 '__VIEWSTATE': body.match(/id="__VIEWSTATE"[\w\W]+?value="([\w\W]+?)"/)[1],
                 'Login1$UserName': user,
