@@ -289,5 +289,28 @@
 				}
 			}
 		}
+	},
+	"POST v1.2/project/{projectId}/note/add": {
+		"type": "object",
+		"required": ["ID", "ProjectID", "DateAdded", "DateUpdated", "Text", "Resource"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"DateAdded": {"type": "string"},
+			"DateUpdated": {"type": "null"},
+			"Text": {"type": "string"},
+			"Resource": {
+				"type": "object",
+				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+				"additionalProperties": false,
+				"properties": {
+					"ID": {"type": "integer"},
+					"Name": {"type": "string"},
+					"CustomCode": {"type": "null"},
+					"ResourceCode": {"type": "string"}
+				}
+			}
+		}
 	}
 }
