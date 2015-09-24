@@ -338,5 +338,34 @@
 				}
 			}
 		}
+	},
+	"GET v1.2/attr": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "Type", "Name", "Description"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"Type": {"type": "string"},
+				"Name": {"type": "string"},
+				"Description": {"type": "string"},
+				"RangeLower": {"type": ["number", "null"]},
+				"RangeUpper": {"type": ["number", "null"]},
+				"AllowMultipleValues": {"type": "boolean"},
+				"Options": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"required": ["ID", "Value"],
+						"additionalProperties": false,
+						"properties": {
+							"ID": {"type": "integer"},
+							"Value": {"type": "string"}
+						}
+					}
+				}
+			}
+		}
 	}
 }

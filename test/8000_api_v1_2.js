@@ -11,6 +11,7 @@ test.describe('Testing API v1.2', function () {
     var base, user, api, options, uniqueID, validateResponse,
         roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
         todoItemID, timeEntryID, projectResID, milestoneResID, itemResID, noteID, roadblockID,
+        projectAttributes, resourceAttrubutes, workitemAttributes,
         startDate, dueDate;
 
     test.before(function () {
@@ -332,6 +333,41 @@ test.describe('Testing API v1.2', function () {
         request.post(options, function (error, response, body) {
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/roadblock/add']);
             roadblockID = body.ID;
+            done();
+        });
+    });
+
+    test.it('GET v1.2/attr', function (done) {
+        options.url = api + '/v1.2/attr';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/attr']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/attr/project', function (done) {
+        options.url = api + '/v1.2/attr/project';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/attr']);
+            projectAttributes = body;
+            done();
+        });
+    });
+
+    test.it('GET v1.2/attr/resource', function (done) {
+        options.url = api + '/v1.2/attr/resource';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/attr']);
+            resourceAttrubutes = body;
+            done();
+        });
+    });
+
+    test.it('GET v1.2/attr/work-item', function (done) {
+        options.url = api + '/v1.2/attr/work-item';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/attr']);
+            workitemAttributes = body;
             done();
         });
     });
