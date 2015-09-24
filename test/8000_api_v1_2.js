@@ -373,6 +373,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/attr/{attrId}', function (done) {
+        var counter = 0;
         projectAttributes.forEach(function (attribute, index) {
             options.url = api + '/v1.2/project/' + projectID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
@@ -404,11 +405,12 @@ test.describe('Testing API v1.2', function () {
                 options.body = null;
             }
             request.put(options, function (error, response, body) {
+                counter += 1;
                 if (error) {
                     console.error(error);
                 }
                 assert(!error && response.statusCode === 204);
-                if (index === projectAttributes.length - 1) {
+                if (counter === projectAttributes.length) {
                     done();
                 }
             });
@@ -416,6 +418,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/resource/{resourceId}/attr/{attrId}', function (done) {
+        var counter = 0;
         resourceAttributes.forEach(function (attribute, index) {
             options.url = api + '/v1.2/resource/' + resourceID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
@@ -447,11 +450,12 @@ test.describe('Testing API v1.2', function () {
                 options.body = null;
             }
             request.put(options, function (error, response, body) {
+                counter += 1;
                 if (error) {
                     console.error(error);
                 }
                 assert(!error && response.statusCode === 204);
-                if (index === resourceAttributes.length - 1) {
+                if (counter === resourceAttributes.length) {
                     done();
                 }
             });
@@ -459,6 +463,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/milestone/{milestoneId}/attr/{attrId}', function (done) {
+        var counter = 0;
         workitemAttributes.forEach(function (attribute, index) {
             options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
@@ -490,11 +495,12 @@ test.describe('Testing API v1.2', function () {
                 options.body = null;
             }
             request.put(options, function (error, response, body) {
+                counter += 1;
                 if (error) {
                     console.error(error);
                 }
                 assert(!error && response.statusCode === 204);
-                if (index === workitemAttributes.length - 1) {
+                if (counter === workitemAttributes.length) {
                     done();
                 }
             });
@@ -502,6 +508,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemID}/attr/{attrId}', function (done) {
+        var counter = 0;
         workitemAttributes.forEach(function (attribute, index) {
             options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
@@ -533,11 +540,12 @@ test.describe('Testing API v1.2', function () {
                 options.body = null;
             }
             request.put(options, function (error, response, body) {
+                counter += 1;
                 if (error) {
                     console.error(error);
                 }
                 assert(!error && response.statusCode === 204);
-                if (index === workitemAttributes.length - 1) {
+                if (counter === workitemAttributes.length) {
                     done();
                 }
             });
