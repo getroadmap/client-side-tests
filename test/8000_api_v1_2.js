@@ -11,7 +11,7 @@ test.describe('Testing API v1.2', function () {
     var base, user, api, options, uniqueID, validateResponse,
         roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
         todoItemID, timeEntryID, projectResID, milestoneResID, itemResID, noteID, roadblockID,
-        projectAttributes, resourceAttrubutes, workitemAttributes,
+        projectAttributes, resourceAttributes, workitemAttributes,
         startDate, dueDate;
 
     test.before(function () {
@@ -358,7 +358,7 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/attr/resource';
         request.get(options, function (error, response, body) {
             validateResponse(error, response, body, schema['GET v1.2/attr']);
-            resourceAttrubutes = body;
+            resourceAttributes = body;
             done();
         });
     });
@@ -369,6 +369,178 @@ test.describe('Testing API v1.2', function () {
             validateResponse(error, response, body, schema['GET v1.2/attr']);
             workitemAttributes = body;
             done();
+        });
+    });
+
+    test.it('PUT v1.2/project/{projectId}/attr/{attrId}', function (done) {
+        projectAttributes.forEach(function (attribute, index) {
+            options.url = api + '/v1.2/project/' + projectID + '/attr/' + attribute.ID;
+            switch (attribute.Type) {
+            case 'Listbox':
+                options.body = [attribute.Options[0].ID];
+                break;
+            case 'TextShort':
+                options.body = 'Project Short Text';
+                break;
+            case 'TextLong':
+                options.body = 'Project Long Text';
+                break;
+            case 'Number':
+                options.body = 5.5;
+                break;
+            case 'Percentage':
+                options.body = 6.6;
+                break;
+            case 'Currency':
+                options.body = 7.7;
+                break;
+            case 'Date':
+                options.body = startDate + 'T13:00:00.000Z';
+                break;
+            case 'Checkbox':
+                options.body = true;
+                break;
+            default:
+                options.body = null;
+            }
+            request.put(options, function (error, response, body) {
+                if (error) {
+                    console.error(error);
+                }
+                assert(!error && response.statusCode === 204);
+                if (index === projectAttributes.length - 1) {
+                    done();
+                }
+            });
+        });
+    });
+
+    test.it('PUT v1.2/resource/{resourceId}/attr/{attrId}', function (done) {
+        resourceAttributes.forEach(function (attribute, index) {
+            options.url = api + '/v1.2/resource/' + resourceID + '/attr/' + attribute.ID;
+            switch (attribute.Type) {
+            case 'Listbox':
+                options.body = [attribute.Options[0].ID];
+                break;
+            case 'TextShort':
+                options.body = 'Resource Short Text';
+                break;
+            case 'TextLong':
+                options.body = 'Resource Long Text';
+                break;
+            case 'Number':
+                options.body = 5.5;
+                break;
+            case 'Percentage':
+                options.body = 6.6;
+                break;
+            case 'Currency':
+                options.body = 7.7;
+                break;
+            case 'Date':
+                options.body = startDate + 'T13:00:00.000Z';
+                break;
+            case 'Checkbox':
+                options.body = true;
+                break;
+            default:
+                options.body = null;
+            }
+            request.put(options, function (error, response, body) {
+                if (error) {
+                    console.error(error);
+                }
+                assert(!error && response.statusCode === 204);
+                if (index === resourceAttributes.length - 1) {
+                    done();
+                }
+            });
+        });
+    });
+
+    test.it('PUT v1.2/project/{projectId}/milestone/{milestoneId}/attr/{attrId}', function (done) {
+        workitemAttributes.forEach(function (attribute, index) {
+            options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/attr/' + attribute.ID;
+            switch (attribute.Type) {
+            case 'Listbox':
+                options.body = [attribute.Options[0].ID];
+                break;
+            case 'TextShort':
+                options.body = 'Milestone Short Text';
+                break;
+            case 'TextLong':
+                options.body = 'Milestone Long Text';
+                break;
+            case 'Number':
+                options.body = 5.5;
+                break;
+            case 'Percentage':
+                options.body = 6.6;
+                break;
+            case 'Currency':
+                options.body = 7.7;
+                break;
+            case 'Date':
+                options.body = startDate + 'T13:00:00.000Z';
+                break;
+            case 'Checkbox':
+                options.body = true;
+                break;
+            default:
+                options.body = null;
+            }
+            request.put(options, function (error, response, body) {
+                if (error) {
+                    console.error(error);
+                }
+                assert(!error && response.statusCode === 204);
+                if (index === workitemAttributes.length - 1) {
+                    done();
+                }
+            });
+        });
+    });
+
+    test.it('PUT v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemID}/attr/{attrId}', function (done) {
+        workitemAttributes.forEach(function (attribute, index) {
+            options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr/' + attribute.ID;
+            switch (attribute.Type) {
+            case 'Listbox':
+                options.body = [attribute.Options[0].ID];
+                break;
+            case 'TextShort':
+                options.body = 'Item Short Text';
+                break;
+            case 'TextLong':
+                options.body = 'Item Long Text';
+                break;
+            case 'Number':
+                options.body = 5.5;
+                break;
+            case 'Percentage':
+                options.body = 6.6;
+                break;
+            case 'Currency':
+                options.body = 7.7;
+                break;
+            case 'Date':
+                options.body = startDate + 'T13:00:00.000Z';
+                break;
+            case 'Checkbox':
+                options.body = true;
+                break;
+            default:
+                options.body = null;
+            }
+            request.put(options, function (error, response, body) {
+                if (error) {
+                    console.error(error);
+                }
+                assert(!error && response.statusCode === 204);
+                if (index === workitemAttributes.length - 1) {
+                    done();
+                }
+            });
         });
     });
 
