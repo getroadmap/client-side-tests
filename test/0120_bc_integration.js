@@ -58,7 +58,7 @@ test.describe('BCC/X Integration', function () {
         driver.findElement(By.xpath('//select[@id = "ctl00_ContentPlaceHolder1_ctrBCAccountInfo_ddlAccounts"]/option[contains(., "Roadmap")]')).click();
     });
 
-    test.it('BCX Integration', function () {
+    test.it('BCC Integration', function () {
         driver.findElement(By.xpath('//input[@id = "txtSiteUrl"]')).then(function (element) {
             element.clear();
             element.sendKeys(config.basecamp.bcc_address);

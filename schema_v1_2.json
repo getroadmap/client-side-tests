@@ -367,5 +367,17 @@
 				}
 			}
 		}
+	},
+	"GET v1.2/project/{projectId}/attr": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["AttributeID", "Value"],
+			"additionalProperties": false,
+			"properties": {
+				"AttributeID": {"type": "integer"},
+				"Value": {"type": ["string", "number", "boolean", "array"]}
+			}
+		}
 	}
 }
