@@ -108,7 +108,7 @@
 			"Name": {"type": "string"},
 			"StartDate": {"type": "string"},
 			"DueDate": {"type": "string"},
-			"EndTime": {"type": "string"},
+			"EndTime": {"type": "string", "format": "time"},
 			"Completed": {"type": "boolean"},
 			"CompletedDate": {"type": "null"},
 			"Resources": {"type": "null"},
@@ -125,7 +125,7 @@
 			"Name": {"type": "string"},
 			"StartDate": {"type": "string"},
 			"DueDate": {"type": "string"},
-			"EndTime": {"type": "string"}
+			"EndTime": {"type": "string", "format": "time"}
 		}
 	},
 	"POST v1.2/project/{projectId}/todolist/add": {

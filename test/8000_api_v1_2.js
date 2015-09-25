@@ -34,8 +34,8 @@ test.describe('Testing API v1.2', function () {
             assert(!error && response.statusCode === 200 && result.errors.length === 0);
         };
 
-        startDate = '2015-09-01';
-        dueDate = '2016-09-01';
+        startDate = '2015-09-01T00:00:00-00:00';
+        dueDate = '2016-09-01T00:00:00-00:00';
     });
 
     test.it('Retrieving API token', function (done) {
@@ -396,7 +396,7 @@ test.describe('Testing API v1.2', function () {
                 options.body = 7.7;
                 break;
             case 'Date':
-                options.body = startDate + 'T13:00:00.000Z';
+                options.body = startDate;
                 break;
             case 'Checkbox':
                 options.body = true;
@@ -441,7 +441,7 @@ test.describe('Testing API v1.2', function () {
                 options.body = 7.7;
                 break;
             case 'Date':
-                options.body = startDate + 'T13:00:00.000Z';
+                options.body = startDate;
                 break;
             case 'Checkbox':
                 options.body = true;
@@ -486,7 +486,7 @@ test.describe('Testing API v1.2', function () {
                 options.body = 7.7;
                 break;
             case 'Date':
-                options.body = startDate + 'T13:00:00.000Z';
+                options.body = startDate;
                 break;
             case 'Checkbox':
                 options.body = true;
@@ -531,7 +531,7 @@ test.describe('Testing API v1.2', function () {
                 options.body = 7.7;
                 break;
             case 'Date':
-                options.body = startDate + 'T13:00:00.000Z';
+                options.body = startDate;
                 break;
             case 'Checkbox':
                 options.body = true;
