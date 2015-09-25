@@ -110,7 +110,7 @@ test.describe('Testing API v1.2', function () {
             CustomCode: 'CompanyCustomeCode_' + uniqueID
         };
         request.post(options, function (error, response, body) {
-            validateResponse(error, response, body, schema['POST v1.2/resource/addCompany']);
+            validateResponse(error, response, body, schema['POST v1.2/resource/add']);
             done();
         });
     });
@@ -584,6 +584,22 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/role', function (done) {
+        options.url = api + '/v1.2/role';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/role']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource', function (done) {
+        options.url = api + '/v1.2/resource';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource']);
+            done();
+        });
+    });
+
     test.it('GET v1.2/resource/me', function (done) {
         options.url = api + '/v1.2/resource/me';
         request.get(options, function (error, response, body) {
@@ -591,4 +607,21 @@ test.describe('Testing API v1.2', function () {
             done();
         });
     });
+
+    test.it('GET v1.2/resource/{resourceId}', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/resource/add']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/active-project', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/active-project';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/active-project']);
+            done();
+        });
+    });
+
 });
