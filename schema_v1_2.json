@@ -54,7 +54,7 @@
 					"IsArchived": {"type": "boolean"}
 				}
 			},
-			"Email": {"type": "string"}
+			"Email": {"type": "string", "format": "email"}
 		}
 	},
 	"GET v1.2/health": {
@@ -367,7 +367,7 @@
 						"IsArchived": {"type": "boolean"}
 					}
 				},
-				"Email": {"type": ["string", "null"]}
+				"Email": {"type": ["string", "null"], "format": "email"}
 			}
 		}
 	},
@@ -401,7 +401,7 @@
 					"IsArchived": {"type": "boolean"}
 				}
 			},
-			"Email": {"type": "string"}
+			"Email": {"type": "string", "format": "email"}
 		}
 	},
 	"GET v1.2/resource/{resourceId}/active-project": {
@@ -431,6 +431,28 @@
 						"Status": {"type": "string"}
 					}
 				}
+			}
+		}
+	},
+	"GET v1.2/resource/{resourceId}/work-item": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "ProjectID", "WorkItemType", "Name", "StartDate", "DueDate", "Resources", "Attributes"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"ProjectID": {"type": "integer"},
+				"WorkItemType": {"type": "string"},
+				"Name": {"type": "string"},
+				"StartDate": {"type": "string"},
+				"DueDate": {"type": "string"},
+				"EndTime": {"type": "string", "format": "time"},
+				"Completed": {"type": "boolean"},
+				"CompletedDate": {"type": ["string", "null"]},
+				"Resources": {"type": "null"},
+				"Attributes": {"type": "null"},
+				"TodoListID": {"type": "integer"}
 			}
 		}
 	}

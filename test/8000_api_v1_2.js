@@ -624,4 +624,76 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/resource/{resourceId}/work-item', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/project', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/project?projectID={projectID}', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project?projectID=' + projectID;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/milestone', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/milestone';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/todo', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/todo';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/project/completed', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project/completed';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/project/completed?projectID={projectID}', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project/completed?projectID=' + projectID;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/milestone/completed', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/milestone/completed';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/resource/{resourceId}/work-item/todo/completed', function (done) {
+        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/todo/completed';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
 });
