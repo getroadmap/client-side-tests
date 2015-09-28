@@ -519,31 +519,73 @@
 			}
 		}
 	},
-	"GET v1.2/project": {
+	"GET v1.2/project/{projectId}/resource-all": {
 		"type": "array",
 		"items": {
 			"type": "object",
-			"required": ["ID", "ProjectID", "CustomCode", "WorkItemType", "ProjectCode", "Name", "StartDate", "DueDate", "Resources", "Attributes", "Health"],
+			"required": ["ID", "WorkItemID", "WorkItemType", "Resource", "Role", "Estimate"],
 			"additionalProperties": false,
 			"properties": {
 				"ID": {"type": "integer"},
-				"ProjectID": {"type": "integer"},
-				"CustomCode": {"type": "string"},
+				"WorkItemID": {"type": "integer"},
 				"WorkItemType": {"type": "string"},
-				"ProjectCode": {"type": "string"},
-				"Name": {"type": "string"},
-				"StartDate": {"type": "string"},
-				"DueDate": {"type": "string"},
-				"Resources": {"type": "null"},
-				"Attributes": {"type": "null"},
-				"Health": {
+				"Resource": {
 					"type": "object",
-					"required": ["ID", "Name", "Status"],
+					"required": ["ID", "CustomCode", "ResourceCode", "Name"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"CustomCode": {"type": "string"},
+						"ResourceCode": {"type": "string"},
+						"Name": {"type": "string"}
+					}
+				},
+				"Role": {
+					"type": "object",
+					"required": ["ID", "Name", "IsArchived"],
 					"additionalProperties": false,
 					"properties": {
 						"ID": {"type": "integer"},
 						"Name": {"type": "string"},
-						"Status": {"type": "string"}
+						"IsArchived": {"type": "boolean"}
+					}
+				},
+				"Estimate": {
+					"type": "object",
+					"required": ["Time", "Unit"],
+					"additionalProperties": false,
+					"properties": {
+						"Time": {"type": "number"},
+						"Unit": {"type": "string"}
+					}
+				}
+			}
+		}
+	},
+	"GET v1.2/project/{projectId}/roadblock": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "ProjectID", "DateAdded", "DateUpdated", "Resolved", "DateResolved", "Subject", "Description", "Resource"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"ProjectID": {"type": "integer"},
+				"DateAdded": {"type": "string"},
+				"DateUpdated": {"type": "null"},
+				"Resolved": {"type": "boolean"},
+				"DateResolved": {"type": "null"},
+				"Subject": {"type": "string"},
+				"Description": {"type": "string"},
+				"Resource": {
+					"type": "object",
+					"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Name": {"type": "string"},
+						"CustomCode": {"type": "string"},
+						"ResourceCode": {"type": "string"}
 					}
 				}
 			}
