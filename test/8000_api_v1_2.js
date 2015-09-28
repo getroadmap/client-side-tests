@@ -696,4 +696,20 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/todolist/{todoListId}/item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource']);
+            done();
+        });
+    });
+
 });
