@@ -518,5 +518,35 @@
 				}
 			}
 		}
+	},
+	"GET v1.2/project": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "ProjectID", "CustomCode", "WorkItemType", "ProjectCode", "Name", "StartDate", "DueDate", "Resources", "Attributes", "Health"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"ProjectID": {"type": "integer"},
+				"CustomCode": {"type": "string"},
+				"WorkItemType": {"type": "string"},
+				"ProjectCode": {"type": "string"},
+				"Name": {"type": "string"},
+				"StartDate": {"type": "string"},
+				"DueDate": {"type": "string"},
+				"Resources": {"type": "null"},
+				"Attributes": {"type": "null"},
+				"Health": {
+					"type": "object",
+					"required": ["ID", "Name", "Status"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Name": {"type": "string"},
+						"Status": {"type": "string"}
+					}
+				}
+			}
+		}
 	}
 }

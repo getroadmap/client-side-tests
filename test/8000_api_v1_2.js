@@ -712,4 +712,12 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/project', function (done) {
+        options.url = api + '/v1.2/project';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project']);
+            done();
+        });
+    });
+
 });
