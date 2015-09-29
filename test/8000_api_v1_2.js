@@ -744,4 +744,20 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/project/{projectId}/milestone', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/milestone';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}/resource', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/resource';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource']);
+            done();
+        });
+    });
+
 });
