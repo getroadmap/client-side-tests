@@ -760,4 +760,28 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('GET v1.2/project/{projectId}/note', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/note';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/note']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/event', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/event';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/event']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/event/{eventId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/event/' + eventID;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/event/add']);
+            done();
+        });
+    });
+
 });
