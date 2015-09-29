@@ -632,5 +632,68 @@
 				"EndTime": {"type": "string", "format": "time"}
 			}
 		}
+	},
+	"GET v1.2/project/{projectId}/todolist": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "ProjectID", "MilestoneID", "Name"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"ProjectID": {"type": "integer"},
+				"MilestoneID": {"type": "integer"},
+				"Name": {"type": "string"}
+			}
+		}
+	},
+	"GET v1.2/project/{projectId}/timeentry/{start}/{end}": {
+		"type": "array",
+		"items": {
+			"type": "object",
+			"required": ["ID", "Project", "MilestoneID", "TodoItemID", "Resource", "Role", "Date", "Time", "Description", "Rate"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"Project": {
+					"type": "object",
+					"required": ["ID", "Name", "CustomCode", "ProjectCode"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Name": {"type": "string"},
+						"CustomCode": {"type": "string"},
+						"ProjectCode": {"type": "string"}
+					}
+				},
+				"MilestoneID": {"type": ["integer", "null"]},
+				"TodoItemID": {"type": ["integer", "null"]},
+				"Resource": {
+					"type": "object",
+					"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Name": {"type": "string"},
+						"CustomCode": {"type": "string"},
+						"ResourceCode": {"type": "string"}
+					}
+				},
+				"Role": {
+					"type": "object",
+					"required": ["ID", "Name", "IsArchived"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Name": {"type": "string"},
+						"IsArchived": {"type": "boolean"}
+					}
+				},
+				"Date": {"type": "string"},
+				"Time": {"type": "number"},
+				"Description": {"type": "string"},
+				"Rate": {"type": "number"}
+			}
+		}
 	}
 }

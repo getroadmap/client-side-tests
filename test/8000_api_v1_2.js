@@ -12,7 +12,7 @@ test.describe('Testing API v1.2', function () {
         roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
         todoItemID, timeEntryID, projectResID, milestoneResID, itemResID, noteID, roadblockID,
         projectAttributes, resourceAttributes, workitemAttributes,
-        startDate, dueDate;
+        startDate, dueDate, startRMDate, endRMDate;
 
     test.before(function () {
         base = config.roadmap.base;
@@ -34,8 +34,10 @@ test.describe('Testing API v1.2', function () {
             assert(!error && response.statusCode === 200 && result.errors.length === 0);
         };
 
-        startDate = '2015-09-01T00:00:00-00:00';
-        dueDate = '2016-09-01T00:00:00-00:00';
+        startDate = '2015-09-01';
+        dueDate = '2016-09-01';
+        startRMDate = '20150901';
+        endRMDate = '20150930';
     });
 
     test.it('Retrieving API token', function (done) {
@@ -780,6 +782,30 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/project/' + projectID + '/event/' + eventID;
         request.get(options, function (error, response, body) {
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/event/add']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/todolist', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/todolist']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/todolist/{todoListId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/todolist/add']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/timeentry/{start}/{end}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/timeentry/' + startRMDate + '/' + endRMDate;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/timeentry/{start}/{end}']);
             done();
         });
     });
