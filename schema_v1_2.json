@@ -83,7 +83,47 @@
 			"Name": {"type": "string"},
 			"StartDate": {"type": "string"},
 			"DueDate": {"type": "string"},
-			"Resources": {"type": "null"},
+			"Resources": {
+				"type": ["array", "null"],
+				"items": {
+					"type": "object",
+					"required": ["ID", "Resource", "Role", "Estimate"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Resource": {
+							"type": "object",
+							"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+							"additionalProperties": false,
+							"properties": {
+								"ID": {"type": "integer"},
+								"Name": {"type": "string"},
+								"CustomCode": {"type": "string"},
+								"ResourceCode": {"type": "string"}
+							}
+						},
+						"Role": {
+							"type": "object",
+							"required": ["ID", "Name"],
+							"additionalProperties": false,
+							"properties": {
+								"ID": {"type": "integer"},
+								"Name": {"type": "string"},
+								"IsArchived": {"type": "boolean"}
+							}
+						},
+						"Estimate": {
+							"type": "object",
+							"required": ["Time", "Unit"],
+							"additionalProperties": false,
+							"properties": {
+								"Time": {"type": "number"},
+								"Unit": {"type": "string"}
+							}
+						}
+					}
+				}
+			},
 			"Health": {
 				"type": "object",
 				"required": ["ID", "Name", "Status"],
@@ -94,7 +134,18 @@
 					"Status": {"type": "string"}
 				}
 			},
-			"Attributes": {"type": "null"}
+			"Attributes": {
+				"type": ["array", "null"],
+				"items": {
+					"type": "object",
+					"required": ["AttributeID", "Value"],
+					"additionalProperties": false,
+					"properties": {
+						"AttributeID": {"type": "integer"},
+						"Value": {"type": ["string", "number", "boolean", "array"]}
+					}
+				}
+			}
 		}
 	},
 	"POST v1.2/project/{projectId}/milestone/add": {
@@ -111,8 +162,59 @@
 			"EndTime": {"type": "string", "format": "time"},
 			"Completed": {"type": "boolean"},
 			"CompletedDate": {"type": "null"},
-			"Resources": {"type": "null"},
-			"Attributes": {"type": "null"}
+			"Resources": {
+				"type": ["array", "null"],
+				"items": {
+					"type": "object",
+					"required": ["ID", "Resource", "Role", "Estimate"],
+					"additionalProperties": false,
+					"properties": {
+						"ID": {"type": "integer"},
+						"Resource": {
+							"type": "object",
+							"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+							"additionalProperties": false,
+							"properties": {
+								"ID": {"type": "integer"},
+								"Name": {"type": "string"},
+								"CustomCode": {"type": "string"},
+								"ResourceCode": {"type": "string"}
+							}
+						},
+						"Role": {
+							"type": "object",
+							"required": ["ID", "Name"],
+							"additionalProperties": false,
+							"properties": {
+								"ID": {"type": "integer"},
+								"Name": {"type": "string"},
+								"IsArchived": {"type": "boolean"}
+							}
+						},
+						"Estimate": {
+							"type": "object",
+							"required": ["Time", "Unit"],
+							"additionalProperties": false,
+							"properties": {
+								"Time": {"type": "number"},
+								"Unit": {"type": "string"}
+							}
+						}
+					}
+				}
+			},
+			"Attributes": {
+				"type": ["array", "null"],
+				"items": {
+					"type": "object",
+					"required": ["AttributeID", "Value"],
+					"additionalProperties": false,
+					"properties": {
+						"AttributeID": {"type": "integer"},
+						"Value": {"type": ["string", "number", "boolean", "array"]}
+					}
+				}
+			}
 		}
 	},
 	"POST v1.2/project/{projectId}/event/add": {

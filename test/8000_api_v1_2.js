@@ -927,4 +927,51 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('PUT v1.2/project/milestone/resource/{projectResId}', function (done) {
+        options.url = api + '/v1.2/project/milestone/resource/' + projectResID;
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 6.9,
+                Unit: 'Hours'
+            }
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/{projectId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID;
+        options.body = {
+            Name: 'Changed API Project ' + uniqueID,
+            StartDate: startDate2,
+            DueDate: dueDate2
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID;
+        options.body = null;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/add']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID;
+        options.body = null;
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/milestone/add']);
+            done();
+        });
+    });
+
 });
