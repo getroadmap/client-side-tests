@@ -34,6 +34,9 @@ test.describe('Testing API v1.2', function () {
             } else {
                 result.errors = [];
             }
+            if (response.statusCode !== 200 && response.statusCode !== 204) {
+                console.error(response.statusCode);
+            }
             assert(!error && !result.errors.length && (response.statusCode === 200 || response.statusCode === 204));
         };
 
@@ -198,7 +201,7 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/project/' + projectID + '/todolist/add';
         options.body = {
             MilestoneID: milestoneID,
-            Name: 'Test API To-Do List Name ' + uniqueID
+            Name: 'Test API To-Do List ' + uniqueID
         };
         request.post(options, function (error, response, body) {
             validateResponse(error, response, body, schema['POST v1.2/project/{projectId}/todolist/add']);
@@ -210,7 +213,7 @@ test.describe('Testing API v1.2', function () {
     test.it('POST v1.2/project/{projectId}/todolist/{todoListId}/item/add', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/add';
         options.body = {
-            Name: 'Test API To-Do Item Name ' + uniqueID,
+            Name: 'Test API To-Do Item ' + uniqueID,
             StartDate: startDate,
             DueDate: dueDate
         };
@@ -831,6 +834,93 @@ test.describe('Testing API v1.2', function () {
             DueDate: dueDate2,
             EndTime: '00:00:00'
         };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/item/resource/{itemResId}', function (done) {
+        options.url = api + '/v1.2/project/item/resource/' + itemResID;
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 1.1,
+                Unit: 'Hours'
+            }
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/item/{todoItemId}', function (done) {
+        options.url = api + '/v1.2/project/item/' + todoItemID;
+        options.body = {
+            Name: 'Changed API To-Do Item ' + uniqueID,
+            StartDate: startDate2,
+            DueDate: dueDate2
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/item/{todoItemId}/complete', function (done) {
+        options.url = api + '/v1.2/project/item/' + todoItemID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/item/{todoItemId}/uncomplete', function (done) {
+        options.url = api + '/v1.2/project/item/' + todoItemID + '/uncomplete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/milestone/{milestoneId}', function (done) {
+        options.url = api + '/v1.2/project/milestone/' + milestoneID;
+        options.body = {
+            Name: 'Changed API Milestone ' + uniqueID,
+            StartDate: startDate2,
+            DueDate: dueDate2
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/milestone/{milestoneId}/complete', function (done) {
+        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/milestone/{milestoneId}/uncomplete', function (done) {
+        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/uncomplete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/milestone/{milestoneId}/move', function (done) {
+        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/move';
+        options.body = startDate;
         request.put(options, function (error, response, body) {
             validateResponse(error, response, body);
             done();
