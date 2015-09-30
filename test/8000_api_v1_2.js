@@ -12,7 +12,7 @@ test.describe('Testing API v1.2', function () {
         roleID, resourceID, healthID, projectID, milestoneID, eventID, todoListID,
         todoItemID, timeEntryID, projectResID, milestoneResID, itemResID, noteID, roadblockID,
         projectAttributes, resourceAttributes, workitemAttributes,
-        startDate, dueDate, startRMDate, endRMDate;
+        startDate, dueDate, startRMDate, endRMDate, startDate2, dueDate2;
 
     test.before(function () {
         base = config.roadmap.base;
@@ -22,20 +22,25 @@ test.describe('Testing API v1.2', function () {
         uniqueID = Math.floor(new Date().getTime() / 1000) - 1439560400;
 
         validateResponse = function (error, response, body, schema) {
-            var result;
+            var result = {};
             if (error) {
                 console.error(error);
-            } else {
+            }
+            if (schema) {
                 result = validate(body, schema);
-                if (result.errors.length !== 0) {
+                if (result.errors.length) {
                     console.error(result);
                 }
+            } else {
+                result.errors = [];
             }
-            assert(!error && response.statusCode === 200 && result.errors.length === 0);
+            assert(!error && !result.errors.length && (response.statusCode === 200 || response.statusCode === 204));
         };
 
         startDate = '2015-09-01';
         dueDate = '2016-09-01';
+        startDate2 = '2015-10-01';
+        dueDate2 = '2016-10-01';
         startRMDate = '20150901';
         endRMDate = '20150930';
     });
@@ -806,6 +811,28 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/project/' + projectID + '/timeentry/' + startRMDate + '/' + endRMDate;
         request.get(options, function (error, response, body) {
             validateResponse(error, response, body, schema['GET v1.2/project/{projectId}/timeentry/{start}/{end}']);
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/work-item', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/work-item';
+        request.get(options, function (error, response, body) {
+            validateResponse(error, response, body, schema['GET v1.2/resource/{resourceId}/work-item']);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/event/{eventId}', function (done) {
+        options.url = api + '/v1.2/project/event/' + eventID;
+        options.body = {
+            Name: 'Changed API Event ' + uniqueID,
+            StartDate: startDate2,
+            DueDate: dueDate2,
+            EndTime: '00:00:00'
+        };
+        request.put(options, function (error, response, body) {
+            validateResponse(error, response, body);
             done();
         });
     });
