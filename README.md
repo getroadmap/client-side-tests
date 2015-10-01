@@ -25,12 +25,13 @@ You will need the following things properly installed on your computer.
 * see Linux
 
 ## Running Tests
+'Sample' files should be copied (edited if needed) and saved as config.json and startAllTests.bat (or startAllTests.sh) correspondingly
 ### Windows
-* `startAllTests.bat` - requires selenium grid running
+* `startAllTests.bat` - example requires selenium grid running (but can be used without it if needed)
 
 ### Linux
-* `./startAllTests.sh` - does not require selenium grid running
-* `./xvAllTests.sh` - uses xvfb to run firefox on a headless machine
+* `./startAllTests.sh` - example does not require selenium grid running
+* `./xvAllTests.sh` - example uses xvfb to run firefox on a headless machine
 
 ### Mac
 * see Linux
