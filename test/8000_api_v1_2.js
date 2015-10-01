@@ -29,7 +29,7 @@ test.describe('Testing API v1.2', function () {
             }
             if (schema) {
                 result = validate(body, schema);
-                if (result.errors.length) {
+                if (!result.valid) {
                     console.error(result);
                     er = true;
                 }
