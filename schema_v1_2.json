@@ -1,7 +1,7 @@
 [
 	{
 		"id": "/SingleRole",
-		"type": "object",
+		"type": ["object", "null"],
 		"required": ["ID", "Name", "IsArchived"],
 		"additionalProperties": false,
 		"properties": {
@@ -42,7 +42,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/add",
+		"id": "/SingleProject",
 		"type": "object",
 		"required": ["ID", "ProjectID", "WorkItemType", "CustomCode", "Name", "StartDate", "DueDate", "Resources", "Health", "Attributes"],
 		"additionalProperties": false,
@@ -75,16 +75,7 @@
 								"ResourceCode": {"type": "string"}
 							}
 						},
-						"Role": {
-							"type": "object",
-							"required": ["ID", "Name"],
-							"additionalProperties": false,
-							"properties": {
-								"ID": {"type": "integer"},
-								"Name": {"type": "string"},
-								"IsArchived": {"type": "boolean"}
-							}
-						},
+						"Role": {"$ref": "/SingleRole"},
 						"Estimate": {
 							"type": "object",
 							"required": ["Time", "Unit"],
@@ -123,7 +114,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/{projectId}/milestone/add",
+		"id": "/SingleMilestone",
 		"type": "object",
 		"required": ["ID", "ProjectID", "WorkItemType", "Name", "StartDate", "DueDate", "EndTime", "Completed", "CompletedDate", "Resources", "Attributes"],
 		"additionalProperties": false,
@@ -157,16 +148,7 @@
 								"ResourceCode": {"type": "string"}
 							}
 						},
-						"Role": {
-							"type": "object",
-							"required": ["ID", "Name"],
-							"additionalProperties": false,
-							"properties": {
-								"ID": {"type": "integer"},
-								"Name": {"type": "string"},
-								"IsArchived": {"type": "boolean"}
-							}
-						},
+						"Role": {"$ref": "/SingleRole"},
 						"Estimate": {
 							"type": "object",
 							"required": ["Time", "Unit"],
@@ -195,7 +177,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/{projectId}/event/add",
+		"id": "/SingleEvent",
 		"type": "object",
 		"required": ["ID", "ProjectID", "Name", "StartDate", "DueDate", "EndTime"],
 		"additionalProperties": false,
@@ -209,7 +191,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/{projectId}/todolist/add",
+		"id": "/SingleTodoList",
 		"type": "object",
 		"required": ["ID", "ProjectID", "MilestoneID", "Name"],
 		"additionalProperties": false,
@@ -221,7 +203,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/{projectId}/todolist/{todoListId}/item/add",
+		"id": "/SingleTodoItem",
 		"type": "object",
 		"required": ["ID", "ProjectID", "TodoListID", "WorkItemType", "Name", "StartDate", "DueDate", "Completed", "CompletedDate", "Resources", "Attributes"],
 		"additionalProperties": false,
@@ -240,7 +222,7 @@
 		}
 	},
 	{
-		"id": "POST v1.2/project/{projectId}/timeentry/add",
+		"id": "/SingleTimeEntry",
 		"type": "object",
 		"required": ["ID", "Project", "MilestoneID", "TodoItemID", "Resource", "Role", "Date", "Time", "Description", "Rate"],
 		"additionalProperties": false,
@@ -270,16 +252,7 @@
 					"ResourceCode": {"type": "string"}
 				}
 			},
-			"Role": {
-				"type": "object",
-				"required": ["ID", "Name", "IsArchived"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"IsArchived": {"type": "boolean"}
-				}
-			},
+			"Role": {"$ref": "/SingleRole"},
 			"Date": {"type": "string"},
 			"Time": {"type": "number"},
 			"Description": {"type": "string"},
@@ -304,16 +277,7 @@
 					"ResourceCode": {"type": "string"}
 				}
 			},
-			"Role": {
-				"type": "object",
-				"required": ["ID", "Name"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"IsArchived": {"type": "boolean"}
-				}
-			},
+			"Role": {"$ref": "/SingleRole"},
 			"Estimate": {
 				"type": "object",
 				"required": ["Time", "Unit"],
@@ -426,16 +390,7 @@
 		"id": "GET v1.2/role",
 		"type": "array",
 		"minItems": 1,
-		"items": {
-			"type": "object",
-			"required": ["ID", "Name", "IsArchived"],
-			"additionalProperties": false,
-			"properties": {
-				"ID": {"type": "integer"},
-				"Name": {"type": "string"},
-				"IsArchived": {"type": "boolean"}
-			}
-		}
+		"items": {"$ref": "/SingleRole"}
 	},
 	{
 		"id": "GET v1.2/resource",
@@ -452,16 +407,7 @@
 				"FirstName": {"type": "string"},
 				"LastName": {"type": "string"},
 				"CompanyName": {"type": "string"},
-				"PrimaryRole": {
-					"type": ["object", "null"],
-					"required": ["ID", "Name", "IsArchived"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"IsArchived": {"type": "boolean"}
-					}
-				},
+				"PrimaryRole": {"$ref": "/SingleRole"},
 				"Email": {"type": ["string", "null"], "format": "email"}
 			}
 		}
@@ -487,16 +433,7 @@
 			"FirstName": {"type": "string"},
 			"LastName": {"type": "string"},
 			"CompanyName": {"type": "string"},
-			"PrimaryRole": {
-				"type": ["object", "null"],
-				"required": ["ID", "Name", "IsArchived"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"IsArchived": {"type": "boolean"}
-				}
-			},
+			"PrimaryRole": {"$ref": "/SingleRole"},
 			"Email": {"type": "string", "format": "email"}
 		}
 	},
@@ -601,16 +538,7 @@
 						"Name": {"type": "string"}
 					}
 				},
-				"Role": {
-					"type": "object",
-					"required": ["ID", "Name", "IsArchived"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"IsArchived": {"type": "boolean"}
-					}
-				},
+				"Role": {"$ref": "/SingleRole"},
 				"Estimate": {
 					"type": "object",
 					"required": ["Time", "Unit"],
@@ -646,16 +574,7 @@
 						"Name": {"type": "string"}
 					}
 				},
-				"Role": {
-					"type": "object",
-					"required": ["ID", "Name", "IsArchived"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"IsArchived": {"type": "boolean"}
-					}
-				},
+				"Role": {"$ref": "/SingleRole"},
 				"Estimate": {
 					"type": "object",
 					"required": ["Time", "Unit"],
@@ -795,16 +714,7 @@
 						"ResourceCode": {"type": "string"}
 					}
 				},
-				"Role": {
-					"type": "object",
-					"required": ["ID", "Name", "IsArchived"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"IsArchived": {"type": "boolean"}
-					}
-				},
+				"Role": {"$ref": "/SingleRole"},
 				"Date": {"type": "string"},
 				"Time": {"type": "number"},
 				"Description": {"type": "string"},
