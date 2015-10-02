@@ -289,7 +289,7 @@ test.describe('Testing API v1.2', function () {
             }
         };
         request.post(options, function (error, response, body) {
-            validate(error, response, body, 'POST v1.2/project/{projectId}/resource/add');
+            validate(error, response, body, '/SingleAssignedResource');
             projectResID = body.ID;
             done();
         });
@@ -306,7 +306,7 @@ test.describe('Testing API v1.2', function () {
             }
         };
         request.post(options, function (error, response, body) {
-            validate(error, response, body, 'POST v1.2/project/{projectId}/resource/add');
+            validate(error, response, body, '/SingleAssignedResource');
             milestoneResID = body.ID;
             done();
         });
@@ -323,7 +323,7 @@ test.describe('Testing API v1.2', function () {
             }
         };
         request.post(options, function (error, response, body) {
-            validate(error, response, body, 'POST v1.2/project/{projectId}/resource/add');
+            validate(error, response, body, '/SingleAssignedResource');
             itemResID = body.ID;
             done();
         });
@@ -333,7 +333,7 @@ test.describe('Testing API v1.2', function () {
         options.url = api + '/v1.2/project/' + projectID + '/note/add';
         options.body = 'Test API Note ' + uniqueID;
         request.post(options, function (error, response, body) {
-            validate(error, response, body, 'POST v1.2/project/{projectId}/note/add');
+            validate(error, response, body, '/SingleNote');
             noteID = body.ID;
             done();
         });
@@ -347,7 +347,7 @@ test.describe('Testing API v1.2', function () {
             ResponsibleResourceID: resourceID
         };
         request.post(options, function (error, response, body) {
-            validate(error, response, body, 'POST v1.2/project/{projectId}/roadblock/add');
+            validate(error, response, body, '/SingleRoadblock');
             roadblockID = body.ID;
             done();
         });
@@ -571,7 +571,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/project/{projectId}/attr', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/attr';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/project/{projectId}/attr');
+            validate(error, response, body, '/AttributeValueArray');
             done();
         });
     });
@@ -579,7 +579,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource/{resourceId}/attr', function (done) {
         options.url = api + '/v1.2/resource/' + resourceID + '/attr';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/project/{projectId}/attr');
+            validate(error, response, body, '/AttributeValueArray');
             done();
         });
     });
@@ -587,7 +587,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}/attr', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/attr';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/project/{projectId}/attr');
+            validate(error, response, body, '/AttributeValueArray');
             done();
         });
     });
@@ -595,7 +595,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/attr', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/project/{projectId}/attr');
+            validate(error, response, body, '/AttributeValueArray');
             done();
         });
     });
@@ -603,7 +603,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/role', function (done) {
         options.url = api + '/v1.2/role';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/role');
+            validate(error, response, body, '/RoleArray');
             done();
         });
     });
@@ -611,7 +611,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource', function (done) {
         options.url = api + '/v1.2/resource';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/resource');
+            validate(error, response, body, '/ResourceArray');
             done();
         });
     });
@@ -619,7 +619,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource/me', function (done) {
         options.url = api + '/v1.2/resource/me';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/resource/me');
+            validate(error, response, body, '/SingleResourceLong');
             done();
         });
     });
