@@ -322,55 +322,37 @@
 		"items": {"$ref": "/SingleProject"}
 	},
 	{
-		"id": "GET v1.2/resource/{resourceId}/work-item",
+		"id": "/WorkItemArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleWorkItem"}
 	},
 	{
-		"id": "GET v1.2/project/{projectId}/todolist/{todoListId}/item",
-		"type": "array",
-		"minItems": 1,
-		"items": {"$ref": "/SingleWorkItem"}
-	},
-	{
-		"id": "GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource",
-		"type": "array",
-		"minItems": 1,
-		"items": {"$ref": "/SingleAssignedResource"}
-	},
-	{
-		"id": "GET v1.2/project/{projectId}/resource-all",
-		"type": "array",
-		"minItems": 1,
-		"items": {"$ref": "/SingleAssignedResource"}
-	},
-	{
-		"id": "GET v1.2/project/{projectId}/roadblock",
+		"id": "/RoadblockArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleRoadblock"}
 	},
 	{
-		"id": "GET v1.2/project/{projectId}/note",
+		"id": "/NoteArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleNote"}
 	},
 	{
-		"id": "GET v1.2/project/{projectId}/event",
+		"id": "/EventArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleEvent"}
 	},
 	{
-		"id": "GET v1.2/project/{projectId}/todolist",
+		"id": "/TodoListArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleTodoList"}
 	},
 	{
-		"id": "GET v1.2/project/{projectId}/timeentry/{start}/{end}",
+		"id": "/TimeEntryArray",
 		"type": "array",
 		"minItems": 1,
 		"items": {"$ref": "/SingleTimeEntry"}
