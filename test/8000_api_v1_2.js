@@ -151,7 +151,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/health', function (done) {
         options.url = api + '/v1.2/health';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/health');
+            validate(error, response, body, '/HealthArray');
             healthID = body[body.length - 2].ID;
             done();
         });

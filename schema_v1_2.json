@@ -27,18 +27,42 @@
 		}
 	},
 	{
-		"id": "GET v1.2/health",
+		"id": "/SingleHealth",
+		"type": "object",
+		"required": ["ID", "Name", "Status"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"Status": {"type": "string"}
+		}
+	},
+	{
+		"id": "/HealthArray",
 		"type": "array",
 		"minItems": 1,
-		"items": {
-			"type": "object",
-			"required": ["ID", "Name", "Status"],
-			"additionalProperties": false,
-			"properties": {
-				"ID": {"type": "integer"},
-				"Name": {"type": "string"},
-				"Status": {"type": "string"}
-			}
+		"items": {"$ref": "/SingleHealth"}
+	},
+	{
+		"id": "/SingleResourceShort",
+		"type": "object",
+		"required": ["ID", "Name", "CustomCode", "ResourceCode"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"CustomCode": {"type": ["string", "null"]},
+			"ResourceCode": {"type": "string"}
+		}
+	},
+	{
+		"id": "/SingleEstimate",
+		"type": "object",
+		"required": ["Time", "Unit"],
+		"additionalProperties": false,
+		"properties": {
+			"Time": {"type": "number"},
+			"Unit": {"type": "string"}
 		}
 	},
 	{
@@ -64,40 +88,13 @@
 					"additionalProperties": false,
 					"properties": {
 						"ID": {"type": "integer"},
-						"Resource": {
-							"type": "object",
-							"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-							"additionalProperties": false,
-							"properties": {
-								"ID": {"type": "integer"},
-								"Name": {"type": "string"},
-								"CustomCode": {"type": "string"},
-								"ResourceCode": {"type": "string"}
-							}
-						},
+						"Resource": {"$ref": "/SingleResourceShort"},
 						"Role": {"$ref": "/SingleRole"},
-						"Estimate": {
-							"type": "object",
-							"required": ["Time", "Unit"],
-							"additionalProperties": false,
-							"properties": {
-								"Time": {"type": "number"},
-								"Unit": {"type": "string"}
-							}
-						}
+						"Estimate": {"$ref": "/SingleEstimate"}
 					}
 				}
 			},
-			"Health": {
-				"type": "object",
-				"required": ["ID", "Name", "Status"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"Status": {"type": "string"}
-				}
-			},
+			"Health": {"$ref": "/SingleHealth"},
 			"Attributes": {
 				"type": ["array", "null"],
 				"minItems": 1,
@@ -137,27 +134,9 @@
 					"additionalProperties": false,
 					"properties": {
 						"ID": {"type": "integer"},
-						"Resource": {
-							"type": "object",
-							"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-							"additionalProperties": false,
-							"properties": {
-								"ID": {"type": "integer"},
-								"Name": {"type": "string"},
-								"CustomCode": {"type": "string"},
-								"ResourceCode": {"type": "string"}
-							}
-						},
+						"Resource": {"$ref": "/SingleResourceShort"},
 						"Role": {"$ref": "/SingleRole"},
-						"Estimate": {
-							"type": "object",
-							"required": ["Time", "Unit"],
-							"additionalProperties": false,
-							"properties": {
-								"Time": {"type": "number"},
-								"Unit": {"type": "string"}
-							}
-						}
+						"Estimate": {"$ref": "/SingleEstimate"}
 					}
 				}
 			},
@@ -241,17 +220,7 @@
 			},
 			"MilestoneID": {"type": ["integer", "null"]},
 			"TodoItemID": {"type": ["integer", "null"]},
-			"Resource": {
-				"type": "object",
-				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"CustomCode": {"type": "string"},
-					"ResourceCode": {"type": "string"}
-				}
-			},
+			"Resource": {"$ref": "/SingleResourceShort"},
 			"Role": {"$ref": "/SingleRole"},
 			"Date": {"type": "string"},
 			"Time": {"type": "number"},
@@ -266,27 +235,9 @@
 		"additionalProperties": false,
 		"properties": {
 			"ID": {"type": "integer"},
-			"Resource": {
-				"type": "object",
-				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"CustomCode": {"type": "string"},
-					"ResourceCode": {"type": "string"}
-				}
-			},
+			"Resource": {"$ref": "/SingleResourceShort"},
 			"Role": {"$ref": "/SingleRole"},
-			"Estimate": {
-				"type": "object",
-				"required": ["Time", "Unit"],
-				"additionalProperties": false,
-				"properties": {
-					"Time": {"type": "number"},
-					"Unit": {"type": "string"}
-				}
-			}
+			"Estimate": {"$ref": "/SingleEstimate"}
 		}
 	},
 	{
@@ -300,17 +251,7 @@
 			"DateAdded": {"type": "string"},
 			"DateUpdated": {"type": "null"},
 			"Text": {"type": "string"},
-			"Resource": {
-				"type": "object",
-				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"CustomCode": {"type": "null"},
-					"ResourceCode": {"type": "string"}
-				}
-			}
+			"Resource": {"$ref": "/SingleResourceShort"}
 		}
 	},
 	{
@@ -327,17 +268,7 @@
 			"DateResolved": {"type": "null"},
 			"Subject": {"type": "string"},
 			"Description": {"type": "string"},
-			"Resource": {
-				"type": "object",
-				"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-				"additionalProperties": false,
-				"properties": {
-					"ID": {"type": "integer"},
-					"Name": {"type": "string"},
-					"CustomCode": {"type": "string"},
-					"ResourceCode": {"type": "string"}
-				}
-			}
+			"Resource": {"$ref": "/SingleResourceShort"}
 		}
 	},
 	{
@@ -456,16 +387,7 @@
 				"DueDate": {"type": "string"},
 				"Resources": {"type": "null"},
 				"Attributes": {"type": "null"},
-				"Health": {
-					"type": "object",
-					"required": ["ID", "Name", "Status"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"Status": {"type": "string"}
-					}
-				}
+				"Health": {"$ref": "/SingleHealth"}
 			}
 		}
 	},
@@ -527,27 +449,9 @@
 			"additionalProperties": false,
 			"properties": {
 				"ID": {"type": "integer"},
-				"Resource": {
-					"type": "object",
-					"required": ["ID", "CustomCode", "ResourceCode", "Name"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"CustomCode": {"type": "string"},
-						"ResourceCode": {"type": "string"},
-						"Name": {"type": "string"}
-					}
-				},
+				"Resource": {"$ref": "/SingleResourceShort"},
 				"Role": {"$ref": "/SingleRole"},
-				"Estimate": {
-					"type": "object",
-					"required": ["Time", "Unit"],
-					"additionalProperties": false,
-					"properties": {
-						"Time": {"type": "number"},
-						"Unit": {"type": "string"}
-					}
-				}
+				"Estimate": {"$ref": "/SingleEstimate"}
 			}
 		}
 	},
@@ -563,27 +467,9 @@
 				"ID": {"type": "integer"},
 				"WorkItemID": {"type": "integer"},
 				"WorkItemType": {"type": "string"},
-				"Resource": {
-					"type": "object",
-					"required": ["ID", "CustomCode", "ResourceCode", "Name"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"CustomCode": {"type": "string"},
-						"ResourceCode": {"type": "string"},
-						"Name": {"type": "string"}
-					}
-				},
+				"Resource": {"$ref": "/SingleResourceShort"},
 				"Role": {"$ref": "/SingleRole"},
-				"Estimate": {
-					"type": "object",
-					"required": ["Time", "Unit"],
-					"additionalProperties": false,
-					"properties": {
-						"Time": {"type": "number"},
-						"Unit": {"type": "string"}
-					}
-				}
+				"Estimate": {"$ref": "/SingleEstimate"}
 			}
 		}
 	},
@@ -604,17 +490,7 @@
 				"DateResolved": {"type": "null"},
 				"Subject": {"type": "string"},
 				"Description": {"type": "string"},
-				"Resource": {
-					"type": "object",
-					"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"CustomCode": {"type": "string"},
-						"ResourceCode": {"type": "string"}
-					}
-				}
+				"Resource": {"$ref": "/SingleResourceShort"}
 			}
 		}
 	},
@@ -632,17 +508,7 @@
 				"DateAdded": {"type": "string"},
 				"DateUpdated": {"type": "null"},
 				"Text": {"type": "string"},
-				"Resource": {
-					"type": "object",
-					"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"CustomCode": {"type": "null"},
-						"ResourceCode": {"type": "string"}
-					}
-				}
+				"Resource": {"$ref": "/SingleResourceShort"}
 			}
 		}
 	},
@@ -703,17 +569,7 @@
 				},
 				"MilestoneID": {"type": ["integer", "null"]},
 				"TodoItemID": {"type": ["integer", "null"]},
-				"Resource": {
-					"type": "object",
-					"required": ["ID", "Name", "CustomCode", "ResourceCode"],
-					"additionalProperties": false,
-					"properties": {
-						"ID": {"type": "integer"},
-						"Name": {"type": "string"},
-						"CustomCode": {"type": "string"},
-						"ResourceCode": {"type": "string"}
-					}
-				},
+				"Resource": {"$ref": "/SingleResourceShort"},
 				"Role": {"$ref": "/SingleRole"},
 				"Date": {"type": "string"},
 				"Time": {"type": "number"},
