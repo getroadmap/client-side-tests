@@ -224,7 +224,7 @@ test.describe('Testing API v1.2', function () {
             DueDate: dueDate
         };
         request.post(options, function (error, response, body) {
-            validate(error, response, body, '/SingleTodoItem');
+            validate(error, response, body, '/SingleWorkItem');
             todoItemID = body.ID;
             done();
         });
@@ -356,7 +356,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/attr', function (done) {
         options.url = api + '/v1.2/attr';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/attr');
+            validate(error, response, body, '/AttributeArray');
             done();
         });
     });
@@ -364,7 +364,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/attr/project', function (done) {
         options.url = api + '/v1.2/attr/project';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/attr');
+            validate(error, response, body, '/AttributeArray');
             projectAttributes = body;
             done();
         });
@@ -373,7 +373,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/attr/resource', function (done) {
         options.url = api + '/v1.2/attr/resource';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/attr');
+            validate(error, response, body, '/AttributeArray');
             resourceAttributes = body;
             done();
         });
@@ -382,7 +382,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/attr/work-item', function (done) {
         options.url = api + '/v1.2/attr/work-item';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/attr');
+            validate(error, response, body, '/AttributeArray');
             workitemAttributes = body;
             done();
         });
@@ -635,7 +635,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/resource/{resourceId}/active-project', function (done) {
         options.url = api + '/v1.2/resource/' + resourceID + '/active-project';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/resource/{resourceId}/active-project');
+            validate(error, response, body, '/ProjectArray');
             done();
         });
     });
@@ -785,7 +785,7 @@ test.describe('Testing API v1.2', function () {
     test.it('GET v1.2/project', function (done) {
         options.url = api + '/v1.2/project';
         request.get(options, function (error, response, body) {
-            validate(error, response, body, 'GET v1.2/resource/{resourceId}/active-project');
+            validate(error, response, body, '/ProjectArray');
             done();
         });
     });
