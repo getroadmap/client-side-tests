@@ -1010,7 +1010,7 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
-    test.it('PUT v1.2/project/milestone/resource/{projectResId}', function (done) {
+    test.it('PUT v1.2/project/milestone/resource/{milestoneResId}', function (done) {
         options.url = api + '/v1.2/project/milestone/resource/' + milestoneResID;
         options.body = {
             ResourceID: resourceID,
@@ -1103,6 +1103,87 @@ test.describe('Testing API v1.2', function () {
 
     test.it('DELETE v1.2/project/item/resource/{itemResId}', function (done) {
         options.url = api + '/v1.2/project/item/resource/' + itemResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/item/{todoItemId}', function (done) {
+        options.url = api + '/v1.2/project/item/' + todoItemID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/todolist/{toDoListId}', function (done) {
+        options.url = api + '/v1.2/project/todolist/' + todoListID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/resource/{projectResId}', function (done) {
+        options.url = api + '/v1.2/project/resource/' + projectResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/timeentry/{timeEntryId}', function (done) {
+        options.url = api + '/v1.2/project/timeentry/' + timeEntryID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/milestone/resource/{milestoneResId}', function (done) {
+        options.url = api + '/v1.2/project/milestone/resource/' + milestoneResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/note/{noteId}', function (done) {
+        options.url = api + '/v1.2/project/note/' + noteID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/milestone/{milestoneId}', function (done) {
+        options.url = api + '/v1.2/project/milestone/' + milestoneID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/roadblock/{roadblockId}', function (done) {
+        options.url = api + '/v1.2/project/roadblock/' + roadblockID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/{projectId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
