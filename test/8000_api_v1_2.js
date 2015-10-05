@@ -203,6 +203,20 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('PUT v1.2/project/{projectId}/event/{eventId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/event/' + eventID;
+        options.body = {
+            Name: 'Changed API Event ' + uniqueID,
+            StartDate: startDate2,
+            DueDate: dueDate2,
+            EndTime: '00:00:00'
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.2/project/{projectId}/todolist/add', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/todolist/add';
         options.body = {
@@ -339,6 +353,15 @@ test.describe('Testing API v1.2', function () {
         });
     });
 
+    test.it('PUT v1.2/project/note/{noteId}', function (done) {
+        options.url = api + '/v1.2/project/note/' + noteID;
+        options.body = 'Changed API Note ' + uniqueID;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.2/project/{projectId}/roadblock/add', function (done) {
         options.url = api + '/v1.2/project/' + projectID + '/roadblock/add';
         options.body = {
@@ -349,6 +372,42 @@ test.describe('Testing API v1.2', function () {
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleRoadblock');
             roadblockID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/roadblock/{roadblockId}', function (done) {
+        options.url = api + '/v1.2/project/roadblock/' + roadblockID;
+        options.body = {
+            Subject: 'Changed API Roadblock ' + uniqueID,
+            Description: 'Test API Roadblock Description ' + uniqueID,
+            ResponsibleResourceID: resourceID
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('POST v1.2/project/{projectId}/roadblock/add', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/roadblock/add';
+        options.body = {
+            Subject: 'Another API Roadblock ' + uniqueID,
+            Description: 'Another API Roadblock Description ' + uniqueID,
+            ResponsibleResourceID: resourceID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleRoadblock');
+            roadblockID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/roadblock/{roadblockId}/resolve?resolve={resolve}', function (done) {
+        options.url = api + '/v1.2/project/roadblock/' + roadblockID + '/resolve?resolve=true';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });
@@ -952,7 +1011,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/resource/{projectResId}', function (done) {
-        options.url = api + '/v1.2/project/milestone/resource/' + projectResID;
+        options.url = api + '/v1.2/project/milestone/resource/' + milestoneResID;
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -994,6 +1053,59 @@ test.describe('Testing API v1.2', function () {
         options.body = null;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleMilestone');
+            done();
+        });
+    });
+
+    test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleWorkItem');
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/{projectId}/todolist/{todoListId}', function (done) {
+        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID;
+        options.body = {
+            Name: 'Changed API To-Do List ' + uniqueID
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.2/project/resource/{projectResId}', function (done) {
+        options.url = api + '/v1.2/project/resource/' + projectResID;
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 6.7,
+                Unit: 'Hours'
+            }
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/event/{eventId}', function (done) {
+        options.url = api + '/v1.2/project/event/' + eventID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.2/project/item/resource/{itemResId}', function (done) {
+        options.url = api + '/v1.2/project/item/resource/' + itemResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });

@@ -179,8 +179,8 @@
 			"EndTime": {"type": "string", "format": "time"},
 			"Completed": {"type": "boolean"},
 			"CompletedDate": {"type": ["string", "null"], "format": "date"},
-			"Resources": {"type": "null"},
-			"Attributes": {"type": "null"}
+			"Resources": {"$ref": "/AssignedResourceArray"},
+			"Attributes": {"$ref": "/AttributeValueArray"}
 		}
 	},
 	{
@@ -240,7 +240,7 @@
 			"DateAdded": {"type": "string", "format": "date-time"},
 			"DateUpdated": {"type": ["string", "null"], "format": "date-time"},
 			"Resolved": {"type": "boolean"},
-			"DateResolved": {"type": ["string", "null"], "format": "date-time"},
+			"DateResolved": {"type": ["string", "null"], "format": "date"},
 			"Subject": {"type": "string"},
 			"Description": {"type": "string"},
 			"Resource": {"$ref": "/SingleResourceShort"}
