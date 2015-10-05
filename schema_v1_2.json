@@ -111,8 +111,8 @@
 			"CustomCode": {"type": "string"},
 			"ProjectCode": {"type": "string"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string"},
-			"DueDate": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
 			"Resources": {"$ref": "/AssignedResourceArray"},
 			"Health": {"$ref": "/SingleHealth"},
 			"Attributes": {"$ref": "/AttributeValueArray"}
@@ -128,8 +128,8 @@
 			"ProjectID": {"type": "integer"},
 			"WorkItemType": {"type": "string"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string"},
-			"DueDate": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
 			"EndTime": {"type": "string", "format": "time"},
 			"Completed": {"type": "boolean"},
 			"CompletedDate": {"type": "null"},
@@ -146,8 +146,8 @@
 			"ID": {"type": "integer"},
 			"ProjectID": {"type": "integer"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string"},
-			"DueDate": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
 			"EndTime": {"type": "string", "format": "time"}
 		}
 	},
@@ -174,11 +174,11 @@
 			"TodoListID": {"type": "integer"},
 			"WorkItemType": {"type": "string"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string"},
-			"DueDate": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
 			"EndTime": {"type": "string", "format": "time"},
 			"Completed": {"type": "boolean"},
-			"CompletedDate": {"type": ["string", "null"]},
+			"CompletedDate": {"type": ["string", "null"], "format": "date"},
 			"Resources": {"type": "null"},
 			"Attributes": {"type": "null"}
 		}
@@ -195,7 +195,7 @@
 			"TodoItemID": {"type": ["integer", "null"]},
 			"Resource": {"$ref": "/SingleResourceShort"},
 			"Role": {"$ref": "/SingleRole"},
-			"Date": {"type": "string"},
+			"Date": {"type": "string", "format": "date"},
 			"Time": {"type": "number"},
 			"Description": {"type": "string"},
 			"Rate": {"type": "number"}
@@ -223,8 +223,8 @@
 		"properties": {
 			"ID": {"type": "integer"},
 			"ProjectID": {"type": "integer"},
-			"DateAdded": {"type": "string"},
-			"DateUpdated": {"type": "null"},
+			"DateAdded": {"type": "string", "format": "date-time"},
+			"DateUpdated": {"type": ["string", "null"], "format": "date-time"},
 			"Text": {"type": "string"},
 			"Resource": {"$ref": "/SingleResourceShort"}
 		}
@@ -237,10 +237,10 @@
 		"properties": {
 			"ID": {"type": "integer"},
 			"ProjectID": {"type": "integer"},
-			"DateAdded": {"type": "string"},
-			"DateUpdated": {"type": "null"},
+			"DateAdded": {"type": "string", "format": "date-time"},
+			"DateUpdated": {"type": ["string", "null"], "format": "date-time"},
 			"Resolved": {"type": "boolean"},
-			"DateResolved": {"type": "null"},
+			"DateResolved": {"type": ["string", "null"], "format": "date-time"},
 			"Subject": {"type": "string"},
 			"Description": {"type": "string"},
 			"Resource": {"$ref": "/SingleResourceShort"}
