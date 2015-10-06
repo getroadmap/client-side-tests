@@ -103,4 +103,49 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('POST v1.1/resource/add', function (done) {
+        options.url = api + '/v1.1/resource/add';
+        options.body = {
+            FirstName: 'API_11_Resource',
+            LastName: uniqueID,
+            PrimaryRoleID: roleID,
+            CustomCode: 'ResourceCustomCode_' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleResource');
+            resourceID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/resource/addCompany', function (done) {
+        options.url = api + '/v1.1/resource/addCompany';
+        options.body = {
+            CompanyName: 'API_11_Company_' + uniqueID,
+            PrimaryRoleID: roleID,
+            CustomCode: 'CompanyCustomeCode_' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleResource');
+            done();
+        });
+    });
+
+    test.it('POST v1.1/resource/addUser', function (done) {
+        options.url = api + '/v1.1/resource/addUser';
+        options.body = {
+            FirstName: 'API_11_User',
+            LastName: uniqueID,
+            PrimaryRoleID: roleID,
+            CustomCode: 'UserCustomeCode_' + uniqueID,
+            Email: 'api_11_user_' + uniqueID + '@null.null',
+            Password: '1234567',
+            Privilege: 'ReadWriteAll'
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleResource');
+            done();
+        });
+    });
+
 });

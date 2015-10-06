@@ -9,5 +9,21 @@
 			"Name": {"type": "string"},
 			"IsArchived": {"type": "boolean"}
 		}
+	},
+	{
+		"id": "/SingleResource",
+		"type": "object",
+		"required": ["ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRoleID", "PrimaryRoleName"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"CustomCode": {"type": ["string", "null"]},
+			"ResourceCode": {"type": "string"},
+			"FirstName": {"type": "string"},
+			"LastName": {"type": "string"},
+			"CompanyName": {"type": "string"},
+			"PrimaryRoleID": {"type": "integer"},
+			"PrimaryRoleName": {"type": "string"}
+		}
 	}
 ]
