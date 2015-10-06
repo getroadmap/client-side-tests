@@ -148,4 +148,31 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/health', function (done) {
+        options.url = api + '/v1.1/health';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/HealthArray');
+            healthID = body[body.length - 3].ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/add', function (done) {
+        options.url = api + '/v1.1/project/add';
+        options.body = {
+            Name: 'Test API 11 Project ' + uniqueID,
+            CustomCode: 'ProjectCustomCode_' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            Health: {
+                ID: healthID
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleProject');
+            projectID = body.ID;
+            done();
+        });
+    });
+
 });
