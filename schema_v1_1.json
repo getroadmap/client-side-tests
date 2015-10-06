@@ -1,0 +1,13 @@
+[
+	{
+		"id": "/SingleRole",
+		"type": ["object", "null"],
+		"required": ["ID", "Name", "IsArchived"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"IsArchived": {"type": "boolean"}
+		}
+	}
+]
