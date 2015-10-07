@@ -246,7 +246,7 @@ test.describe('Testing API v1.1', function () {
             ResourceID: resourceID,
             RoleID: roleID,
             Date: startDate,
-            Time: 5.5,
+            Time: 5.1,
             Description: 'Test API 11 Project\'s time entry ' + uniqueID
         };
         request.post(options, function (error, response, body) {
@@ -265,8 +265,8 @@ test.describe('Testing API v1.1', function () {
             ResourceID: resourceID,
             RoleID: roleID,
             Date: startDate,
-            Time: 5.5,
-            Description: 'Test API 11 Project\'s time entry ' + uniqueID
+            Time: 5.2,
+            Description: 'Test API 11 Milestone\'s time entry ' + uniqueID
         };
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleTimeEntry');
@@ -283,11 +283,134 @@ test.describe('Testing API v1.1', function () {
             ResourceID: resourceID,
             RoleID: roleID,
             Date: startDate,
-            Time: 5.5,
-            Description: 'Test API 11 Project\'s time entry ' + uniqueID
+            Time: 5.3,
+            Description: 'Test API 11 TodoItem\'s time entry ' + uniqueID
         };
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleTimeEntry');
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/resource/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 100,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleAssignedResource');
+            projectResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/milestone/{milestoneId}/resource/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/milestone/' + milestoneID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 100,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleAssignedResource');
+            milestoneResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource/add';
+        options.body = {
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 100,
+                Unit: 'Percent'
+            }
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleAssignedResource');
+            itemResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/note/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/note/add';
+        options.body = 'Test API 11 Note ' + uniqueID;
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleNote');
+            noteID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/note/{noteId}', function (done) {
+        options.url = api + '/v1.1/project/note/' + noteID;
+        options.body = 'Changed API 11 Note ' + uniqueID;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/roadblock/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/roadblock/add';
+        options.body = {
+            ProjectID: projectID,
+            Subject: 'Resolved API 11 Roadblock ' + uniqueID,
+            Description: 'Resolved API 11 Roadblock Description ' + uniqueID,
+            ResponsibleResourceID: resourceID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleRoadblock');
+            roadblockID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/roadblock/{roadblockId}/resolve?resolve={resolve}', function (done) {
+        options.url = api + '/v1.1/project/roadblock/' + roadblockID + '/resolve?resolve=true';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/{projectId}/roadblock/add', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/roadblock/add';
+        options.body = {
+            ProjectID: projectID,
+            Subject: 'Another API 11 Roadblock ' + uniqueID,
+            Description: 'Another API 11 Roadblock Description ' + uniqueID,
+            ResponsibleResourceID: resourceID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleRoadblock');
+            roadblockID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/roadblock/{roadblockId}', function (done) {
+        options.url = api + '/v1.1/project/roadblock/' + roadblockID;
+        options.body = {
+            ID: roadblockID,
+            Subject: 'Test API 11 Roadblock ' + uniqueID,
+            Description: 'Test API 11 Roadblock Description ' + uniqueID,
+            ResponsibleResourceID: resourceID
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });

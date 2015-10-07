@@ -147,5 +147,62 @@
 			"Description": {"type": "string"},
 			"Rate": {"type": "number"}
 		}
+	},
+	{
+		"id": "/SingleEstimate",
+		"type": "object",
+		"required": ["Time", "Unit"],
+		"additionalProperties": false,
+		"properties": {
+			"Time": {"type": "number"},
+			"Unit": {"type": "string"}
+		}
+	},
+	{
+		"id": "/SingleAssignedResource",
+		"type": "object",
+		"required": ["ID", "ResourceID", "ResourceName", "ResourceCustomCode", "ResourceCode", "RoleID", "RoleName", "Estimate"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ResourceID": {"type": "integer"},
+			"ResourceName": {"type": "string"},
+			"ResourceCustomCode": {"type": "string"},
+			"ResourceCode": {"type": "string"},
+			"RoleID": {"type": "integer"},
+			"RoleName": {"type": "string"},
+			"Estimate": {"$ref": "/SingleEstimate"}
+		}
+	},
+	{
+		"id": "/SingleNote",
+		"type": "object",
+		"required": ["ID", "ProjectID", "DateAdded", "DateUpdated", "Text", "ResourceID"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"ResourceID": {"type": "integer"},
+			"DateAdded": {"type": "string", "format": "date-time"},
+			"DateUpdated": {"type": ["string", "null"], "format": "date-time"},
+			"Text": {"type": "string"}
+		}
+	},
+	{
+		"id": "/SingleRoadblock",
+		"type": "object",
+		"required": ["ID", "ProjectID", "DateAdded", "DateUpdated", "Resolved", "DateResolved", "Subject", "Description", "ResponsibleResourceID"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"DateAdded": {"type": "string", "format": "date-time"},
+			"DateUpdated": {"type": ["string", "null"], "format": "date-time"},
+			"Resolved": {"type": "boolean"},
+			"DateResolved": {"type": ["string", "null"], "format": "date"},
+			"Subject": {"type": "string"},
+			"Description": {"type": "string"},
+			"ResponsibleResourceID": {"type": "integer"}
+		}
 	}
 ]
