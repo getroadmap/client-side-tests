@@ -85,8 +85,8 @@
 			"ID": {"type": "integer"},
 			"ProjectID": {"type": "integer"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string", "format": "date"},
-			"DueDate": {"type": "string", "format": "date"},
+			"StartDate": {"type": "string"},
+			"DueDate": {"type": "string"},
 			"EndTime": {"type": "string", "format": "time"}
 		}
 	},
@@ -117,6 +117,35 @@
 			"Completed": {"type": "boolean"},
 			"CompletedDate": {"type": "null"},
 			"Resources": {"type": "null"}
+		}
+	},
+	{
+		"id": "/SingleTimeEntry",
+		"type": "object",
+		"required": [
+			"ID", "ProjectID", "ProjectName", "ProjectCustomCode", "ProjectCode", "MilestoneID",
+			"TodoItemID", "ResourceID", "ResourceName", "ResourceCustomCode", "ResourceCode",
+			"RoleID", "RoleName", "Date", "Time", "Description", "Rate"
+		],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"ProjectName": {"type": "string"},
+			"ProjectCustomCode": {"type": ["string", "null"]},
+			"ProjectCode": {"type": "string"},
+			"MilestoneID": {"type": ["integer", "null"]},
+			"TodoItemID": {"type": ["integer", "null"]},
+			"ResourceID": {"type": "integer"},
+			"ResourceName": {"type": "string"},
+			"ResourceCustomCode": {"type": "string"},
+			"ResourceCode": {"type": "string"},
+			"RoleID": {"type": "integer"},
+			"RoleName": {"type": "string"},
+			"Date": {"type": "string", "format": "date"},
+			"Time": {"type": "number"},
+			"Description": {"type": "string"},
+			"Rate": {"type": "number"}
 		}
 	}
 ]

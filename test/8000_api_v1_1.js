@@ -237,4 +237,59 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('POST v1.1/project/timeentry/add (Project)', function (done) {
+        options.url = api + '/v1.1/project/timeentry/add';
+        options.body = {
+            ProjectID: projectID,
+            MilestoneID: null,
+            TodoItemID: null,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Date: startDate,
+            Time: 5.5,
+            Description: 'Test API 11 Project\'s time entry ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTimeEntry');
+            timeEntryID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/timeentry/add (Milestone)', function (done) {
+        options.url = api + '/v1.1/project/timeentry/add';
+        options.body = {
+            ProjectID: projectID,
+            MilestoneID: milestoneID,
+            TodoItemID: null,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Date: startDate,
+            Time: 5.5,
+            Description: 'Test API 11 Project\'s time entry ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTimeEntry');
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/timeentry/add (TodoItem)', function (done) {
+        options.url = api + '/v1.1/project/timeentry/add';
+        options.body = {
+            ProjectID: projectID,
+            MilestoneID: null,
+            TodoItemID: todoItemID,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Date: startDate,
+            Time: 5.5,
+            Description: 'Test API 11 Project\'s time entry ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTimeEntry');
+            done();
+        });
+    });
+
 });
