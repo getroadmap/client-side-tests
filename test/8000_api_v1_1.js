@@ -175,4 +175,66 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('POST v1.1/project/milestone/add', function (done) {
+        options.url = api + '/v1.1/project/milestone/add';
+        options.body = {
+            ProjectID: projectID,
+            Name: 'Test API 11 Milestone ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleMilestone');
+            milestoneID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/event/add', function (done) {
+        options.url = api + '/v1.1/project/event/add';
+        options.body = {
+            ProjectID: projectID,
+            Name: 'Test API 11 Event ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleEvent');
+            eventID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/todolist/add', function (done) {
+        options.url = api + '/v1.1/project/todolist/add';
+        options.body = {
+            ProjectID: projectID,
+            MilestoneID: milestoneID,
+            Name: 'Test API 11 To-Do List ' + uniqueID
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTodoList');
+            todoListID = body.ID;
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/item/add', function (done) {
+        options.url = api + '/v1.1/project/item/add';
+        options.body = {
+            ProjectID: projectID,
+            TodoListID: todoListID,
+            Name: 'Test API 11 To-Do Item ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate
+        };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTodoItem');
+            todoItemID = body.ID;
+            done();
+        });
+    });
+
 });

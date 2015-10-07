@@ -58,5 +58,65 @@
 			"Resources": {"type": "null"},
 			"Health": {"$ref": "/SingleHealth"}
 		}
+	},
+	{
+		"id": "/SingleMilestone",
+		"type": "object",
+		"required": ["ID", "ProjectID", "Name", "StartDate", "DueDate", "EndTime", "Completed", "CompletedDate", "Resources"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
+			"EndTime": {"type": "string", "format": "time"},
+			"Completed": {"type": "boolean"},
+			"CompletedDate": {"type": "null"},
+			"Resources": {"type": "null"}
+		}
+	},
+	{
+		"id": "/SingleEvent",
+		"type": "object",
+		"required": ["ID", "ProjectID", "Name", "StartDate", "DueDate", "EndTime"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
+			"EndTime": {"type": "string", "format": "time"}
+		}
+	},
+	{
+		"id": "/SingleTodoList",
+		"type": "object",
+		"required": ["ID", "ProjectID", "MilestoneID", "Name"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"MilestoneID": {"type": "integer"},
+			"Name": {"type": "string"}
+		}
+	},
+	{
+		"id": "/SingleTodoItem",
+		"type": "object",
+		"required": ["ID", "ProjectID", "TodoListID", "Name", "StartDate", "DueDate", "Completed", "CompletedDate", "Resources"],
+		"additionalProperties": false,
+		"properties": {
+			"ID": {"type": "integer"},
+			"ProjectID": {"type": "integer"},
+			"TodoListID": {"type": "integer"},
+			"Name": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
+			"Completed": {"type": "boolean"},
+			"CompletedDate": {"type": "null"},
+			"Resources": {"type": "null"}
+		}
 	}
 ]
