@@ -157,6 +157,15 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/attr', function (done) {
+        options.url = api + '/v1.1/attr';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/AttributeArray');
+            projectAttributes = body;
+            done();
+        });
+    });
+
     test.it('POST v1.1/project/add', function (done) {
         options.url = api + '/v1.1/project/add';
         options.body = {
@@ -171,6 +180,59 @@ test.describe('Testing API v1.1', function () {
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleProject');
             projectID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/{projectId}/attr/{attrId}', function (done) {
+        var counter = 0;
+        projectAttributes.forEach(function (attribute, index) {
+            options.url = api + '/v1.1/project/' + projectID + '/attr/' + attribute.ID;
+            switch (attribute.Type) {
+            case 'Listbox':
+                options.body = [attribute.Options[0].ID];
+                break;
+            case 'TextShort':
+                options.body = 'Project Short Text';
+                break;
+            case 'TextLong':
+                options.body = 'Project Long Text';
+                break;
+            case 'Number':
+                options.body = 5.5;
+                break;
+            case 'Percentage':
+                options.body = 6.6;
+                break;
+            case 'Currency':
+                options.body = 7.7;
+                break;
+            case 'Date':
+                options.body = startDate;
+                break;
+            case 'Checkbox':
+                options.body = true;
+                break;
+            default:
+                options.body = null;
+            }
+            request.put(options, function (error, response, body) {
+                counter += 1;
+                if (error) {
+                    console.error(error);
+                }
+                assert(!error && response.statusCode === 204);
+                if (counter === projectAttributes.length) {
+                    done();
+                }
+            });
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/attr', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/attr';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/AttributeValueArray');
             done();
         });
     });
@@ -236,7 +298,7 @@ test.describe('Testing API v1.1', function () {
         options.url = api + '/v1.1/project/milestone/' + milestoneID;
         options.body = {
             ID: milestoneID,
-            Name: 'completed API 11 Milestone ' + uniqueID,
+            Name: 'Completed API 11 Milestone ' + uniqueID,
             StartDate: startDate,
             DueDate: dueDate,
             EndTime: '00:00:00'
@@ -620,6 +682,15 @@ test.describe('Testing API v1.1', function () {
         };
         request.put(options, function (error, response, body) {
             validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID;
+        options.body = null;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleProject');
             done();
         });
     });

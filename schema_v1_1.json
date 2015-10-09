@@ -44,6 +44,12 @@
 		"items": {"$ref": "/SingleHealth"}
 	},
 	{
+		"id": "/AssignedResourceArray",
+		"type": ["array", "null"],
+		"minItems": 1,
+		"items": {"$ref": "/SingleAssignedResource"}
+	},
+	{
 		"id": "/SingleProject",
 		"type": "object",
 		"required": ["ID", "CustomCode", "ProjectCode", "Name", "StartDate", "DueDate", "Resources", "Health"],
@@ -55,7 +61,7 @@
 			"Name": {"type": "string"},
 			"StartDate": {"type": "string", "format": "date"},
 			"DueDate": {"type": "string", "format": "date"},
-			"Resources": {"type": "null"},
+			"Resources": {"$ref": "/AssignedResourceArray"},
 			"Health": {"$ref": "/SingleHealth"}
 		}
 	},
@@ -204,5 +210,53 @@
 			"Description": {"type": "string"},
 			"ResponsibleResourceID": {"type": "integer"}
 		}
+	},
+	{
+		"id": "/AttributeArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {
+			"type": "object",
+			"required": ["ID", "Type", "Name", "Description"],
+			"additionalProperties": false,
+			"properties": {
+				"ID": {"type": "integer"},
+				"Type": {"type": "string"},
+				"Name": {"type": "string"},
+				"Description": {"type": "string"},
+				"RangeLower": {"type": ["number", "null"]},
+				"RangeUpper": {"type": ["number", "null"]},
+				"AllowMultipleValues": {"type": "boolean"},
+				"Options": {
+					"type": "array",
+					"minItems": 1,
+					"items": {
+						"type": "object",
+						"required": ["ID", "Value"],
+						"additionalProperties": false,
+						"properties": {
+							"ID": {"type": "integer"},
+							"Value": {"type": "string"}
+						}
+					}
+				}
+			}
+		}
+	},
+	{
+		"id": "/SingleAttributeValue",
+		"type": "object",
+		"required": ["AttributeID", "Value"],
+		"additionalProperties": false,
+		"properties": {
+			"AttributeID": {"type": "integer"},
+			"Value": {"type": ["string", "number", "boolean", "array"]}
+		}
+	},
+	{
+		"id": "/AttributeValueArray",
+		"type": ["array", "null"],
+		"minItems": 1,
+		"items": {"$ref": "/SingleAttributeValue"}
 	}
 ]
