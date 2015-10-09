@@ -376,10 +376,53 @@ test.describe('Testing API v1.1', function () {
         options.url = api + '/v1.1/project/item/' + todoItemID;
         options.body = {
             ID: todoItemID,
+            Name: 'Completed API 11 To-Do Item ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/item/{todoItemId}/complete', function (done) {
+        options.url = api + '/v1.1/project/item/' + todoItemID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/item/add', function (done) {
+        options.url = api + '/v1.1/project/item/add';
+        options.body = {
+            ProjectID: projectID,
+            TodoListID: todoListID,
             Name: 'Test API 11 To-Do Item ' + uniqueID,
             StartDate: startDate,
             DueDate: dueDate
         };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTodoItem');
+            todoItemID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/item/{todoItemId}/complete', function (done) {
+        options.url = api + '/v1.1/project/item/' + todoItemID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/item/{todoItemId}/uncomplete', function (done) {
+        options.url = api + '/v1.1/project/item/' + todoItemID + '/uncomplete';
+        options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
             done();
