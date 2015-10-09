@@ -175,6 +175,20 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('PUT v1.1/project/{projectId}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID;
+        options.body = {
+            ID: projectID,
+            Name: 'Test API 11 Project ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.1/project/milestone/add', function (done) {
         options.url = api + '/v1.1/project/milestone/add';
         options.body = {
@@ -187,6 +201,21 @@ test.describe('Testing API v1.1', function () {
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleMilestone');
             milestoneID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/milestone/{milestoneId}', function (done) {
+        options.url = api + '/v1.1/project/milestone/' + milestoneID;
+        options.body = {
+            ID: milestoneID,
+            Name: 'Test API 11 Milestone ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });
@@ -207,6 +236,21 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('PUT v1.1/project/event/{eventId}', function (done) {
+        options.url = api + '/v1.1/project/event/' + eventID;
+        options.body = {
+            ID: eventID,
+            Name: 'Test API 11 Event ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.1/project/todolist/add', function (done) {
         options.url = api + '/v1.1/project/todolist/add';
         options.body = {
@@ -217,6 +261,18 @@ test.describe('Testing API v1.1', function () {
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleTodoList');
             todoListID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/todolist/{todoListId}', function (done) {
+        options.url = api + '/v1.1/project/todolist/' + todoListID;
+        options.body = {
+            ID: todoListID,
+            Name: 'Test API 11 To-Do List ' + uniqueID
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });
