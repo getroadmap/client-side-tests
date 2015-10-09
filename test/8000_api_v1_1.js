@@ -189,6 +189,33 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('PUT v1.1/project/{projectId}/move', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/move';
+        options.body = startDate2;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/{projectID}/updateHealth?healthId={healthId}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/updateHealth?healthId=' + healthID;
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/{projectID}/updateStatus?status={status}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/updateStatus?status=Future';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.1/project/milestone/add', function (done) {
         options.url = api + '/v1.1/project/milestone/add';
         options.body = {
@@ -209,11 +236,63 @@ test.describe('Testing API v1.1', function () {
         options.url = api + '/v1.1/project/milestone/' + milestoneID;
         options.body = {
             ID: milestoneID,
+            Name: 'completed API 11 Milestone ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate,
+            EndTime: '00:00:00'
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/milestone/{milestoneId}/move', function (done) {
+        options.url = api + '/v1.1/project/milestone/' + milestoneID + '/move';
+        options.body = startDate2;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/milestone/{milestoneId}/complete', function (done) {
+        options.url = api + '/v1.1/project/milestone/' + milestoneID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('POST v1.1/project/milestone/add', function (done) {
+        options.url = api + '/v1.1/project/milestone/add';
+        options.body = {
+            ProjectID: projectID,
             Name: 'Test API 11 Milestone ' + uniqueID,
             StartDate: startDate,
             DueDate: dueDate,
             EndTime: '00:00:00'
         };
+        request.post(options, function (error, response, body) {
+            validate(error, response, body, '/SingleMilestone');
+            milestoneID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/milestone/{milestoneId}/complete', function (done) {
+        options.url = api + '/v1.1/project/milestone/' + milestoneID + '/complete';
+        options.body = null;
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/milestone/{milestoneId}/uncomplete', function (done) {
+        options.url = api + '/v1.1/project/milestone/' + milestoneID + '/uncomplete';
+        options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
             done();
@@ -293,6 +372,20 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('PUT v1.1/project/item/{todoItemId}', function (done) {
+        options.url = api + '/v1.1/project/item/' + todoItemID;
+        options.body = {
+            ID: todoItemID,
+            Name: 'Test API 11 To-Do Item ' + uniqueID,
+            StartDate: startDate,
+            DueDate: dueDate
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
     test.it('POST v1.1/project/timeentry/add (Project)', function (done) {
         options.url = api + '/v1.1/project/timeentry/add';
         options.body = {
@@ -361,6 +454,23 @@ test.describe('Testing API v1.1', function () {
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleAssignedResource');
             projectResID = body.ID;
+            done();
+        });
+    });
+
+    test.it('PUT v1.1/project/resource/{projectResId}', function (done) {
+        options.url = api + '/v1.1/project/resource/' + projectResID;
+        options.body = {
+            ID: projectResID,
+            ResourceID: resourceID,
+            RoleID: roleID,
+            Estimate: {
+                Time: 100,
+                Unit: 'Percent'
+            }
+        };
+        request.put(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });
