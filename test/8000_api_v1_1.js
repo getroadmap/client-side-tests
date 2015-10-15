@@ -695,4 +695,54 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/project/{projectId}/resource', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/resource';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/AssignedResourceArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/attr', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/attr';
+        options.body = null;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/AttributeValueArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project', function (done) {
+        options.url = api + '/v1.1/project';
+        options.body = null;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/ProjectArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/milestone', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/milestone';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/MilestoneArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/milestone/{milestoneId}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/milestone/' + milestoneID;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleMilestone');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/milestone/{milestoneId}/resource', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/milestone/' + milestoneID +'/resource';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/AssignedResourceArray');
+            done();
+        });
+    });
+
 });
