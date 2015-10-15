@@ -738,9 +738,41 @@ test.describe('Testing API v1.1', function () {
     });
 
     test.it('GET v1.1/project/{projectId}/milestone/{milestoneId}/resource', function (done) {
-        options.url = api + '/v1.1/project/' + projectID + '/milestone/' + milestoneID +'/resource';
+        options.url = api + '/v1.1/project/' + projectID + '/milestone/' + milestoneID + '/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AssignedResourceArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/event', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/event';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/EventArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/event/{eventId}', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/event/' + eventID;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleEvent');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/note', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/note';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/NoteArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/roadblock', function (done) {
+        options.url = api + '/v1.1/project/' + projectID + '/roadblock';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/RoadblockArray');
             done();
         });
     });

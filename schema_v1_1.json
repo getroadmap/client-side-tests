@@ -109,6 +109,12 @@
 		}
 	},
 	{
+		"id": "/EventArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleEvent"}
+	},
+	{
 		"id": "/SingleTodoList",
 		"type": "object",
 		"required": ["ID", "ProjectID", "MilestoneID", "Name"],
@@ -207,6 +213,12 @@
 		}
 	},
 	{
+		"id": "/NoteArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleNote"}
+	},
+	{
 		"id": "/SingleRoadblock",
 		"type": "object",
 		"required": ["ID", "ProjectID", "DateAdded", "DateUpdated", "Resolved", "DateResolved", "Subject", "Description", "ResponsibleResourceID"],
@@ -222,6 +234,12 @@
 			"Description": {"type": "string"},
 			"ResponsibleResourceID": {"type": "integer"}
 		}
+	},
+	{
+		"id": "/RoadblockArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleRoadblock"}
 	},
 	{
 		"id": "/AttributeArray",
