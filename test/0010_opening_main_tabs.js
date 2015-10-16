@@ -24,7 +24,7 @@ test.describe('Opening Main Tabs', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/GettingStarted.aspx');
+        driver.get(base);
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
@@ -33,73 +33,27 @@ test.describe('Opening Main Tabs', function () {
             if (found) {
                 driver.get(base + '/AccountRegistration.aspx');
                 driver.wait(until.titleIs('Signup for Roadmap - Intelligent Project Management, Scheduling, Time Tracking, and Resource Planning'), timeout);
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtFirstName"]')).then(function (element) {
+                driver.findElement(By.xpath('//input[@id = "txtFullName"]')).then(function (element) {
                     element.clear();
-                    element.sendKeys('Account');
+                    element.sendKeys('Account Owner');
                 });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtLastName"]')).then(function (element) {
-                    element.clear();
-                    element.sendKeys('Owner');
-                });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtCompanyName"]')).then(function (element) {
+                driver.findElement(By.xpath('//input[@id = "txtCompanyName"]')).then(function (element) {
                     element.clear();
                     element.sendKeys(config.roadmap.company);
                 });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtEmail"]')).then(function (element) {
+                driver.findElement(By.xpath('//input[@id = "txtEmail"]')).then(function (element) {
                     element.clear();
                     element.sendKeys(user);
                 });
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword"]')).sendKeys('1234567');
-                driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_txtPassword2"]')).sendKeys('1234567');
+                driver.findElement(By.xpath('//input[@id = "txtPassword"]')).sendKeys('1234567');
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_btnRegisterCompany"]')).click();
-                driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
-            } else {
-                driver.getTitle().then(function (title) {
-                    assert.equal(title, 'Roadmap > Getting Started');
-                });
             }
         });
     });
 
-    test.it('/GettingStarted.aspx', function () {
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]')), timeout);
-        driver.findElements(By.xpath('//button[@class = "ui-datepicker-trigger"]')).then(function (elements) {
-            assert.equal(elements.length, 10);
-        });
-        driver.findElement(By.xpath('//a[@id = "ctl00_ContentPlaceHolder1_btnBCIntegration"]')).then(function (element) {
-            element.getAttribute('href').then(function (href) {
-                driver.executeScript(href.substring(11));
-            });
-        });
-        driver.wait(until.elementLocated(By.xpath('//h1[. = "Basecamp Account(s) Integration"]')), timeout);
-        driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]')), timeout);
-        driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
-
-        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
-        driver.wait(until.elementLocated(By.xpath('//div[@id = "sysAnnounce"]')), timeout);
-        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
-
-        driver.get(base + '/GettingStarted.aspx');
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Projects"]')), timeout);
-        driver.findElement(By.xpath('//input[@id = "btnNextTop"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "stepCaption" and . = "Add Project Attributes"]')), timeout);
-        driver.findElement(By.xpath('//input[@id = "btnNextBottom"]')).click();
-
-        driver.wait(until.titleIs('Roadmap > Projects'), timeout);
-        driver.wait(until.elementLocated(By.xpath('//div[@id = "sysAnnounce"]')), timeout);
-        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
-            driver.wait(until.elementIsNotVisible(element), timeout);
-        });
-        driver.wait(until.elementLocated(By.xpath('//span[. = "Showing 1-3 from 3 Items"]'), timeout));
-        driver.findElement(By.xpath('//div[@id = "sysAnnounce"]/a[@class = "btn-close"]')).then(function (element) {
-            element.getAttribute('href').then(function (href) {
-                driver.executeScript(href.substring(11));
-            });
-        });
-        driver.isElementPresent(By.xpath('//div[@id = "sysAnnounce"]')).then(function (found) {
-            assert(!found);
-        });
+    test.it('/GettingStarted', function () {
+        driver.get(base + '/GettingStarted');
+        driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
     });
 
     test.it('/Projects.aspx', function () {
