@@ -16,7 +16,7 @@ test.describe('Testing API v1.2', function () {
 
     test.before(function () {
         base = config.roadmap.base;
-        api = config.roadmap.api;
+        api = config.roadmap.api + '/v1.2';
         user = config.roadmap.owner;
         v = new Validator();
 
@@ -94,7 +94,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/role/add', function (done) {
-        options.url = api + '/v1.2/role/add';
+        options.url = api + '/role/add';
         options.body = 'API_Role_' + uniqueID;
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleRole');
@@ -104,7 +104,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/resource/add', function (done) {
-        options.url = api + '/v1.2/resource/add';
+        options.url = api + '/resource/add';
         options.body = {
             FirstName: 'API_Resource',
             LastName: uniqueID,
@@ -119,7 +119,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/resource/addCompany', function (done) {
-        options.url = api + '/v1.2/resource/addCompany';
+        options.url = api + '/resource/addCompany';
         options.body = {
             CompanyName: 'API_Company_' + uniqueID,
             PrimaryRoleID: roleID,
@@ -132,7 +132,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/resource/addUser', function (done) {
-        options.url = api + '/v1.2/resource/addUser';
+        options.url = api + '/resource/addUser';
         options.body = {
             FirstName: 'API_User',
             LastName: uniqueID,
@@ -149,7 +149,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/health', function (done) {
-        options.url = api + '/v1.2/health';
+        options.url = api + '/health';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/HealthArray');
             healthID = body[body.length - 2].ID;
@@ -158,7 +158,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/add', function (done) {
-        options.url = api + '/v1.2/project/add';
+        options.url = api + '/project/add';
         options.body = {
             Name: 'Test API Project ' + uniqueID,
             CustomCode: 'ProjectCustomCode_' + uniqueID,
@@ -174,7 +174,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/milestone/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone/add';
+        options.url = api + '/project/' + projectID + '/milestone/add';
         options.body = {
             Name: 'Test API Milestone ' + uniqueID,
             StartDate: startDate,
@@ -189,7 +189,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/event/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/event/add';
+        options.url = api + '/project/' + projectID + '/event/add';
         options.body = {
             Name: 'Test API Event ' + uniqueID,
             StartDate: startDate,
@@ -204,7 +204,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/event/{eventId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/event/' + eventID;
+        options.url = api + '/project/' + projectID + '/event/' + eventID;
         options.body = {
             Name: 'Changed API Event ' + uniqueID,
             StartDate: startDate2,
@@ -218,7 +218,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/todolist/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/add';
+        options.url = api + '/project/' + projectID + '/todolist/add';
         options.body = {
             MilestoneID: milestoneID,
             Name: 'Test API To-Do List ' + uniqueID
@@ -231,7 +231,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/todolist/{todoListId}/item/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/add';
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/add';
         options.body = {
             Name: 'Test API To-Do Item ' + uniqueID,
             StartDate: startDate,
@@ -245,7 +245,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/timeentry/add (Project)', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
+        options.url = api + '/project/' + projectID + '/timeentry/add';
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -261,7 +261,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/timeentry/add (Milestone)', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
+        options.url = api + '/project/' + projectID + '/timeentry/add';
         options.body = {
             MilestoneID: milestoneID,
             ResourceID: resourceID,
@@ -277,7 +277,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/timeentry/add (TodoItem)', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/timeentry/add';
+        options.url = api + '/project/' + projectID + '/timeentry/add';
         options.body = {
             TodoItemID: todoItemID,
             ResourceID: resourceID,
@@ -293,7 +293,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/resource/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/resource/add';
+        options.url = api + '/project/' + projectID + '/resource/add';
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -310,7 +310,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/milestone/{milestoneId}/resource/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/resource/add';
+        options.url = api + '/project/' + projectID + '/milestone/' + milestoneID + '/resource/add';
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -327,7 +327,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource/add';
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource/add';
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -344,7 +344,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/note/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/note/add';
+        options.url = api + '/project/' + projectID + '/note/add';
         options.body = 'Test API Note ' + uniqueID;
         request.post(options, function (error, response, body) {
             validate(error, response, body, '/SingleNote');
@@ -354,7 +354,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/note/{noteId}', function (done) {
-        options.url = api + '/v1.2/project/note/' + noteID;
+        options.url = api + '/project/note/' + noteID;
         options.body = 'Changed API Note ' + uniqueID;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -363,7 +363,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/roadblock/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/roadblock/add';
+        options.url = api + '/project/' + projectID + '/roadblock/add';
         options.body = {
             Subject: 'Test API Roadblock ' + uniqueID,
             Description: 'Test API Roadblock Description ' + uniqueID,
@@ -377,7 +377,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/roadblock/{roadblockId}', function (done) {
-        options.url = api + '/v1.2/project/roadblock/' + roadblockID;
+        options.url = api + '/project/roadblock/' + roadblockID;
         options.body = {
             Subject: 'Changed API Roadblock ' + uniqueID,
             Description: 'Test API Roadblock Description ' + uniqueID,
@@ -390,7 +390,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('POST v1.2/project/{projectId}/roadblock/add', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/roadblock/add';
+        options.url = api + '/project/' + projectID + '/roadblock/add';
         options.body = {
             Subject: 'Another API Roadblock ' + uniqueID,
             Description: 'Another API Roadblock Description ' + uniqueID,
@@ -404,7 +404,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/roadblock/{roadblockId}/resolve?resolve={resolve}', function (done) {
-        options.url = api + '/v1.2/project/roadblock/' + roadblockID + '/resolve?resolve=true';
+        options.url = api + '/project/roadblock/' + roadblockID + '/resolve?resolve=true';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -413,7 +413,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/attr', function (done) {
-        options.url = api + '/v1.2/attr';
+        options.url = api + '/attr';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeArray');
             done();
@@ -421,7 +421,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/attr/project', function (done) {
-        options.url = api + '/v1.2/attr/project';
+        options.url = api + '/attr/project';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeArray');
             projectAttributes = body;
@@ -430,7 +430,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/attr/resource', function (done) {
-        options.url = api + '/v1.2/attr/resource';
+        options.url = api + '/attr/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeArray');
             resourceAttributes = body;
@@ -439,7 +439,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/attr/work-item', function (done) {
-        options.url = api + '/v1.2/attr/work-item';
+        options.url = api + '/attr/work-item';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeArray');
             workitemAttributes = body;
@@ -450,7 +450,7 @@ test.describe('Testing API v1.2', function () {
     test.it('PUT v1.2/project/{projectId}/attr/{attrId}', function (done) {
         var counter = 0;
         projectAttributes.forEach(function (attribute, index) {
-            options.url = api + '/v1.2/project/' + projectID + '/attr/' + attribute.ID;
+            options.url = api + '/project/' + projectID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
             case 'Listbox':
                 options.body = [attribute.Options[0].ID];
@@ -495,7 +495,7 @@ test.describe('Testing API v1.2', function () {
     test.it('PUT v1.2/resource/{resourceId}/attr/{attrId}', function (done) {
         var counter = 0;
         resourceAttributes.forEach(function (attribute, index) {
-            options.url = api + '/v1.2/resource/' + resourceID + '/attr/' + attribute.ID;
+            options.url = api + '/resource/' + resourceID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
             case 'Listbox':
                 options.body = [attribute.Options[0].ID];
@@ -540,7 +540,7 @@ test.describe('Testing API v1.2', function () {
     test.it('PUT v1.2/project/{projectId}/milestone/{milestoneId}/attr/{attrId}', function (done) {
         var counter = 0;
         workitemAttributes.forEach(function (attribute, index) {
-            options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/attr/' + attribute.ID;
+            options.url = api + '/project/' + projectID + '/milestone/' + milestoneID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
             case 'Listbox':
                 options.body = [attribute.Options[0].ID];
@@ -585,7 +585,7 @@ test.describe('Testing API v1.2', function () {
     test.it('PUT v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemID}/attr/{attrId}', function (done) {
         var counter = 0;
         workitemAttributes.forEach(function (attribute, index) {
-            options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr/' + attribute.ID;
+            options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr/' + attribute.ID;
             switch (attribute.Type) {
             case 'Listbox':
                 options.body = [attribute.Options[0].ID];
@@ -628,7 +628,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/attr', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/attr';
+        options.url = api + '/project/' + projectID + '/attr';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeValueArray');
             done();
@@ -636,7 +636,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/attr', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/attr';
+        options.url = api + '/resource/' + resourceID + '/attr';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeValueArray');
             done();
@@ -644,7 +644,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}/attr', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/attr';
+        options.url = api + '/project/' + projectID + '/milestone/' + milestoneID + '/attr';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeValueArray');
             done();
@@ -652,7 +652,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/attr', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr';
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/attr';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AttributeValueArray');
             done();
@@ -660,7 +660,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/role', function (done) {
-        options.url = api + '/v1.2/role';
+        options.url = api + '/role';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/RoleArray');
             done();
@@ -668,7 +668,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource', function (done) {
-        options.url = api + '/v1.2/resource';
+        options.url = api + '/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/ResourceArray');
             done();
@@ -676,7 +676,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/me', function (done) {
-        options.url = api + '/v1.2/resource/me';
+        options.url = api + '/resource/me';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleResourceLong');
             done();
@@ -684,7 +684,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID;
+        options.url = api + '/resource/' + resourceID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleResource');
             done();
@@ -692,7 +692,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/active-project', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/active-project';
+        options.url = api + '/resource/' + resourceID + '/active-project';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/ProjectArray');
             done();
@@ -700,7 +700,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item';
+        options.url = api + '/resource/' + resourceID + '/work-item';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -708,7 +708,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/project', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project';
+        options.url = api + '/resource/' + resourceID + '/work-item/project';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -716,7 +716,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/project?projectID={projectID}', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project?projectID=' + projectID;
+        options.url = api + '/resource/' + resourceID + '/work-item/project?projectID=' + projectID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -724,7 +724,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/milestone', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/milestone';
+        options.url = api + '/resource/' + resourceID + '/work-item/milestone';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -732,7 +732,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/todo', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/todo';
+        options.url = api + '/resource/' + resourceID + '/work-item/todo';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -740,7 +740,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/updateStatus?status={status}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/updateStatus?status=Closed';
+        options.url = api + '/project/' + projectID + '/updateStatus?status=Closed';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -749,7 +749,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/project/completed', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project/completed';
+        options.url = api + '/resource/' + resourceID + '/work-item/project/completed';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -757,7 +757,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/project/completed?projectID={projectID}', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/project/completed?projectID=' + projectID;
+        options.url = api + '/resource/' + resourceID + '/work-item/project/completed?projectID=' + projectID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -765,7 +765,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/updateHealth?healthId={healthId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/updateHealth?healthId=' + healthID;
+        options.url = api + '/project/' + projectID + '/updateHealth?healthId=' + healthID;
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -774,7 +774,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/{milestoneId}/complete', function (done) {
-        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/complete';
+        options.url = api + '/project/milestone/' + milestoneID + '/complete';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -783,7 +783,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/milestone/completed', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/milestone/completed';
+        options.url = api + '/resource/' + resourceID + '/work-item/milestone/completed';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -791,7 +791,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/{milestoneId}/uncomplete', function (done) {
-        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/uncomplete';
+        options.url = api + '/project/milestone/' + milestoneID + '/uncomplete';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -800,7 +800,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/item/{todoItemId}/complete', function (done) {
-        options.url = api + '/v1.2/project/item/' + todoItemID + '/complete';
+        options.url = api + '/project/item/' + todoItemID + '/complete';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -809,7 +809,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/resource/{resourceId}/work-item/todo/completed', function (done) {
-        options.url = api + '/v1.2/resource/' + resourceID + '/work-item/todo/completed';
+        options.url = api + '/resource/' + resourceID + '/work-item/todo/completed';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -817,7 +817,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/item/{todoItemId}/uncomplete', function (done) {
-        options.url = api + '/v1.2/project/item/' + todoItemID + '/uncomplete';
+        options.url = api + '/project/item/' + todoItemID + '/uncomplete';
         options.body = null;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -826,7 +826,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item';
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -834,7 +834,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}/resource', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource';
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID + '/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AssignedResourceArray');
             done();
@@ -842,7 +842,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project', function (done) {
-        options.url = api + '/v1.2/project';
+        options.url = api + '/project';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/ProjectArray');
             done();
@@ -850,7 +850,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/resource', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/resource';
+        options.url = api + '/project/' + projectID + '/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AssignedResourceArray');
             done();
@@ -858,7 +858,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/resource-all', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/resource-all';
+        options.url = api + '/project/' + projectID + '/resource-all';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AssignedResourceArray');
             done();
@@ -866,7 +866,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/roadblock', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/roadblock';
+        options.url = api + '/project/' + projectID + '/roadblock';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/RoadblockArray');
             done();
@@ -874,7 +874,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/milestone', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone';
+        options.url = api + '/project/' + projectID + '/milestone';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -882,7 +882,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}/resource', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID + '/resource';
+        options.url = api + '/project/' + projectID + '/milestone/' + milestoneID + '/resource';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/AssignedResourceArray');
             done();
@@ -890,7 +890,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/note', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/note';
+        options.url = api + '/project/' + projectID + '/note';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/NoteArray');
             done();
@@ -898,7 +898,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/event', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/event';
+        options.url = api + '/project/' + projectID + '/event';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/EventArray');
             done();
@@ -906,7 +906,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/event/{eventId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/event/' + eventID;
+        options.url = api + '/project/' + projectID + '/event/' + eventID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleEvent');
             done();
@@ -914,7 +914,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist';
+        options.url = api + '/project/' + projectID + '/todolist';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/TodoListArray');
             done();
@@ -922,7 +922,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID;
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleTodoList');
             done();
@@ -930,7 +930,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/timeentry/{start}/{end}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/timeentry/' + startRMDate + '/' + endRMDate;
+        options.url = api + '/project/' + projectID + '/timeentry/' + startRMDate + '/' + endRMDate;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/TimeEntryArray');
             done();
@@ -938,7 +938,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/work-item', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/work-item';
+        options.url = api + '/project/' + projectID + '/work-item';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/WorkItemArray');
             done();
@@ -946,7 +946,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/event/{eventId}', function (done) {
-        options.url = api + '/v1.2/project/event/' + eventID;
+        options.url = api + '/project/event/' + eventID;
         options.body = {
             Name: 'Changed API Event ' + uniqueID,
             StartDate: startDate2,
@@ -960,7 +960,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/item/resource/{itemResId}', function (done) {
-        options.url = api + '/v1.2/project/item/resource/' + itemResID;
+        options.url = api + '/project/item/resource/' + itemResID;
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -976,7 +976,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/item/{todoItemId}', function (done) {
-        options.url = api + '/v1.2/project/item/' + todoItemID;
+        options.url = api + '/project/item/' + todoItemID;
         options.body = {
             Name: 'Changed API To-Do Item ' + uniqueID,
             StartDate: startDate2,
@@ -989,7 +989,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/{milestoneId}', function (done) {
-        options.url = api + '/v1.2/project/milestone/' + milestoneID;
+        options.url = api + '/project/milestone/' + milestoneID;
         options.body = {
             Name: 'Changed API Milestone ' + uniqueID,
             StartDate: startDate2,
@@ -1002,7 +1002,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/{milestoneId}/move', function (done) {
-        options.url = api + '/v1.2/project/milestone/' + milestoneID + '/move';
+        options.url = api + '/project/milestone/' + milestoneID + '/move';
         options.body = startDate;
         request.put(options, function (error, response, body) {
             validate(error, response, body);
@@ -1011,7 +1011,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/milestone/resource/{milestoneResId}', function (done) {
-        options.url = api + '/v1.2/project/milestone/resource/' + milestoneResID;
+        options.url = api + '/project/milestone/resource/' + milestoneResID;
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -1027,7 +1027,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID;
+        options.url = api + '/project/' + projectID;
         options.body = {
             Name: 'Changed API Project ' + uniqueID,
             StartDate: startDate2,
@@ -1040,7 +1040,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID;
+        options.url = api + '/project/' + projectID;
         options.body = null;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleProject');
@@ -1049,7 +1049,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/milestone/{milestoneId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/milestone/' + milestoneID;
+        options.url = api + '/project/' + projectID + '/milestone/' + milestoneID;
         options.body = null;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleMilestone');
@@ -1058,7 +1058,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('GET v1.2/project/{projectId}/todolist/{todoListId}/item/{todoItemId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID;
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID;
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/SingleWorkItem');
             done();
@@ -1066,7 +1066,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/{projectId}/todolist/{todoListId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID + '/todolist/' + todoListID;
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID;
         options.body = {
             Name: 'Changed API To-Do List ' + uniqueID
         };
@@ -1077,7 +1077,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('PUT v1.2/project/resource/{projectResId}', function (done) {
-        options.url = api + '/v1.2/project/resource/' + projectResID;
+        options.url = api + '/project/resource/' + projectResID;
         options.body = {
             ResourceID: resourceID,
             RoleID: roleID,
@@ -1093,7 +1093,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/event/{eventId}', function (done) {
-        options.url = api + '/v1.2/project/event/' + eventID;
+        options.url = api + '/project/event/' + eventID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1102,7 +1102,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/item/resource/{itemResId}', function (done) {
-        options.url = api + '/v1.2/project/item/resource/' + itemResID;
+        options.url = api + '/project/item/resource/' + itemResID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1111,7 +1111,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/item/{todoItemId}', function (done) {
-        options.url = api + '/v1.2/project/item/' + todoItemID;
+        options.url = api + '/project/item/' + todoItemID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1120,7 +1120,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/todolist/{toDoListId}', function (done) {
-        options.url = api + '/v1.2/project/todolist/' + todoListID;
+        options.url = api + '/project/todolist/' + todoListID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1129,7 +1129,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/resource/{projectResId}', function (done) {
-        options.url = api + '/v1.2/project/resource/' + projectResID;
+        options.url = api + '/project/resource/' + projectResID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1138,7 +1138,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/timeentry/{timeEntryId}', function (done) {
-        options.url = api + '/v1.2/project/timeentry/' + timeEntryID;
+        options.url = api + '/project/timeentry/' + timeEntryID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1147,7 +1147,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/milestone/resource/{milestoneResId}', function (done) {
-        options.url = api + '/v1.2/project/milestone/resource/' + milestoneResID;
+        options.url = api + '/project/milestone/resource/' + milestoneResID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1156,7 +1156,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/note/{noteId}', function (done) {
-        options.url = api + '/v1.2/project/note/' + noteID;
+        options.url = api + '/project/note/' + noteID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1165,7 +1165,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/milestone/{milestoneId}', function (done) {
-        options.url = api + '/v1.2/project/milestone/' + milestoneID;
+        options.url = api + '/project/milestone/' + milestoneID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1174,7 +1174,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/roadblock/{roadblockId}', function (done) {
-        options.url = api + '/v1.2/project/roadblock/' + roadblockID;
+        options.url = api + '/project/roadblock/' + roadblockID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);
@@ -1183,7 +1183,7 @@ test.describe('Testing API v1.2', function () {
     });
 
     test.it('DELETE v1.2/project/{projectId}', function (done) {
-        options.url = api + '/v1.2/project/' + projectID;
+        options.url = api + '/project/' + projectID;
         options.body = null;
         request.del(options, function (error, response, body) {
             validate(error, response, body);

@@ -103,8 +103,8 @@
 			"ID": {"type": "integer"},
 			"ProjectID": {"type": "integer"},
 			"Name": {"type": "string"},
-			"StartDate": {"type": "string"},
-			"DueDate": {"type": "string"},
+			"StartDate": {"type": "string", "format": "date"},
+			"DueDate": {"type": "string", "format": "date"},
 			"EndTime": {"type": "string", "format": "time"}
 		}
 	},
