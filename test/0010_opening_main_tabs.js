@@ -47,6 +47,7 @@ test.describe('Opening Main Tabs', function () {
                 });
                 driver.findElement(By.xpath('//input[@id = "txtPassword"]')).sendKeys('1234567');
                 driver.findElement(By.xpath('//input[@id = "ctl00_PublicContent_btnRegisterCompany"]')).click();
+                driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
             }
         });
     });
@@ -54,6 +55,24 @@ test.describe('Opening Main Tabs', function () {
     test.it('/GettingStarted', function () {
         driver.get(base + '/GettingStarted');
         driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
+        driver.isElementPresent(By.xpath('//h3[. = "Finish Up Your Account Profile."]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h3[. = "Customize Attributes"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h3[. = "Import Existing Projects to Roadmap"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h3[. = "Add Projects"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h3[. = "Add People"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h3[. = "Need Mode Help?"]')).then(function (found) {
+            assert(found);
+        });
     });
 
     test.it('/Projects.aspx', function () {
