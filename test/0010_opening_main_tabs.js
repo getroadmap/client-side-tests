@@ -70,7 +70,7 @@ test.describe('Opening Main Tabs', function () {
         driver.isElementPresent(By.xpath('//h3[. = "Add People"]')).then(function (found) {
             assert(found);
         });
-        driver.isElementPresent(By.xpath('//h3[. = "Need Mode Help?"]')).then(function (found) {
+        driver.isElementPresent(By.xpath('//h3[. = "We’re Here to Help"]')).then(function (found) {
             assert(found);
         });
     });

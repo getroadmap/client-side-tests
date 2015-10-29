@@ -135,6 +135,30 @@ test.describe('Opening Settings', function () {
                 assert(displayed);
             });
         });
+        driver.findElements(By.xpath('//span[@id = "StatusReportDeliveryDay"]/label[@class = "check-box checked"]')).then(function (elements) {
+            elements.forEach(function (element) {
+                element.getAttribute('for').then(function (value) {
+                    driver.findElement(By.xpath('//input[@id = "' + value + '"]')).click();
+                    driver.wait(function () {
+                        return element.getAttribute('class').then(function (value) {
+                            return value === 'check-box';
+                        });
+                    }, timeout);
+                });
+            });
+        });
+        driver.findElements(By.xpath('//span[@id = "StatusReportDeliveryDay"]/label[@class = "check-box"]')).then(function (elements) {
+            elements.forEach(function (element) {
+                element.getAttribute('for').then(function (value) {
+                    driver.findElement(By.xpath('//input[@id = "' + value + '"]')).click();
+                    driver.wait(function () {
+                        return element.getAttribute('class').then(function (value) {
+                            return value === 'check-box checked';
+                        });
+                    }, timeout);
+                });
+            });
+        });
     });
 
     test.it('/ProjectPreferences.aspx', function () {
