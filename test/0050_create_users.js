@@ -8,11 +8,12 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Create Users', function () {
     'use strict';
-    var driver, base, user, timeout;
+    var driver, base, user, timeout, pause;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
+        pause = config.selenium.pause;
         base = config.roadmap.base;
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
@@ -50,20 +51,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Analyst")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "Analyst")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[. = "Admin"]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[. = "Admin"]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).click();
 
@@ -95,20 +90,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Designer")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "Designer")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[. = "Read-Write All"]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[. = "Read-Write All"]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
@@ -144,20 +133,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Developer")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "Developer")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[. = "Read-Only All"]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[. = "Read-Only All"]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
@@ -193,20 +176,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Project Manager")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "Project Manager")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[. = "Individual Contributor"]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[. = "Individual Contributor"]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
@@ -242,20 +219,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "UX")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "UX")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Simple")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[contains(., "Simple")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
@@ -291,20 +262,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "UX")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "UX")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "Create")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[contains(., "Create")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
@@ -340,20 +305,14 @@ test.describe('Create Users', function () {
         });
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "Primary Project Role"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "UX")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "selUserCreateRole_listbox" and @aria-hidden = "false"]/li[contains(., "UX")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//div[@id = "ctrUserCreatePopoutBody"]//label[. = "User Access Group"]/..//span[. = "select"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]')), timeout).then(function (element) {
-            element.findElement(By.xpath('./li[contains(., "See All")]')).then(function (element) {
-                driver.wait(until.elementIsVisible(element), timeout);
-                element.click();
-            });
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[contains(@id, "_selUserCreateUAG_ctrList_listbox") and @aria-hidden = "false"]/li[contains(., "See All")]')).click();
+        driver.sleep(pause);
 
         driver.findElement(By.xpath('//input[@id = "chkUserCreateSuperuser"]')).then(function (element) {
             element.isEnabled().then(function (enabled) {
