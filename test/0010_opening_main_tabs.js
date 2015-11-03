@@ -55,7 +55,7 @@ test.describe('Opening Main Tabs', function () {
     test.it('/GettingStarted', function () {
         driver.get(base + '/GettingStarted');
         driver.wait(until.titleIs('Roadmap > Getting Started'), timeout);
-        driver.isElementPresent(By.xpath('//h3[. = "Finish Up Your Account Profile."]')).then(function (found) {
+        driver.isElementPresent(By.xpath('//h3[. = "Finish Up Your Account Profile"]')).then(function (found) {
             assert(found);
         });
         driver.isElementPresent(By.xpath('//h3[. = "Customize Attributes"]')).then(function (found) {

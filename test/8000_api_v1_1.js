@@ -777,4 +777,20 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/resource', function (done) {
+        options.url = api + '/resource';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/ResourceArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/resource/me', function (done) {
+        options.url = api + '/resource/me';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleResource');
+            done();
+        });
+    });
+
 });
