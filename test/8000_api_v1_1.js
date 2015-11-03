@@ -793,4 +793,12 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/role', function (done) {
+        options.url = api + '/role';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/RoleArray');
+            done();
+        });
+    });
+
 });

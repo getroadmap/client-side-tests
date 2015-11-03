@@ -11,6 +11,12 @@
 		}
 	},
 	{
+		"id": "/RoleArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleRole"}
+	},
+	{
 		"id": "/SingleResource",
 		"type": "object",
 		"required": ["ID", "CustomCode", "ResourceCode", "FirstName", "LastName", "CompanyName", "PrimaryRoleID", "PrimaryRoleName"],
