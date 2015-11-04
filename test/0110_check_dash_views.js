@@ -47,8 +47,9 @@ test.describe('Check Dashboard Views', function () {
                         driver.wait(until.elementLocated(By.xpath('//div[@id = "createViewForm"]/h1[. = "Update View"]')), timeout);
                         driver.findElement(By.xpath('//input[@id = "title"]')).then(function (element) {
                             element.getAttribute('value').then(function (value) {
-                                view = {};
-                                view.title = value;
+                                view = {
+                                    title: value
+                                };
                             });
                         });
                         driver.findElement(By.xpath('//input[@id = "subtitle"]')).then(function (element) {
