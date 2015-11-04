@@ -197,6 +197,12 @@
 		}
 	},
 	{
+		"id": "/TimeEntryArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleTimeEntry"}
+	},
+	{
 		"id": "/SingleEstimate",
 		"type": "object",
 		"required": ["Time", "Unit"],

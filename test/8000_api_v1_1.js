@@ -809,6 +809,14 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/project/{projectId}/timeentry/{start}/{end}', function (done) {
+        options.url = api + '/project/' + projectID + '/timeentry/' + startRMDate + "/" + endRMDate;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/TimeEntryArray');
+            done();
+        });
+    });
+
     test.it('GET v1.1/resource', function (done) {
         options.url = api + '/resource';
         request.get(options, function (error, response, body) {
@@ -829,6 +837,105 @@ test.describe('Testing API v1.1', function () {
         options.url = api + '/role';
         request.get(options, function (error, response, body) {
             validate(error, response, body, '/RoleArray');
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/note/{noteId}', function (done) {
+        options.url = api + '/project/note/' + noteID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/roadblock/{roadblockId}', function (done) {
+        options.url = api + '/project/roadblock/' + roadblockID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/event/{eventId}', function (done) {
+        options.url = api + '/project/event/' + eventID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/timeentry/{timeEntryId}', function (done) {
+        options.url = api + '/project/timeentry/' + timeEntryID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/item/resource/{itemResId}', function (done) {
+        options.url = api + '/project/item/resource/' + itemResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/{projectId}/todolist/{todoListId}/item/{todoItemId}', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/{projectId}/todolist/{toDoListId}', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/milestone/resource/{milestoneResId}', function (done) {
+        options.url = api + '/project/milestone/resource/' + milestoneResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/milestone/{milestoneId}', function (done) {
+        options.url = api + '/project/milestone/' + milestoneID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/resource/{projectResId}', function (done) {
+        options.url = api + '/project/resource/' + projectResID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
+            done();
+        });
+    });
+
+    test.it('DELETE v1.1/project/{projectId}', function (done) {
+        options.url = api + '/project/' + projectID;
+        options.body = null;
+        request.del(options, function (error, response, body) {
+            validate(error, response, body);
             done();
         });
     });
