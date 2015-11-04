@@ -777,6 +777,38 @@ test.describe('Testing API v1.1', function () {
         });
     });
 
+    test.it('GET v1.1/project/{projectId}/todolist', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/TodoListArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/todolist/{todoListId}', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTodoList');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/todolist/{todoListId}/item', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item';
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/TodoItemArray');
+            done();
+        });
+    });
+
+    test.it('GET v1.1/project/{projectId}/todolist/{todoListId}/item/{todoItemId}', function (done) {
+        options.url = api + '/project/' + projectID + '/todolist/' + todoListID + '/item/' + todoItemID;
+        request.get(options, function (error, response, body) {
+            validate(error, response, body, '/SingleTodoItem');
+            done();
+        });
+    });
+
     test.it('GET v1.1/resource', function (done) {
         options.url = api + '/resource';
         request.get(options, function (error, response, body) {

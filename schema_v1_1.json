@@ -139,6 +139,12 @@
 		}
 	},
 	{
+		"id": "/TodoListArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleTodoList"}
+	},
+	{
 		"id": "/SingleTodoItem",
 		"type": "object",
 		"required": ["ID", "ProjectID", "TodoListID", "Name", "StartDate", "DueDate", "Completed", "CompletedDate", "Resources"],
@@ -151,9 +157,15 @@
 			"StartDate": {"type": "string", "format": "date"},
 			"DueDate": {"type": "string", "format": "date"},
 			"Completed": {"type": "boolean"},
-			"CompletedDate": {"type": "null"},
-			"Resources": {"type": "null"}
+			"CompletedDate": {"type": ["null", "string"], "format": "date"},
+			"Resources": {"$ref": "/AssignedResourceArray"}
 		}
+	},
+	{
+		"id": "/TodoItemArray",
+		"type": "array",
+		"minItems": 1,
+		"items": {"$ref": "/SingleTodoItem"}
 	},
 	{
 		"id": "/SingleTimeEntry",
