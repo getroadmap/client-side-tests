@@ -29,7 +29,7 @@ test.describe('Create Project Attributes', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Project Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account Settings > Projects'), timeout);
     });
 
     test.it('Should be possible to create Single-Selection', function () {
@@ -42,7 +42,7 @@ test.describe('Create Project Attributes', function () {
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "rbSelect"]')).click();
         for (i = 1; i < 4; i += 1) {
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtSelectionValue"]')).sendKeys('Single ' + (i < 10 ? '0' + i : i));
-            driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "divBtnAdd"]')).click();
+            driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//button[@id = "divBtnAdd"]')).click();
         }
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]/..//span[. = "Save"]')).click();
         driver.wait(until.elementLocated(By.xpath('//div[. = "' + attrName + '"]')), timeout);
@@ -58,7 +58,7 @@ test.describe('Create Project Attributes', function () {
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "rbSelect"]')).click();
         for (i = 1; i < 4; i += 1) {
             driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "txtSelectionValue"]')).sendKeys('Multi ' + (i < 10 ? '0' + i : i));
-            driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "divBtnAdd"]')).click();
+            driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//button[@id = "divBtnAdd"]')).click();
         }
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]//input[@id = "chkPAAllowMultiple"]')).click();
         driver.findElement(By.xpath('//div[@id = "customAttributesFormBody"]/..//span[. = "Save"]')).click();

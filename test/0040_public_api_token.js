@@ -24,17 +24,14 @@ test.describe('Public API', function () {
     });
 
     test.it('/Login.aspx', function () {
-        driver.get(base + '/Account.aspx');
+        driver.get(base + '/ThirdPartyConnections.aspx');
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Overview'), timeout);
     });
 
     test.it('Should be possible to enable user\'s API', function () {
-        driver.get(base + '/ThirdPartyConnections.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Third Party Conections'), timeout);
-
         driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and . = "enabled"]')).then(function (found) {
             if (found) {
                 driver.findElement(By.xpath('//a[@id = "aEnableAPI"]')).click();
@@ -48,7 +45,7 @@ test.describe('Public API', function () {
 
     test.it('Should be possible to generate API token', function () {
         driver.get(base + '/Account.aspx');
-        driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account > Personal Info'), timeout);
         driver.isElementPresent(By.xpath('//div[@id = "lnkApiTokenGenerate"]/a')).then(function (found) {
             if (found) {
                 driver.findElement(By.xpath('//div[@id = "lnkApiTokenGenerate"]/a')).click();

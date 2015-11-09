@@ -39,6 +39,17 @@ test.describe('Opening Settings', function () {
         });
     });
 
+    test.it('/AccExport', function () {
+        driver.get(base + '/AccExport');
+        driver.wait(until.titleIs('Roadmap > Account > Export Account'), timeout);
+        driver.isElementPresent(By.xpath('//h2[. = "Export Your Entire Account"]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//h2[. = "Export Active Projects"]')).then(function (found) {
+            assert(found);
+        });
+    });
+
     test.it('/Subscription', function () {
         driver.get(base + '/Subscription');
         driver.wait(until.titleIs('Roadmap > Account > Billing Details'), timeout);
