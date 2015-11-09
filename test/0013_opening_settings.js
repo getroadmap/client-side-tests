@@ -28,11 +28,12 @@ test.describe('Opening Settings', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Account > My Account'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account > Personal Info'), timeout);
     });
 
     test.it('/Account.aspx', function () {
         driver.wait(until.elementLocated(By.xpath('//span[@id = "usrStorageUsed" and contains(., "of 5.00 GB (~0%)")]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "selectedLandingPagePath" and . = "Dashboard Tab"]')), timeout);
         driver.isElementPresent(By.xpath('//td[. = "Permissions"]/..//span[. = "Admin (account owner)"]')).then(function (found) {
             assert(found);
         });
@@ -40,7 +41,7 @@ test.describe('Opening Settings', function () {
 
     test.it('/Subscription', function () {
         driver.get(base + '/Subscription');
-        driver.wait(until.titleIs('Roadmap > Account > Subscription'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account > Billing Details'), timeout);
         driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
         });
@@ -75,36 +76,10 @@ test.describe('Opening Settings', function () {
         driver.wait(until.elementLocated(By.xpath('//input[@id = "btnPay" and @value = "Pay $1000.00/year"]')), timeout);
     });
 
-    test.it('/AccountPreferences.aspx', function () {
-        driver.get(base + '/AccountPreferences.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Account Preferences'), timeout);
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "selectedLandingPagePath" and . = "Dashboard Tab"]')), timeout);
+    test.it('/RoadmapFeatures.aspx', function () {
+        driver.get(base + '/RoadmapFeatures.aspx');
+        driver.wait(until.titleIs('Roadmap > Account Settings > Roadmap Features'), timeout);
 
-        driver.findElement(By.xpath('//div[@id = "optDashOverview"]')).then(function (element) {
-            element.isDisplayed().then(function (displayed) {
-                assert(displayed);
-            });
-        });
-        driver.findElement(By.xpath('//div[@id = "optCurrencyFormat"]')).then(function (element) {
-            element.isDisplayed().then(function (displayed) {
-                assert(displayed);
-            });
-        });
-        driver.findElement(By.xpath('//div[@id = "optNumericFormat"]')).then(function (element) {
-            element.isDisplayed().then(function (displayed) {
-                assert(displayed);
-            });
-        });
-        driver.findElement(By.xpath('//div[@id = "optDateFormat"]')).then(function (element) {
-            element.isDisplayed().then(function (displayed) {
-                assert(displayed);
-            });
-        });
-        driver.findElement(By.xpath('//div[@id = "optTimeZone"]')).then(function (element) {
-            element.isDisplayed().then(function (displayed) {
-                assert(displayed);
-            });
-        });
         driver.findElement(By.xpath('//div[@id = "optWorkingDay"]')).then(function (element) {
             element.isDisplayed().then(function (displayed) {
                 assert(displayed);
@@ -161,9 +136,40 @@ test.describe('Opening Settings', function () {
         });
     });
 
+    test.it('/DisplayPreferences.aspx', function () {
+        driver.get(base + '/DisplayPreferences.aspx');
+        driver.wait(until.titleIs('Roadmap > Account Settings > Display'), timeout);
+
+        driver.findElement(By.xpath('//div[@id = "optDashOverview"]')).then(function (element) {
+            element.isDisplayed().then(function (displayed) {
+                assert(displayed);
+            });
+        });
+        driver.findElement(By.xpath('//div[@id = "optCurrencyFormat"]')).then(function (element) {
+            element.isDisplayed().then(function (displayed) {
+                assert(displayed);
+            });
+        });
+        driver.findElement(By.xpath('//div[@id = "optNumericFormat"]')).then(function (element) {
+            element.isDisplayed().then(function (displayed) {
+                assert(displayed);
+            });
+        });
+        driver.findElement(By.xpath('//div[@id = "optDateFormat"]')).then(function (element) {
+            element.isDisplayed().then(function (displayed) {
+                assert(displayed);
+            });
+        });
+        driver.findElement(By.xpath('//div[@id = "optTimeZone"]')).then(function (element) {
+            element.isDisplayed().then(function (displayed) {
+                assert(displayed);
+            });
+        });
+    });
+
     test.it('/ProjectPreferences.aspx', function () {
         driver.get(base + '/ProjectPreferences.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Project Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account Settings > Projects'), timeout);
 
         driver.findElements(By.xpath('//div[@class = "settings-block"]')).then(function (elements) {
             assert.equal(elements.length, 5);
@@ -214,7 +220,7 @@ test.describe('Opening Settings', function () {
 
     test.it('/ResourcePreferences.aspx', function () {
         driver.get(base + '/ResourcePreferences.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Resource Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account Settings > Resources'), timeout);
 
         driver.isElementPresent(By.xpath('//div[. = "Resource groups"]')).then(function (found) {
             assert(found);
@@ -223,12 +229,23 @@ test.describe('Opening Settings', function () {
 
     test.it('/WorkItemPreferences.aspx', function () {
         driver.get(base + '/WorkItemPreferences.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Work Item Preferences'), timeout);
+        driver.wait(until.titleIs('Roadmap > Account Settings > Work Items'), timeout);
+    });
+
+    test.it('/ThirdPartyConnections.aspx', function () {
+        driver.get(base + '/ThirdPartyConnections.aspx');
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Overview'), timeout);
+        driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and contains(., "abled")]')).then(function (found) {
+            assert(found);
+        });
+        driver.isElementPresent(By.xpath('//a[@id = "aEnableAPI" and contains(., "able API")]')).then(function (found) {
+            assert(found);
+        });
     });
 
     test.it('/Integration.aspx', function () {
         driver.get(base + '/Integration.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Basecamp Integration'), timeout);
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Basecamp'), timeout);
         driver.isElementPresent(By.xpath('//input[@id = "radFullSync" and @checked = "checked"]')).then(function (found) {
             assert(found);
         });
@@ -236,17 +253,6 @@ test.describe('Opening Settings', function () {
             assert(found);
         });
         driver.isElementPresent(By.xpath('//input[@id = "radAssigntETAtoRespPartyOnly" and @checked = "checked"]')).then(function (found) {
-            assert(found);
-        });
-    });
-
-    test.it('/ThirdPartyConnections.aspx', function () {
-        driver.get(base + '/ThirdPartyConnections.aspx');
-        driver.wait(until.titleIs('Roadmap > Settings > Third Party Conections'), timeout);
-        driver.isElementPresent(By.xpath('//span[@id = "apiKeyMode" and contains(., "abled")]')).then(function (found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//a[@id = "aEnableAPI" and contains(., "able API")]')).then(function (found) {
             assert(found);
         });
     });
