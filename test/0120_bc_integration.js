@@ -29,7 +29,7 @@ test.describe('BCC/X Integration', function () {
         driver.findElement(By.xpath('//input[@id = "Login1_UserName"]')).sendKeys(user);
         driver.findElement(By.xpath('//input[@id = "Login1_Password"]')).sendKeys('1234567');
         driver.findElement(By.xpath('//input[@id = "Login1_LoginButton"]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Basecamp Integration'), timeout);
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Basecamp'), timeout);
     });
 
     test.it('BCX Integration', function () {
@@ -54,7 +54,7 @@ test.describe('BCC/X Integration', function () {
             }
         });
         driver.findElement(By.xpath('//button[contains(., "Yes, I\'ll allow access")]')).click();
-        driver.wait(until.titleIs('Roadmap > Settings > Basecamp Integration'), timeout);
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Basecamp'), timeout);
         driver.findElement(By.xpath('//select[@id = "ctl00_ContentPlaceHolder1_ctrBCAccountInfo_ddlAccounts"]/option[contains(., "Roadmap")]')).click();
     });
 

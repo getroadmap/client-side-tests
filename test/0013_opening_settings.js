@@ -243,6 +243,36 @@ test.describe('Opening Settings', function () {
         driver.wait(until.titleIs('Roadmap > Account Settings > Work Items'), timeout);
     });
 
+    test.it('/ProjectTemplates.aspx', function () {
+        driver.get(base + '/ProjectTemplates.aspx');
+        driver.wait(until.titleIs('Roadmap > Account Settings > Projects Templates'), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and . = "Sample Project Template"]')), timeout);
+    });
+
+    test.it('/NotificationsOverview.aspx', function () {
+        driver.get(base + '/NotificationsOverview.aspx');
+        driver.wait(until.titleIs('Roadmap > Notifications > Overview'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+    });
+
+    test.it('/NotificationsTaskAssignments.aspx', function () {
+        driver.get(base + '/NotificationsTaskAssignments.aspx');
+        driver.wait(until.titleIs('Roadmap > Notifications > Task Assignments'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+    });
+
+    test.it('/NotificationsCustomNotifications.aspx', function () {
+        driver.get(base + '/NotificationsCustomNotifications.aspx');
+        driver.wait(until.titleIs('Roadmap > Notifications > Custom Notifications'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+    });
+
     test.it('/ThirdPartyConnections.aspx', function () {
         driver.get(base + '/ThirdPartyConnections.aspx');
         driver.wait(until.titleIs('Roadmap > Connecting Applications > Overview'), timeout);
@@ -265,6 +295,22 @@ test.describe('Opening Settings', function () {
         });
         driver.isElementPresent(By.xpath('//input[@id = "radAssigntETAtoRespPartyOnly" and @checked = "checked"]')).then(function (found) {
             assert(found);
+        });
+    });
+
+    test.it('/GitHubIntegration.aspx', function () {
+        driver.get(base + '/GitHubIntegration.aspx');
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Github'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
+        });
+    });
+
+    test.it('/JiraIntegration.aspx', function () {
+        driver.get(base + '/JiraIntegration.aspx');
+        driver.wait(until.titleIs('Roadmap > Connecting Applications > Jira'), timeout);
+        driver.findElement(By.xpath('//div[@id = "uiblocker"]')).then(function (element) {
+            driver.wait(until.elementIsNotVisible(element), timeout);
         });
     });
 
