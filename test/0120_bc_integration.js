@@ -34,25 +34,12 @@ test.describe('BCC/X Integration', function () {
 
     test.it('BCX Integration', function () {
         driver.findElement(By.xpath('//a[@id = "ctl00_ContentPlaceHolder1_ctrBCAccountInfo_lnkIntegrateBCNext"]')).click();
-        driver.wait(function () {
-            return driver.getTitle().then(function (title) {
-                return title.match(/Basecamp Login|Authorize RoadMap/i);
-            });
-        }, timeout).then(function (title) {
-            if (title[0].match(/Basecamp Login/i)) {
-                driver.findElement(By.xpath('//input[@id = "username"]')).sendKeys(config.basecamp.bcx_name);
-                driver.findElement(By.xpath('//input[@id = "password"]')).sendKeys(config.basecamp.bcx_password);
-                driver.findElement(By.xpath('//input[@id = "remember_me"]')).then(function (element) {
-                    element.isSelected().then(function (selected) {
-                        if (selected) {
-                            element.click();
-                        }
-                    });
-                });
-                driver.findElement(By.xpath('//div[@id = "signin_button"]/input')).click();
-                driver.wait(until.titleMatches(/Authorize RoadMap/i), timeout);
-            }
-        });
+        driver.wait(until.titleIs('Basecamp Sign In'), timeout);
+        driver.findElement(By.xpath('//input[@id = "username"]')).sendKeys(config.basecamp.bcx_name);
+        driver.findElement(By.xpath('//input[@id = "password"]')).sendKeys(config.basecamp.bcx_password);
+        driver.findElement(By.xpath('//input[@id = "remember_me"]')).click();
+        driver.findElement(By.xpath('//div[@id = "signin_button"]/input')).click();
+        driver.wait(until.titleMatches(/Authorize RoadMap/i), timeout);
         driver.findElement(By.xpath('//button[contains(., "Yes, I\'ll allow access")]')).click();
         driver.wait(until.titleIs('Roadmap > Connecting Applications > Basecamp'), timeout);
         driver.findElement(By.xpath('//select[@id = "ctl00_ContentPlaceHolder1_ctrBCAccountInfo_ddlAccounts"]/option[contains(., "Roadmap")]')).click();
@@ -66,6 +53,7 @@ test.describe('BCC/X Integration', function () {
         driver.findElement(By.xpath('//input[@id = "txtAPIToken"]')).then(function (element) {
             element.clear();
             element.sendKeys(config.basecamp.bcc_token);
+            element.click();
         });
         driver.findElement(By.xpath('//input[@id = "radSyncETA"]')).click();
         driver.findElement(By.xpath('//input[@id = "radDistributeETAEvenly"]')).click();

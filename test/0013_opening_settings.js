@@ -183,12 +183,9 @@ test.describe('Opening Settings', function () {
         driver.wait(until.titleIs('Roadmap > Account Settings > Projects'), timeout);
 
         driver.findElements(By.xpath('//div[@class = "settings-block"]')).then(function (elements) {
-            assert.equal(elements.length, 5);
+            assert.equal(elements.length, 4);
         });
         driver.isElementPresent(By.xpath('//input[@id = "rbPctCmpltAuto" and @checked = "checked"]')).then(function (found) {
-            assert(found);
-        });
-        driver.isElementPresent(By.xpath('//div[. = "Sample Project Template"]')).then(function (found) {
             assert(found);
         });
         driver.isElementPresent(By.xpath('//table[@id = "tblCustomAttributes"]//div[. = "Client"]')).then(function (found) {
