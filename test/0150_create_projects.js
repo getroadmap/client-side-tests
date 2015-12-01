@@ -44,8 +44,6 @@ test.describe('Create Projects', function () {
             driver.wait(until.elementIsVisible(element), timeout);
             element.sendKeys('Test RM Project (Blank) ' + uniqueID);
         });
-        driver.findElement(By.xpath('//span[. = "Active - On Schedule"]')).click();
-        driver.findElement(By.xpath('//li[. = "Future - Planned"]')).click();
         driver.findElement(By.xpath('//a[. = "Show optional fields"]')).click();
         driver.findElement(By.xpath('//input[@id = "btnSave" and @value = "Save project"]')).click();
         driver.wait(until.titleIs('Roadmap > Test RM Project (Blank) ' + uniqueID), timeout);
@@ -62,8 +60,6 @@ test.describe('Create Projects', function () {
             driver.wait(until.elementIsVisible(element), timeout);
             element.sendKeys('Test RM Project (from Template) ' + uniqueID);
         });
-        driver.findElement(By.xpath('//span[. = "Active - On Schedule"]')).click();
-        driver.findElement(By.xpath('//li[. = "Future - Not Approved"]')).click();
         driver.findElement(By.xpath('//a[. = "Show optional fields"]')).click();
         driver.findElement(By.xpath('//input[@id = "btnSave" and @value = "Save project"]')).click();
         driver.wait(until.titleIs('Roadmap > Test RM Project (from Template) ' + uniqueID), timeout);
