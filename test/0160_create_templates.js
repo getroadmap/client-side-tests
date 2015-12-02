@@ -48,7 +48,7 @@ test.describe('Create Templates', function () {
 
     test.it('Should be possible to create a new template from project', function () {
         driver.findElement(By.xpath('//input[@class = "createExistingBtn" and @value = "Create Template from Existing Project"]')).click();
-        driver.findElement(By.xpath('//input[@class = "existingProjectsDDL k-input" and @aria-expanded = "true"]'));
+        driver.wait(until.elementLocated(By.xpath('//input[@class = "existingProjectsDDL k-input" and @aria-expanded = "true"]')), timeout);
         driver.findElement(By.xpath('//li[. = "Sample Project A"]')).click();
         driver.findElement(By.xpath('//input[@class = "createFromExistingBtn" and @value = "Create"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[. = "Sample Project A"]')), timeout);
@@ -58,7 +58,7 @@ test.describe('Create Templates', function () {
         });
         driver.findElement(By.xpath('//input[@id = "txtTemplateDescription"]')).sendKeys('Description for Template from Project ' + uniqueID);
         driver.findElement(By.xpath('//input[@id = "btnSave" and @value = "Save template"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and contains(., "' + uniqueID + '")]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and contains(., "Sample Project A ' + uniqueID + '")]')), timeout);
     });
 
 });
