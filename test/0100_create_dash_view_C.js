@@ -8,7 +8,7 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('Create Dashboard View C', function () {
     'use strict';
-    var driver, base, user, timeout, pause;
+    var driver, base, user, timeout, pause, uniqueID;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
@@ -18,6 +18,7 @@ test.describe('Create Dashboard View C', function () {
         user = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().maximize();
+        uniqueID = Math.floor(new Date().getTime() / 1000) - 1439560400;
     });
 
     test.after(function () {
@@ -35,14 +36,12 @@ test.describe('Create Dashboard View C', function () {
 
     test.it('Should be possible to create a new view', function () {
         driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox"]//span[. = "Create View"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "kendoListViews_listbox" and @aria-hidden = "false"]//span[. = "Create View"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[@class = "viewSettingsTitle" and . = "New View"]')), timeout);
 
-        driver.findElement(By.xpath('//input[@id = "title"]')).sendKeys('Title C');
-        driver.findElement(By.xpath('//input[@id = "subtitle"]')).sendKeys('Subtitle C');
+        driver.findElement(By.xpath('//input[@id = "title"]')).sendKeys('Title ' + uniqueID);
+        driver.findElement(By.xpath('//input[@id = "subtitle"]')).sendKeys('Subtitle ' + uniqueID);
         driver.findElement(By.xpath('//input[@id = "isShareViewAll"]')).then(function (element) {
             element.isSelected().then(function (selected) {
                 assert(!selected);
@@ -55,7 +54,7 @@ test.describe('Create Dashboard View C', function () {
             });
         });
         driver.findElement(By.xpath('//input[@id = "createView"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "Title C"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//span[@id = "listViews"]//span[. = "Title ' + uniqueID + '"]')), timeout);
         driver.sleep(pause);
     });
 
@@ -65,6 +64,7 @@ test.describe('Create Dashboard View C', function () {
             element.click();
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Project Status"]')), timeout);
+        driver.sleep(pause);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "showLabel"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
@@ -79,6 +79,7 @@ test.describe('Create Dashboard View C', function () {
             element.click();
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Project Health"]')), timeout);
+        driver.sleep(pause);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "showLabel"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
@@ -93,12 +94,11 @@ test.describe('Create Dashboard View C', function () {
             element.click();
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Project Attributes"]')), timeout);
+        driver.sleep(pause);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "nocTitle"]')).sendKeys('Project Attributes');
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "nocAttr_listbox"]/li[. = "Client"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "nocAttr_listbox" and @aria-hidden = "false"]/li[. = "Client"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "showLabel"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
@@ -113,6 +113,7 @@ test.describe('Create Dashboard View C', function () {
             element.click();
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Schedule Accuracy"]')), timeout);
+        driver.sleep(pause);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
@@ -127,10 +128,8 @@ test.describe('Create Dashboard View C', function () {
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Role Utilization"]')), timeout);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//span[. = "Select Role"]/..//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "resRole_listbox"]//span[. = "Analyst"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "resRole_listbox" and @aria-hidden = "false"]//span[. = "Analyst"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "showLabel"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
@@ -146,10 +145,8 @@ test.describe('Create Dashboard View C', function () {
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Role Availability"]')), timeout);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//span[. = "Select Role"]/..//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "resResource_listbox"]//span[. = "Analyst"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "resResource_listbox" and @aria-hidden = "false"]//span[. = "Analyst"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
@@ -164,10 +161,8 @@ test.describe('Create Dashboard View C', function () {
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Resource Utilization"]')), timeout);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//span[. = "Select Resource"]/..//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "resResource_listbox"]//span[. = "Charlie Sample"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "resResource_listbox" and @aria-hidden = "false"]//span[. = "Charlie Sample"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@id = "showLabel"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
@@ -183,10 +178,8 @@ test.describe('Create Dashboard View C', function () {
         });
         driver.wait(until.elementLocated(By.xpath('//section[@class = "previewHolder"]//span[. = "Add Resource Availability"]')), timeout);
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//span[. = "Select Resource"]/..//span[. = "select"]')).click();
-        driver.findElement(By.xpath('//ul[@id = "resResource_listbox"]//span[. = "Charlie Sample"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element), timeout);
-            element.click();
-        });
+        driver.sleep(pause);
+        driver.findElement(By.xpath('//ul[@id = "resResource_listbox" and @aria-hidden = "false"]//span[. = "Charlie Sample"]')).click();
         driver.findElement(By.xpath('//section[@class = "previewHolder"]//input[@class = "btn-addwidget"]')).click();
         driver.findElement(By.xpath('//div[@id = "addWidgetForm"]')).then(function (element) {
             driver.wait(until.elementIsNotVisible(element), timeout);
