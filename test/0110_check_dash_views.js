@@ -40,7 +40,7 @@ test.describe('Check Dashboard Views', function () {
                 element.isElementPresent(By.xpath('./span[. = "Create View"]')).then(function (found) {
                     if (!found) {
                         driver.findElement(By.xpath('//span[@id = "listViews"]//span[. = "select"]')).click();
-                        driver.wait(until.elementIsVisible(element), timeout);
+                        driver.sleep(pause);
                         element.click();
                         driver.sleep(pause);
                         driver.executeScript('showPagePreferences()');
