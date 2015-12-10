@@ -46,7 +46,7 @@ test.describe('Create Templates', function () {
         driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and . = "Test Template ' + uniqueID + '"]')), timeout);
     });
 
-    test.it('Should be possible to create a new template from project', function () {
+    test.it('Should be possible to create a new template from a project', function () {
         driver.findElement(By.xpath('//input[@class = "createExistingBtn" and @value = "Create Template from Existing Project"]')).click();
         driver.wait(until.elementLocated(By.xpath('//input[@class = "existingProjectsDDL k-input" and @aria-expanded = "true"]')), timeout);
         driver.findElement(By.xpath('//li[. = "Sample Project A"]')).click();
@@ -58,7 +58,7 @@ test.describe('Create Templates', function () {
         });
         driver.findElement(By.xpath('//input[@id = "txtTemplateDescription"]')).sendKeys('Description for Template from Project ' + uniqueID);
         driver.findElement(By.xpath('//input[@id = "btnSave" and @value = "Save template"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and contains(., "Sample Project A ' + uniqueID + '")]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and . = "Sample Project A ' + uniqueID + '"]')), timeout);
     });
 
 });

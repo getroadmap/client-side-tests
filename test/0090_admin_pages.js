@@ -8,13 +8,14 @@ var webdriver = require('selenium-webdriver'),
 
 test.describe('System Admin pages', function () {
     'use strict';
-    var driver, base, user, timeout;
+    var driver, base, user, owner, timeout;
 
     test.before(function () {
         driver = new webdriver.Builder().build();
         timeout = config.selenium.timeout;
         base = config.roadmap.base;
         user = config.roadmap.system_admin;
+        owner = config.roadmap.owner;
         driver.manage().timeouts().pageLoadTimeout(timeout);
         driver.manage().window().maximize();
     });
@@ -47,7 +48,7 @@ test.describe('System Admin pages', function () {
     test.it('Should be possible to manage Failed BC Imports', function () {
         driver.get(base + '/admin/FailedBCImport.aspx');
         driver.wait(until.titleIs('Roadmap'), timeout);
-        driver.findElement(By.xpath('//input[@id = "ctl00_ContentPlaceHolder1_txtEmail"]')).sendKeys('test@null.null');
+        driver.findElement(By.xpath('//input[@id = "ctl00_ContentPlaceHolder1_txtEmail"]')).sendKeys(owner);
     });
 
     test.it('Should be possible to manage MailChimp Exports', function () {

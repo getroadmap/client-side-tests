@@ -22,6 +22,7 @@ test.describe('Create Dashboard View A', function () {
     });
 
     test.after(function () {
+        driver.sleep(pause);
         driver.quit();
     });
 

@@ -54,9 +54,13 @@ test.describe('BCC/X Integration', function () {
             element.clear();
             element.sendKeys(config.basecamp.bcc_token);
         });
-        driver.findElement(By.xpath('//div[@id = "basecampError"]')).then(function (element) {
-            driver.findElement(By.xpath('//input[@id = "txtSiteUrl"]')).click();
-            driver.wait(until.stalenessOf(element), timeout);
+        driver.isElementPresent(By.xpath('//div[@id = "basecampError"]')).then(function (found) {
+            if (found) {
+                driver.findElement(By.xpath('//div[@id = "basecampError"]')).then(function (element) {
+                    driver.findElement(By.xpath('//input[@id = "txtSiteUrl"]')).click();
+                    driver.wait(until.stalenessOf(element), timeout);
+                });
+            }
         });
         driver.findElement(By.xpath('//input[@id = "radSyncETA"]')).click();
         driver.findElement(By.xpath('//input[@id = "radDistributeETAEvenly"]')).click();
