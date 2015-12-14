@@ -38,7 +38,7 @@ test.describe('Create Templates', function () {
         driver.findElement(By.xpath('//input[@class = "createBtn" and @value = "Create a New Template"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[. = "Create a New Template"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "txtTemplateName"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element));
+            driver.wait(until.elementIsVisible(element), timeout);
             element.sendKeys('Test Template ' + uniqueID);
         });
         driver.findElement(By.xpath('//input[@id = "txtTemplateDescription"]')).sendKeys('Description for Test Template ' + uniqueID);
@@ -53,12 +53,12 @@ test.describe('Create Templates', function () {
         driver.findElement(By.xpath('//input[@class = "createFromExistingBtn" and @value = "Create"]')).click();
         driver.wait(until.elementLocated(By.xpath('//h1[. = "Sample Project A"]')), timeout);
         driver.findElement(By.xpath('//input[@id = "txtTemplateName"]')).then(function (element) {
-            driver.wait(until.elementIsVisible(element));
-            element.sendKeys(' ' + uniqueID);
+            driver.wait(until.elementIsVisible(element), timeout);
+            element.sendKeys('Test Template from Project ' + uniqueID);
         });
         driver.findElement(By.xpath('//input[@id = "txtTemplateDescription"]')).sendKeys('Description for Template from Project ' + uniqueID);
         driver.findElement(By.xpath('//input[@id = "btnSave" and @value = "Save template"]')).click();
-        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and . = "Sample Project A ' + uniqueID + '"]')), timeout);
+        driver.wait(until.elementLocated(By.xpath('//div[@class = "templatesListItemHeader ellipsis" and . = "Test Template from Project ' + uniqueID + '"]')), timeout);
     });
 
 });

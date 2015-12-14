@@ -54,6 +54,12 @@ test.describe('System Admin pages', function () {
     test.it('Should be possible to manage MailChimp Exports', function () {
         driver.get(base + '/admin/MailChimpExport.aspx');
         driver.wait(until.titleIs('Roadmap > MailChimpExport'), timeout);
+    });
+
+    test.it('Should be possible to manage Resource Collisions', function () {
+        driver.get(base + '/admin/ResourceCollisions.aspx');
+        driver.wait(until.titleIs('Roadmap > ResourceCollisions'), timeout);
+        driver.findElement(By.xpath('//input[@id = "txtEmail"]')).sendKeys(owner);
         driver.findElement(By.xpath('//a[contains(., "Logout")]')).click();
         driver.wait(until.titleIs('Roadmap > Login'), timeout);
     });
